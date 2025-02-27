@@ -40,7 +40,6 @@
 		E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2012D70C3F800C959C4 /* ContentView.swift */; };
 		E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2152D70C3F800C959C4 /* AuthView.swift */; };
 		E940C26B2D70C3F800C959C4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E940C2022D70C3F800C959C4 /* Info.plist */; };
-		E940C26C2D70C3F800C959C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E940C23B2D70C3F800C959C4 /* Preview Assets.xcassets */; };
 		E940C26D2D70C3F800C959C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E940C2472D70C3F800C959C4 /* Assets.xcassets */; };
 		E940C26E2D70C3F800C959C4 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E940C2062D70C3F800C959C4 /* main */; };
 		E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E940C2452D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf */; };
@@ -601,7 +600,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					E97F15B32D70682F00153EA8 = {
 						CreatedOnToolsVersion = 15.2;
@@ -643,7 +642,6 @@
 			files = (
 				E97F15BF2D70683200153EA8 /* Preview Assets.xcassets in Resources */,
 				E940C26B2D70C3F800C959C4 /* Info.plist in Resources */,
-				E940C26C2D70C3F800C959C4 /* Preview Assets.xcassets in Resources */,
 				E940C26D2D70C3F800C959C4 /* Assets.xcassets in Resources */,
 				E940C26E2D70C3F800C959C4 /* main in Resources */,
 				E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
@@ -921,7 +919,6 @@
 		E97F15DC2D70683200153EA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -940,7 +937,6 @@
 		E97F15DD2D70683200153EA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -959,7 +955,6 @@
 		E97F15DF2D70683200153EA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -976,7 +971,6 @@
 		E97F15E02D70683200153EA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
