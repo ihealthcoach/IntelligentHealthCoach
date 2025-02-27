@@ -7,6 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2002D70C3F800C959C4 /* AppDelegate.swift */; };
+		E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */; };
+		E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */; };
+		E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2192D70C3F800C959C4 /* DashboardViewModel.swift */; };
+		E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2332D70C3F800C959C4 /* ExerciseRow.swift */; };
+		E940C2502D70C3F800C959C4 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2312D70C3F800C959C4 /* WorkoutViewModel.swift */; };
+		E940C2512D70C3F800C959C4 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2422D70C3F800C959C4 /* RadioButton.swift */; };
+		E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2302D70C3F800C959C4 /* ExerciseViewModel.swift */; };
+		E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2262D70C3F800C959C4 /* QuestionnaireViewModel.swift */; };
+		E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2132D70C3F800C959C4 /* AuthViewModel.swift */; };
+		E940C2552D70C3F800C959C4 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C20D2D70C3F800C959C4 /* SupabaseService.swift */; };
+		E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C20B2D70C3F800C959C4 /* UserProfile.swift */; };
+		E940C2572D70C3F800C959C4 /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2372D70C3F800C959C4 /* WorkoutsView.swift */; };
+		E940C2582D70C3F800C959C4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2212D70C3F800C959C4 /* ProfileView.swift */; };
+		E940C2592D70C3F800C959C4 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22D2D70C3F800C959C4 /* Set.swift */; };
+		E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2362D70C3F800C959C4 /* ExerciseLibraryView.swift */; };
+		E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C21B2D70C3F800C959C4 /* DashboardView.swift */; };
+		E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C23E2D70C3F800C959C4 /* ButtonStyle.swift */; };
+		E940C25D2D70C3F800C959C4 /* ExerciseDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */; };
+		E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2242D70C3F800C959C4 /* Questionnaire.swift */; };
+		E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22E2D70C3F800C959C4 /* Workout.swift */; };
+		E940C2602D70C3F800C959C4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C23F2D70C3F800C959C4 /* CardView.swift */; };
+		E940C2612D70C3F800C959C4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C20A2D70C3F800C959C4 /* User.swift */; };
+		E940C2622D70C3F800C959C4 /* SupabaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */; };
+		E940C2632D70C3F800C959C4 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C23D2D70C3F800C959C4 /* Badge.swift */; };
+		E940C2642D70C3F800C959C4 /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2282D70C3F800C959C4 /* GenderView.swift */; };
+		E940C2652D70C3F800C959C4 /* IntelligentHealthCoachApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2032D70C3F800C959C4 /* IntelligentHealthCoachApp.swift */; };
+		E940C2662D70C3F800C959C4 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2412D70C3F800C959C4 /* ProgressBar.swift */; };
+		E940C2672D70C3F800C959C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C21F2D70C3F800C959C4 /* ProfileViewModel.swift */; };
+		E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22B2D70C3F800C959C4 /* Exercise.swift */; };
+		E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2012D70C3F800C959C4 /* ContentView.swift */; };
+		E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2152D70C3F800C959C4 /* AuthView.swift */; };
+		E940C26B2D70C3F800C959C4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E940C2022D70C3F800C959C4 /* Info.plist */; };
+		E940C26C2D70C3F800C959C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E940C23B2D70C3F800C959C4 /* Preview Assets.xcassets */; };
+		E940C26D2D70C3F800C959C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E940C2472D70C3F800C959C4 /* Assets.xcassets */; };
+		E940C26E2D70C3F800C959C4 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E940C2062D70C3F800C959C4 /* main */; };
+		E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E940C2452D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf */; };
+		E940C2702D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E940C2442D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
 		E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */; };
 		E97F15BA2D70682F00153EA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B92D70682F00153EA8 /* ContentView.swift */; };
 		E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BB2D70683200153EA8 /* Assets.xcassets */; };
@@ -34,6 +72,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E940C2002D70C3F800C959C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E940C2012D70C3F800C959C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E940C2022D70C3F800C959C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E940C2032D70C3F800C959C4 /* IntelligentHealthCoachApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachApp.swift; sourceTree = "<group>"; };
+		E940C2062D70C3F800C959C4 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
+		E940C20A2D70C3F800C959C4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E940C20B2D70C3F800C959C4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		E940C20D2D70C3F800C959C4 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
+		E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseServiceProtocol.swift; sourceTree = "<group>"; };
+		E940C2132D70C3F800C959C4 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		E940C2152D70C3F800C959C4 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		E940C2192D70C3F800C959C4 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		E940C21B2D70C3F800C959C4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		E940C21F2D70C3F800C959C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		E940C2212D70C3F800C959C4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		E940C2242D70C3F800C959C4 /* Questionnaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Questionnaire.swift; sourceTree = "<group>"; };
+		E940C2262D70C3F800C959C4 /* QuestionnaireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireViewModel.swift; sourceTree = "<group>"; };
+		E940C2282D70C3F800C959C4 /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
+		E940C22B2D70C3F800C959C4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetails.swift; sourceTree = "<group>"; };
+		E940C22D2D70C3F800C959C4 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
+		E940C22E2D70C3F800C959C4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		E940C2302D70C3F800C959C4 /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
+		E940C2312D70C3F800C959C4 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
+		E940C2332D70C3F800C959C4 /* ExerciseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRow.swift; sourceTree = "<group>"; };
+		E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSetRow.swift; sourceTree = "<group>"; };
+		E940C2362D70C3F800C959C4 /* ExerciseLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLibraryView.swift; sourceTree = "<group>"; };
+		E940C2372D70C3F800C959C4 /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
+		E940C23B2D70C3F800C959C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E940C23D2D70C3F800C959C4 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		E940C23E2D70C3F800C959C4 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		E940C23F2D70C3F800C959C4 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggle.swift; sourceTree = "<group>"; };
+		E940C2412D70C3F800C959C4 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		E940C2422D70C3F800C959C4 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		E940C2442D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Italic-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
+		E940C2452D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
+		E940C2472D70C3F800C959C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E97F15B42D70682F00153EA8 /* IntelligentHealthCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelligentHealthCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachApp.swift; sourceTree = "<group>"; };
 		E97F15B92D70682F00153EA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +147,335 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E940C2042D70C3F800C959C4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2002D70C3F800C959C4 /* AppDelegate.swift */,
+				E940C2012D70C3F800C959C4 /* ContentView.swift */,
+				E940C2022D70C3F800C959C4 /* Info.plist */,
+				E940C2032D70C3F800C959C4 /* IntelligentHealthCoachApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E940C2052D70C3F800C959C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E940C2072D70C3F800C959C4 /* origin */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2062D70C3F800C959C4 /* main */,
+			);
+			path = origin;
+			sourceTree = "<group>";
+		};
+		E940C2082D70C3F800C959C4 /* remotes */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2072D70C3F800C959C4 /* origin */,
+			);
+			path = remotes;
+			sourceTree = "<group>";
+		};
+		E940C2092D70C3F800C959C4 /* ExerciseDetails.swift~refs */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2082D70C3F800C959C4 /* remotes */,
+			);
+			path = "ExerciseDetails.swift~refs";
+			sourceTree = "<group>";
+		};
+		E940C20C2D70C3F800C959C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2092D70C3F800C959C4 /* ExerciseDetails.swift~refs */,
+				E940C20A2D70C3F800C959C4 /* User.swift */,
+				E940C20B2D70C3F800C959C4 /* UserProfile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E940C20F2D70C3F800C959C4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E940C20D2D70C3F800C959C4 /* SupabaseService.swift */,
+				E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E940C2102D70C3F800C959C4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E940C2112D70C3F800C959C4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2052D70C3F800C959C4 /* Extensions */,
+				E940C20C2D70C3F800C959C4 /* Models */,
+				E940C20F2D70C3F800C959C4 /* Services */,
+				E940C2102D70C3F800C959C4 /* Utilities */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		E940C2122D70C3F800C959C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E940C2142D70C3F800C959C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2132D70C3F800C959C4 /* AuthViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E940C2162D70C3F800C959C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2152D70C3F800C959C4 /* AuthView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E940C2172D70C3F800C959C4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2122D70C3F800C959C4 /* Models */,
+				E940C2142D70C3F800C959C4 /* ViewModels */,
+				E940C2162D70C3F800C959C4 /* Views */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E940C2182D70C3F800C959C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E940C21A2D70C3F800C959C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2192D70C3F800C959C4 /* DashboardViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E940C21C2D70C3F800C959C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E940C21B2D70C3F800C959C4 /* DashboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E940C21D2D70C3F800C959C4 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2182D70C3F800C959C4 /* Models */,
+				E940C21A2D70C3F800C959C4 /* ViewModels */,
+				E940C21C2D70C3F800C959C4 /* Views */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E940C21E2D70C3F800C959C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E940C2202D70C3F800C959C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E940C21F2D70C3F800C959C4 /* ProfileViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E940C2222D70C3F800C959C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2212D70C3F800C959C4 /* ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E940C2232D70C3F800C959C4 /* Profiles */ = {
+			isa = PBXGroup;
+			children = (
+				E940C21E2D70C3F800C959C4 /* Models */,
+				E940C2202D70C3F800C959C4 /* ViewModels */,
+				E940C2222D70C3F800C959C4 /* Views */,
+			);
+			path = Profiles;
+			sourceTree = "<group>";
+		};
+		E940C2252D70C3F800C959C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2242D70C3F800C959C4 /* Questionnaire.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E940C2272D70C3F800C959C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2262D70C3F800C959C4 /* QuestionnaireViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E940C2292D70C3F800C959C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2282D70C3F800C959C4 /* GenderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E940C22A2D70C3F800C959C4 /* Questionnaire */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2252D70C3F800C959C4 /* Models */,
+				E940C2272D70C3F800C959C4 /* ViewModels */,
+				E940C2292D70C3F800C959C4 /* Views */,
+			);
+			path = Questionnaire;
+			sourceTree = "<group>";
+		};
+		E940C22F2D70C3F800C959C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E940C22B2D70C3F800C959C4 /* Exercise.swift */,
+				E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */,
+				E940C22D2D70C3F800C959C4 /* Set.swift */,
+				E940C22E2D70C3F800C959C4 /* Workout.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E940C2322D70C3F800C959C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2302D70C3F800C959C4 /* ExerciseViewModel.swift */,
+				E940C2312D70C3F800C959C4 /* WorkoutViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E940C2352D70C3F800C959C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2332D70C3F800C959C4 /* ExerciseRow.swift */,
+				E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E940C2382D70C3F800C959C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2352D70C3F800C959C4 /* Components */,
+				E940C2362D70C3F800C959C4 /* ExerciseLibraryView.swift */,
+				E940C2372D70C3F800C959C4 /* WorkoutsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E940C2392D70C3F800C959C4 /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				E940C22F2D70C3F800C959C4 /* Models */,
+				E940C2322D70C3F800C959C4 /* ViewModels */,
+				E940C2382D70C3F800C959C4 /* Views */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		E940C23A2D70C3F800C959C4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2172D70C3F800C959C4 /* Auth */,
+				E940C21D2D70C3F800C959C4 /* Dashboard */,
+				E940C2232D70C3F800C959C4 /* Profiles */,
+				E940C22A2D70C3F800C959C4 /* Questionnaire */,
+				E940C2392D70C3F800C959C4 /* Workouts */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		E940C23C2D70C3F800C959C4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E940C23B2D70C3F800C959C4 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E940C2432D70C3F800C959C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E940C23D2D70C3F800C959C4 /* Badge.swift */,
+				E940C23E2D70C3F800C959C4 /* ButtonStyle.swift */,
+				E940C23F2D70C3F800C959C4 /* CardView.swift */,
+				E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */,
+				E940C2412D70C3F800C959C4 /* ProgressBar.swift */,
+				E940C2422D70C3F800C959C4 /* RadioButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E940C2462D70C3F800C959C4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2442D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf */,
+				E940C2452D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E940C2482D70C3F800C959C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2462D70C3F800C959C4 /* Fonts */,
+				E940C2472D70C3F800C959C4 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E940C2492D70C3F800C959C4 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		E940C24A2D70C3F800C959C4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E940C2432D70C3F800C959C4 /* Components */,
+				E940C2482D70C3F800C959C4 /* Resources */,
+				E940C2492D70C3F800C959C4 /* Styles */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		E97F15AB2D70682F00153EA8 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +499,11 @@
 		E97F15B62D70682F00153EA8 /* IntelligentHealthCoach */ = {
 			isa = PBXGroup;
 			children = (
+				E940C2042D70C3F800C959C4 /* App */,
+				E940C2112D70C3F800C959C4 /* Core */,
+				E940C23A2D70C3F800C959C4 /* Features */,
+				E940C23C2D70C3F800C959C4 /* Preview Content */,
+				E940C24A2D70C3F800C959C4 /* UI */,
 				E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */,
 				E97F15B92D70682F00153EA8 /* ContentView.swift */,
 				E97F15BB2D70683200153EA8 /* Assets.xcassets */,
@@ -232,6 +642,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97F15BF2D70683200153EA8 /* Preview Assets.xcassets in Resources */,
+				E940C26B2D70C3F800C959C4 /* Info.plist in Resources */,
+				E940C26C2D70C3F800C959C4 /* Preview Assets.xcassets in Resources */,
+				E940C26D2D70C3F800C959C4 /* Assets.xcassets in Resources */,
+				E940C26E2D70C3F800C959C4 /* main in Resources */,
+				E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
+				E940C2702D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 				E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +674,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97F15BA2D70682F00153EA8 /* ContentView.swift in Sources */,
+				E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */,
+				E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */,
+				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
+				E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */,
+				E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */,
+				E940C2502D70C3F800C959C4 /* WorkoutViewModel.swift in Sources */,
+				E940C2512D70C3F800C959C4 /* RadioButton.swift in Sources */,
+				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
+				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
+				E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */,
+				E940C2552D70C3F800C959C4 /* SupabaseService.swift in Sources */,
+				E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */,
+				E940C2572D70C3F800C959C4 /* WorkoutsView.swift in Sources */,
+				E940C2582D70C3F800C959C4 /* ProfileView.swift in Sources */,
+				E940C2592D70C3F800C959C4 /* Set.swift in Sources */,
+				E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */,
+				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,
+				E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */,
+				E940C25D2D70C3F800C959C4 /* ExerciseDetails.swift in Sources */,
+				E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */,
+				E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */,
+				E940C2602D70C3F800C959C4 /* CardView.swift in Sources */,
+				E940C2612D70C3F800C959C4 /* User.swift in Sources */,
+				E940C2622D70C3F800C959C4 /* SupabaseServiceProtocol.swift in Sources */,
+				E940C2632D70C3F800C959C4 /* Badge.swift in Sources */,
+				E940C2642D70C3F800C959C4 /* GenderView.swift in Sources */,
+				E940C2652D70C3F800C959C4 /* IntelligentHealthCoachApp.swift in Sources */,
+				E940C2662D70C3F800C959C4 /* ProgressBar.swift in Sources */,
+				E940C2672D70C3F800C959C4 /* ProfileViewModel.swift in Sources */,
+				E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */,
+				E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */,
+				E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */,
 				E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
