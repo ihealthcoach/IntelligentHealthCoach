@@ -8,7 +8,11 @@
 
 // SupabaseService.swift
 import Foundation
-import Supabase
+import Auth
+import PostgREST
+import Realtime
+import Storage
+import Functions
 
 class SupabaseService: SupabaseServiceProtocol {
     static let shared = SupabaseService()
