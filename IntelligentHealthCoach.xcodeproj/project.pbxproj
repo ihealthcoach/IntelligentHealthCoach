@@ -39,7 +39,6 @@
 		E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22B2D70C3F800C959C4 /* Exercise.swift */; };
 		E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2012D70C3F800C959C4 /* ContentView.swift */; };
 		E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2152D70C3F800C959C4 /* AuthView.swift */; };
-		E940C26B2D70C3F800C959C4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E940C2022D70C3F800C959C4 /* Info.plist */; };
 		E940C26D2D70C3F800C959C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E940C2472D70C3F800C959C4 /* Assets.xcassets */; };
 		E940C26E2D70C3F800C959C4 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E940C2062D70C3F800C959C4 /* main */; };
 		E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E940C2452D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf */; };
@@ -57,8 +56,6 @@
 		E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */; };
 		E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */; };
 		E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28D2D70D20500C959C4 /* URL+Extensions.swift */; };
-		E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */; };
-		E97F15BA2D70682F00153EA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B92D70682F00153EA8 /* ContentView.swift */; };
 		E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BB2D70683200153EA8 /* Assets.xcassets */; };
 		E97F15BF2D70683200153EA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BE2D70683200153EA8 /* Preview Assets.xcassets */; };
 		E97F15C92D70683200153EA8 /* IntelligentHealthCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15C82D70683200153EA8 /* IntelligentHealthCoachTests.swift */; };
@@ -130,8 +127,6 @@
 		E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
 		E940C28D2D70D20500C959C4 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		E97F15B42D70682F00153EA8 /* IntelligentHealthCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelligentHealthCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachApp.swift; sourceTree = "<group>"; };
-		E97F15B92D70682F00153EA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E97F15BB2D70683200153EA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E97F15BE2D70683200153EA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E97F15C42D70683200153EA8 /* IntelligentHealthCoachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelligentHealthCoachTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -536,8 +531,6 @@
 				E940C23A2D70C3F800C959C4 /* Features */,
 				E940C23C2D70C3F800C959C4 /* Preview Content */,
 				E940C24A2D70C3F800C959C4 /* UI */,
-				E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */,
-				E97F15B92D70682F00153EA8 /* ContentView.swift */,
 				E97F15BB2D70683200153EA8 /* Assets.xcassets */,
 				E97F15BD2D70683200153EA8 /* Preview Content */,
 			);
@@ -678,7 +671,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97F15BF2D70683200153EA8 /* Preview Assets.xcassets in Resources */,
-				E940C26B2D70C3F800C959C4 /* Info.plist in Resources */,
 				E940C26D2D70C3F800C959C4 /* Assets.xcassets in Resources */,
 				E940C26E2D70C3F800C959C4 /* main in Resources */,
 				E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
@@ -708,7 +700,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E97F15BA2D70682F00153EA8 /* ContentView.swift in Sources */,
 				E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */,
 				E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */,
 				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
@@ -748,7 +739,6 @@
 				E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */,
 				E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */,
 				E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */,
-				E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,6 +904,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"IntelligentHealthCoach/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -942,6 +933,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"IntelligentHealthCoach/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
