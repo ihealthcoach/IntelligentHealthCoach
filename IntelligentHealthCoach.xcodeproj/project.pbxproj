@@ -44,6 +44,12 @@
 		E940C26E2D70C3F800C959C4 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E940C2062D70C3F800C959C4 /* main */; };
 		E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E940C2452D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf */; };
 		E940C2702D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E940C2442D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
+		E940C2732D70C4DD00C959C4 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2722D70C4DD00C959C4 /* Auth */; };
+		E940C2752D70C4DD00C959C4 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2742D70C4DD00C959C4 /* Functions */; };
+		E940C2772D70C4DD00C959C4 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2762D70C4DD00C959C4 /* PostgREST */; };
+		E940C2792D70C4DD00C959C4 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2782D70C4DD00C959C4 /* Realtime */; };
+		E940C27B2D70C4DD00C959C4 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = E940C27A2D70C4DD00C959C4 /* Storage */; };
+		E940C27E2D70C4F400C959C4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E940C27D2D70C4F400C959C4 /* Kingfisher */; };
 		E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */; };
 		E97F15BA2D70682F00153EA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B92D70682F00153EA8 /* ContentView.swift */; };
 		E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BB2D70683200153EA8 /* Assets.xcassets */; };
@@ -126,6 +132,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E940C27E2D70C4F400C959C4 /* Kingfisher in Frameworks */,
+				E940C2772D70C4DD00C959C4 /* PostgREST in Frameworks */,
+				E940C2752D70C4DD00C959C4 /* Functions in Frameworks */,
+				E940C2732D70C4DD00C959C4 /* Auth in Frameworks */,
+				E940C27B2D70C4DD00C959C4 /* Storage in Frameworks */,
+				E940C2792D70C4DD00C959C4 /* Realtime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +636,10 @@
 				Base,
 			);
 			mainGroup = E97F15AB2D70682F00153EA8;
+			packageReferences = (
+				E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				E940C27C2D70C4F400C959C4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = E97F15B52D70682F00153EA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1024,6 +1040,58 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		E940C27C2D70C4F400C959C4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E940C2722D70C4DD00C959C4 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		E940C2742D70C4DD00C959C4 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		E940C2762D70C4DD00C959C4 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		E940C2782D70C4DD00C959C4 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		E940C27A2D70C4DD00C959C4 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		E940C27D2D70C4F400C959C4 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C27C2D70C4F400C959C4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E97F15AC2D70682F00153EA8 /* Project object */;
 }
