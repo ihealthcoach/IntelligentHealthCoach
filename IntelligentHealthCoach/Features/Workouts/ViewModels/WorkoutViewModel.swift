@@ -51,7 +51,7 @@ class WorkoutViewModel: ObservableObject {
     // Update the other methods in a similar way
     func createWorkout(name: String) {
         Task {
-            await MainActor.run { 
+            await MainActor.run {
                 self.isLoading = true
                 self.errorMessage = nil
             }
@@ -64,10 +64,14 @@ class WorkoutViewModel: ObservableObject {
                 let newWorkout = Workout(
                     id: UUID().uuidString,
                     userId: userId,
+                    title: name,  // Add this line
+                    exercises: [],  // Add this line
                     createdAt: Date(),
                     updatedAt: Date(),
                     status: "active"
                 )
+                
+                // Rest of the method stays the same
                 
                 let createdWorkout = try await supabaseService.createWorkout(newWorkout)
                 

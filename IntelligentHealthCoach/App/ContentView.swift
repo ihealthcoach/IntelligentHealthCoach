@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            if authViewModel.isAuthenticated {
+                // Show main app content when user is logged in
+                DashboardView()
+                    .environmentObject(authViewModel)
+            } else {
+                // Show authentication screen when user is not logged in
+                AuthView()
+                    .environmentObject(authViewModel)
+            }
         }
-        .padding()
+        .onAppear {
+            // Check if user is already logged in
+            authViewModel.checkSession()
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AuthViewModel.unauthenticated)
 }

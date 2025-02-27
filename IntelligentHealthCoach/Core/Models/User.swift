@@ -20,7 +20,16 @@ struct User: Codable, Identifiable {
         self.firstName = nil
         self.lastName = nil
         self.avatarUrl = nil
+        
+    // Add this below the other init method in User.swift
+    init(id: String, email: String?, firstName: String?, lastName: String?, avatarUrl: String?) {
+        self.id = id
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.avatarUrl = avatarUrl
     }
+}
     
     enum CodingKeys: String, CodingKey {
         case id

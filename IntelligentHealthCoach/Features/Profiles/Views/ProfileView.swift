@@ -198,6 +198,12 @@ struct ProfileView: View {
             .padding(.horizontal)
         }
     }
+    
+    // Preview
+    #Preview {
+        ProfileView()
+            .environmentObject(AuthViewModel.preview)
+    }
 }
 
 // Edit Profile View

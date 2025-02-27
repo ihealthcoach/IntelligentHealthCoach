@@ -470,3 +470,9 @@ struct SettingOption: Identifiable {
     var value: String? = nil
     var hasToggle: Bool = false
 }
+
+// Preview
+#Preview {
+    DashboardView()
+        .environmentObject(AuthViewModel.preview)
+}

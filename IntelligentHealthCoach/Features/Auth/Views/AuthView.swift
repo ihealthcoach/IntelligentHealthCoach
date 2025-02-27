@@ -301,4 +301,10 @@ struct AuthView: View {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
+    
+    // Preview
+    #Preview {
+        AuthView()
+            .environmentObject(AuthViewModel.unauthenticated)
+    }
 }
