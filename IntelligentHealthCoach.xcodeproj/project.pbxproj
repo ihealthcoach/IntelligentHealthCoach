@@ -56,6 +56,7 @@
 		E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */; };
 		E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */; };
 		E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28D2D70D20500C959C4 /* URL+Extensions.swift */; };
+		E940C2912D70E05800C959C4 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2902D70E05800C959C4 /* Supabase */; };
 		E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BB2D70683200153EA8 /* Assets.xcassets */; };
 		E97F15BF2D70683200153EA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BE2D70683200153EA8 /* Preview Assets.xcassets */; };
 		E97F15C92D70683200153EA8 /* IntelligentHealthCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15C82D70683200153EA8 /* IntelligentHealthCoachTests.swift */; };
@@ -141,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E940C2912D70E05800C959C4 /* Supabase in Frameworks */,
 				E940C27E2D70C4F400C959C4 /* Kingfisher in Frameworks */,
 				E940C2772D70C4DD00C959C4 /* PostgREST in Frameworks */,
 				E940C2752D70C4DD00C959C4 /* Functions in Frameworks */,
@@ -503,12 +505,20 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		E940C28F2D70E05800C959C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E97F15AB2D70682F00153EA8 = {
 			isa = PBXGroup;
 			children = (
 				E97F15B62D70682F00153EA8 /* IntelligentHealthCoach */,
 				E97F15C72D70683200153EA8 /* IntelligentHealthCoachTests */,
 				E97F15D12D70683200153EA8 /* IntelligentHealthCoachUITests */,
+				E940C28F2D70E05800C959C4 /* Frameworks */,
 				E97F15B52D70682F00153EA8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1110,6 +1120,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E940C27C2D70C4F400C959C4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E940C2902D70E05800C959C4 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E940C2712D70C4DD00C959C4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
