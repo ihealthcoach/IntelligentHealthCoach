@@ -38,15 +38,22 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signUp(email: String, password: String) {
+    // Update AuthViewModel.swift method:
+    func signUp(email: String, password: String, firstName: String = "", lastName: String = "") {
         Task {
-            await MainActor.run { 
+            await MainActor.run {
                 self.isLoading = true
                 self.errorMessage = nil
             }
             
             do {
                 let user = try await supabaseService.signUp(email: email, password: password)
+                
+                // If signup is successful, create a profile with the first and last name
+                if !firstName.isEmpty || !lastName.isEmpty {
+                    try await createUserProfile(userId: user.id, firstName: firstName, lastName: lastName)
+                }
+                
                 await MainActor.run {
                     self.currentUser = user
                     self.isAuthenticated = true
@@ -59,6 +66,20 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    // Add this method to AuthViewModel
+    private func createUserProfile(userId: String, firstName: String, lastName: String) async throws {
+        let profileData: [String: Any] = [
+            "user_id": userId,
+            "first_name": firstName,
+            "last_name": lastName
+        ]
+        
+        try await supabaseService.client
+            .from("profiles")
+            .insert(profileData)
+            .execute()
     }
     
     func signIn(email: String, password: String) {

@@ -53,6 +53,10 @@
 		E940C2802D70C8F000C959C4 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C27F2D70C8F000C959C4 /* SupabaseManager.swift */; };
 		E940C2822D70C93100C959C4 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2812D70C93100C959C4 /* CacheManager.swift */; };
 		E940C2862D70CB6D00C959C4 /* PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2852D70CB6D00C959C4 /* PreviewHelpers.swift */; };
+		E940C2882D70D18400C959C4 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2872D70D18400C959C4 /* AuthUser.swift */; };
+		E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */; };
+		E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */; };
+		E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28D2D70D20500C959C4 /* URL+Extensions.swift */; };
 		E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */; };
 		E97F15BA2D70682F00153EA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15B92D70682F00153EA8 /* ContentView.swift */; };
 		E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BB2D70683200153EA8 /* Assets.xcassets */; };
@@ -121,6 +125,10 @@
 		E940C27F2D70C8F000C959C4 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		E940C2812D70C93100C959C4 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		E940C2852D70CB6D00C959C4 /* PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelpers.swift; sourceTree = "<group>"; };
+		E940C2872D70D18400C959C4 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
+		E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
+		E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
+		E940C28D2D70D20500C959C4 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		E97F15B42D70682F00153EA8 /* IntelligentHealthCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelligentHealthCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97F15B72D70682F00153EA8 /* IntelligentHealthCoachApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachApp.swift; sourceTree = "<group>"; };
 		E97F15B92D70682F00153EA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -178,6 +186,7 @@
 		E940C2052D70C3F800C959C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E940C28D2D70D20500C959C4 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 				E940C2092D70C3F800C959C4 /* ExerciseDetails.swift~refs */,
 				E940C20A2D70C3F800C959C4 /* User.swift */,
 				E940C20B2D70C3F800C959C4 /* UserProfile.swift */,
+				E940C2872D70D18400C959C4 /* AuthUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,6 +229,7 @@
 		E940C20F2D70C3F800C959C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */,
 				E940C20D2D70C3F800C959C4 /* SupabaseService.swift */,
 				E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */,
 				E940C27F2D70C8F000C959C4 /* SupabaseManager.swift */,
@@ -282,6 +293,7 @@
 		E940C2182D70C3F800C959C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -724,14 +736,18 @@
 				E940C2612D70C3F800C959C4 /* User.swift in Sources */,
 				E940C2622D70C3F800C959C4 /* SupabaseServiceProtocol.swift in Sources */,
 				E940C2632D70C3F800C959C4 /* Badge.swift in Sources */,
+				E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */,
 				E940C2642D70C3F800C959C4 /* GenderView.swift in Sources */,
 				E940C2822D70C93100C959C4 /* CacheManager.swift in Sources */,
 				E940C2652D70C3F800C959C4 /* IntelligentHealthCoachApp.swift in Sources */,
 				E940C2662D70C3F800C959C4 /* ProgressBar.swift in Sources */,
+				E940C2882D70D18400C959C4 /* AuthUser.swift in Sources */,
 				E940C2672D70C3F800C959C4 /* ProfileViewModel.swift in Sources */,
+				E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */,
 				E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */,
 				E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */,
 				E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */,
+				E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */,
 				E97F15B82D70682F00153EA8 /* IntelligentHealthCoachApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

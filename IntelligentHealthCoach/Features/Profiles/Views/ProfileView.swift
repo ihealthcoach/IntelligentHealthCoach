@@ -206,11 +206,104 @@ struct ProfileView: View {
     }
 }
 
-// Edit Profile View
+// EditProfileView addition to ProfileView.swift
 struct EditProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var bio = ""
     @State private var selectedImage: UIImage?
-    @State private var showingImagePicker
+    @State private var showingImagePicker = false
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Profile Photo")) {
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            showingImagePicker = true
+                        }) {
+                            if let image = selectedImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    .foregroundColor(.indigo)
+                            }
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding(.vertical)
+                }
+                
+                Section(header: Text("Personal Information")) {
+                    TextField("First Name", text: $firstName)
+                    TextField("Last Name", text: $lastName)
+                    TextField("Bio", text: $bio)
+                }
+                
+                Section {
+                    Button("Save Changes") {
+                        // Save profile changes here
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundColor(.indigo)
+                }
+            }
+            .navigationTitle("Edit Profile")
+            .navigationBarItems(leading: Button("Cancel") {
+                presentationMode.wrappedValue.dismiss()
+            })
+            .sheet(isPresented: $showingImagePicker) {
+                ImagePicker(selectedImage: $selectedImage)
+            }
+        }
+    }
+}
+
+// Add this utility struct for picking images
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+    @Environment(\.presentationMode) var presentationMode
+    
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: ImagePicker
+        
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                parent.selectedImage = image
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+}

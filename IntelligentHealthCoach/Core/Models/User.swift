@@ -6,7 +6,7 @@
 //
 
 
-// User.swift
+// IntelligentHealthCoach/Core/Models/User.swift
 struct User: Codable, Identifiable {
     let id: String
     let email: String?
@@ -14,14 +14,16 @@ struct User: Codable, Identifiable {
     let lastName: String?
     let avatarUrl: String?
     
+    // First initializer from AuthUser
     init(from authUser: AuthUser) {
         self.id = authUser.id
         self.email = authUser.email
         self.firstName = nil
         self.lastName = nil
         self.avatarUrl = nil
-        
-    // Add this below the other init method in User.swift
+    }
+    
+    // Second initializer with all properties
     init(id: String, email: String?, firstName: String?, lastName: String?, avatarUrl: String?) {
         self.id = id
         self.email = email
@@ -29,7 +31,6 @@ struct User: Codable, Identifiable {
         self.lastName = lastName
         self.avatarUrl = avatarUrl
     }
-}
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,5 +38,18 @@ struct User: Codable, Identifiable {
         case firstName = "first_name"
         case lastName = "last_name"
         case avatarUrl = "avatar_url"
+    }
+    
+    // Add a computed property for full name
+    var fullName: String {
+        if let first = firstName, let last = lastName {
+            return "\(first) \(last)"
+        } else if let first = firstName {
+            return first
+        } else if let last = lastName {
+            return last
+        } else {
+            return "User"
+        }
     }
 }
