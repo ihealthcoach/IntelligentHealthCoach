@@ -7,18 +7,16 @@
 
 
 // AuthViewModel.swift
-import SwiftUI
-import Combine
-
 class AuthViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var isAuthenticated = false
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let supabaseService = SupabaseService.shared
+    private let supabaseService: SupabaseServiceProtocol
     
-    init() {
+    init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+        self.supabaseService = supabaseService
         checkSession()
     }
     
@@ -107,5 +105,10 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func resetPassword(email: String) {
+        // Placeholder for password reset functionality
+        // Implement when adding this feature
     }
 }

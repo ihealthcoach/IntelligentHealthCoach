@@ -10,13 +10,18 @@
 import SwiftUI
 import Combine
 
+// QuestionnaireViewModel.swift
 class QuestionnaireViewModel: ObservableObject {
     @Published var questionnaire = Questionnaire()
     @Published var currentProgress: Double = 12.5 // Starting progress
     @Published var currentStep = 1
     @Published var totalSteps = 8 // Total number of steps in questionnaire
     
-    let supabaseService = SupabaseService.shared
+    private let supabaseService: SupabaseServiceProtocol
+    
+    init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+        self.supabaseService = supabaseService
+    }
     
     func incrementProgress() {
         let incrementValue: Double = 100.0 / Double(totalSteps)
@@ -63,7 +68,7 @@ class QuestionnaireViewModel: ObservableObject {
     }
     
     func saveQuestionnaire() async throws {
-        guard let userId = SupabaseService.shared.client.auth.session?.user?.id else {
+        guard let userId = supabaseService.client.auth.session?.user?.id else {
             throw AuthError.sessionExpired
         }
         
@@ -79,7 +84,7 @@ class QuestionnaireViewModel: ObservableObject {
             "bodytype": questionnaire.bodytype ?? ""
         ]
         
-        try await SupabaseService.shared.client
+        try await supabaseService.client
             .from("profile")
             .insert(data)
             .execute()

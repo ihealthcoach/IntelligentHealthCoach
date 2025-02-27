@@ -10,6 +10,7 @@
 import SwiftUI
 import Combine
 
+// ExerciseViewModel.swift
 class ExerciseViewModel: ObservableObject {
     @Published var exercises: [Exercise] = []
     @Published var filteredExercises: [Exercise] = []
@@ -18,7 +19,11 @@ class ExerciseViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var searchQuery = ""
     
-    private let supabaseService = SupabaseService.shared
+    private let supabaseService: SupabaseServiceProtocol
+    
+    init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+        self.supabaseService = supabaseService
+    }
     
     func fetchExercises() {
         Task {

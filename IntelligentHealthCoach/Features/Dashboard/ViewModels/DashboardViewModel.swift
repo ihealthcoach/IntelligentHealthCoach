@@ -10,33 +10,7 @@
 import SwiftUI
 import Combine
 
-// Model for today's goal cards
-struct TodayGoal: Identifiable {
-    let id = UUID()
-    let title: String
-    let currentValue: String
-    let targetValue: String
-    let unit: String
-    let icon: String
-    let color: Color
-    
-    var progress: Double {
-        guard let current = Double(currentValue.replacingOccurrences(of: ",", with: "")),
-              let target = Double(targetValue.replacingOccurrences(of: ",", with: "")) else {
-            return 0.0
-        }
-        return min(current / target, 1.0)
-    }
-}
-
-// Model for activity cards
-struct Activity: Identifiable {
-    let id = UUID()
-    let type: String
-    let stats: [(String, String)] // (value, icon)
-    let timestamp: Date
-}
-
+// DashboardViewModel.swift
 class DashboardViewModel: ObservableObject {
     @Published var greeting: String = "Good morning"
     @Published var goals: [String] = ["Muscle building", "3 meals", "12 weeks", "Vegan"]
@@ -47,8 +21,10 @@ class DashboardViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
+    private let supabaseService: SupabaseServiceProtocol
     
-    init() {
+    init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+        self.supabaseService = supabaseService
         setupGreeting()
         setupMockData()
         
@@ -169,6 +145,4 @@ class DashboardViewModel: ObservableObject {
             progressMessage = "Amazing! You've completed all your goals for today"
         }
     }
-    
-    // Add additional methods for handling real data when ready
 }

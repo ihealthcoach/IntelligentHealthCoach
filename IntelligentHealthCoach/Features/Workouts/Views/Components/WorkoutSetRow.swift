@@ -87,12 +87,29 @@ class WorkoutSetViewModel: ObservableObject {
     @Published var reps: Int
     @Published var completed: Bool
     
-    init(set: Set) {
+    private let supabaseService: SupabaseServiceProtocol
+    
+    init(set: Set, supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
         self.id = set.id
         self.setNumber = set.id.hashValue % 100 // Placeholder for demo
         self.type = set.type
         self.weight = set.weight
         self.reps = set.reps
         self.completed = set.completed
+        self.supabaseService = supabaseService
+    }
+    
+    // Add methods for updating set data as needed
+    func updateCompletion(isCompleted: Bool) {
+        Task {
+            do {
+                try await supabaseService.updateSet(id: id, data: ["completed": isCompleted])
+                await MainActor.run {
+                    self.completed = isCompleted
+                }
+            } catch {
+                print("Error updating set: \(error)")
+            }
+        }
     }
 }

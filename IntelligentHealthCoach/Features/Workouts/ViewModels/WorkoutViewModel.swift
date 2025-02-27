@@ -10,14 +10,22 @@
 import SwiftUI
 import Combine
 
+// WorkoutViewModel.swift
 class WorkoutViewModel: ObservableObject {
     @Published var workouts: [Workout] = []
     @Published var currentWorkout: Workout?
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var templates: [WorkoutTemplate] = [] // Add this if it's missing
     
-    private let supabaseService = SupabaseService.shared
+    private let supabaseService: SupabaseServiceProtocol
     
+    // Constructor with dependency injection
+    init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+        self.supabaseService = supabaseService
+    }
+    
+    // Now update all your methods to use the injected service
     func fetchWorkouts() {
         Task {
             await MainActor.run { 
@@ -40,7 +48,8 @@ class WorkoutViewModel: ObservableObject {
         }
     }
     
-    func createNewWorkout() {
+    // Update the other methods in a similar way
+    func createWorkout(name: String) {
         Task {
             await MainActor.run { 
                 self.isLoading = true

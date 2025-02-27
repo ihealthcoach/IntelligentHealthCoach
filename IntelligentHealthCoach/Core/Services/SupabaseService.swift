@@ -10,7 +10,7 @@
 import Foundation
 import Supabase
 
-class SupabaseService {
+class SupabaseService: SupabaseServiceProtocol {
     static let shared = SupabaseService()
     
     private let supabaseURL: String
