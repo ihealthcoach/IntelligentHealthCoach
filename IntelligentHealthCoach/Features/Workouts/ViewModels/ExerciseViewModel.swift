@@ -6,9 +6,10 @@
 //
 
 
-// ExerciseViewModel.swift
+import Foundation
 import SwiftUI
 import Combine
+import Supabase
 
 // ExerciseViewModel.swift
 class ExerciseViewModel: ObservableObject {

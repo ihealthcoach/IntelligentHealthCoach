@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
+		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
+		E9177D702D722BE8005FEE6A /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6F2D722BE6005FEE6A /* JSONDecoder+Extensions.swift */; };
 		E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2002D70C3F800C959C4 /* AppDelegate.swift */; };
 		E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */; };
 		E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */; };
@@ -84,6 +86,8 @@
 /* Begin PBXFileReference section */
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
+		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
+		E9177D6F2D722BE6005FEE6A /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 		E940C2002D70C3F800C959C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E940C2012D70C3F800C959C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E940C2022D70C3F800C959C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		E940C2052D70C3F800C959C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E9177D6F2D722BE6005FEE6A /* JSONDecoder+Extensions.swift */,
 				E940C28D2D70D20500C959C4 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
@@ -230,6 +235,7 @@
 		E940C20F2D70C3F800C959C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */,
 				E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */,
 				E940C20D2D70C3F800C959C4 /* SupabaseService.swift */,
 				E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */,
@@ -728,6 +734,7 @@
 				E940C2512D70C3F800C959C4 /* RadioButton.swift in Sources */,
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
 				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
+				E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */,
 				E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */,
 				E940C2552D70C3F800C959C4 /* SupabaseService.swift in Sources */,
 				E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */,
@@ -738,6 +745,7 @@
 				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,
 				E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */,
 				E940C25D2D70C3F800C959C4 /* WorkoutExerciseDetails.swift in Sources */,
+				E9177D702D722BE8005FEE6A /* JSONDecoder+Extensions.swift in Sources */,
 				E940C2802D70C8F000C959C4 /* SupabaseManager.swift in Sources */,
 				E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */,
 				E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */,

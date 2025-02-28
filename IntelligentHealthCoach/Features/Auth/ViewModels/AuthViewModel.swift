@@ -5,10 +5,12 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
+import Foundation
 import SwiftUI
 import Combine
+import Supabase
 
-// AuthViewModel.swift
+
 class AuthViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var isAuthenticated = false

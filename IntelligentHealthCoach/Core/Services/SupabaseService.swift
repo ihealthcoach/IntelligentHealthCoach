@@ -6,8 +6,9 @@
 //
 
 
-// SupabaseService.swift
+// IntelligentHealthCoach/Core/Services/SupabaseService.swift
 import Foundation
+import Supabase
 import Auth
 import PostgREST
 import Realtime
@@ -74,7 +75,7 @@ class SupabaseService: SupabaseServiceProtocol {
             .select()
             .execute()
         
-        return try response.decoded(to: [Workout].self)
+        return try decodeResponse(response)
     }
     
     func fetchExercises() async throws -> [Exercise] {
@@ -83,7 +84,7 @@ class SupabaseService: SupabaseServiceProtocol {
             .select()
             .execute()
         
-        return try response.decoded(to: [Exercise].self)
+        return try decodeResponse(response)
     }
     
     func fetchSets(for workoutExerciseDetailsId: String) async throws -> [WorkoutSet] {
@@ -94,7 +95,28 @@ class SupabaseService: SupabaseServiceProtocol {
             .order("created_at", ascending: true)
             .execute()
         
-        return try response.decoded(to: [WorkoutSet].self)
+        return try decodeResponse(response)
+    }
+    
+    func createWorkout(_ workout: Workout) async throws -> Workout {
+        // Create dictionary for insertion
+        var workoutDict: [String: Any] = [
+            "id": workout.id,
+            "user_id": workout.userId,
+            "status": workout.status
+        ]
+        
+        if let title = workout.title {
+            workoutDict["title"] = title
+        }
+        
+        let response = try await client
+            .from("workouts")
+            .insert(workoutDict)
+            .single()
+            .execute()
+        
+        return try decodeResponse(response)
     }
     
     func createWorkoutExerciseDetails(workoutId: String, exerciseId: String) async throws -> WorkoutExerciseDetails {
@@ -109,23 +131,24 @@ class SupabaseService: SupabaseServiceProtocol {
             .single()
             .execute()
         
-        return try response.decoded(to: WorkoutExerciseDetails.self)
+        return try decodeResponse(response)
     }
     
     func updateSet(id: String, data: [String: Any]) async throws {
-        // Capture the result in a variable with underscore to indicate it's intentionally unused
         let _ = try await client
             .from("sets")
             .update(data)
             .eq("id", value: id)
             .execute()
     }
-}
-
-// Error definitions
-enum AuthError: Error {
-    case signUpFailed
-    case signInFailed
-    case signOutFailed
-    case sessionExpired
+    
+    // MARK: - Helper methods
+    
+    private func decodeResponse<T: Decodable>(_ response: PostgrestResponse) throws -> T {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        
+        return try decoder.decode(T.self, from: response.data)
+    }
 }

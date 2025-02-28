@@ -9,7 +9,7 @@ import Foundation
 
 struct WorkoutSet: Codable, Identifiable {
     let id: String
-    let workoutExerciseDetailsId: String  // Updated field name
+    let workoutExerciseDetailsId: String
     let weight: Double
     let type: String
     let reps: Int
@@ -19,7 +19,7 @@ struct WorkoutSet: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case workoutExerciseDetailsId = "workout_exercise_details_id" // Updated key
+        case workoutExerciseDetailsId = "workout_exercise_details_id"
         case weight
         case type
         case reps
@@ -32,7 +32,7 @@ struct WorkoutSet: Codable, Identifiable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
-        exerciseDetailsId = try container.decode(String.self, forKey: .exerciseDetailsId)
+        workoutExerciseDetailsId = try container.decode(String.self, forKey: .workoutExerciseDetailsId)
         weight = try container.decode(Double.self, forKey: .weight)
         type = try container.decode(String.self, forKey: .type)
         reps = try container.decode(Int.self, forKey: .reps)
