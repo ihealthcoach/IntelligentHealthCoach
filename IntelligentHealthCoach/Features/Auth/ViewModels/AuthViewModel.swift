@@ -5,9 +5,11 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
+import SwiftUI  // Make sure SwiftUI is imported
+import Combine  // This is needed for ObservableObject
 
 // AuthViewModel.swift
-class AuthViewModel: ObservableObject {
+class AuthViewModel: ObservableObject {  // Ensure ObservableObject is here
     @Published var currentUser: User?
     @Published var isAuthenticated = false
     @Published var isLoading = false
@@ -19,6 +21,7 @@ class AuthViewModel: ObservableObject {
         self.supabaseService = supabaseService
         checkSession()
     }
+    
     
     func checkSession() {
         Task {

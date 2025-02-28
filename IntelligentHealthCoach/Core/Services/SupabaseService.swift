@@ -108,7 +108,8 @@ class SupabaseService: SupabaseServiceProtocol {
     }
     
     func updateSet(id: String, data: [String: Any]) async throws {
-        try await client
+        // Capture the result in a variable with underscore to indicate it's intentionally unused
+        let _ = try await client
             .from("sets")
             .update(data)
             .eq("id", value: id)

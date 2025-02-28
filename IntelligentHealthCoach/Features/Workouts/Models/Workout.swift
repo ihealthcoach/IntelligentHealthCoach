@@ -5,6 +5,8 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
+import Foundation
+
 // Workout.swift
 struct Workout: Codable, Identifiable {
     let id: String
@@ -34,5 +36,30 @@ struct Workout: Codable, Identifiable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.status = status
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decode(String.self, forKey: .id)
+        userId = try container.decode(String.self, forKey: .userId)
+        title = try container.decodeIfPresent(String.self, forKey: .title)
+        exercises = try container.decodeIfPresent([Exercise].self, forKey: .exercises)
+        status = try container.decode(String.self, forKey: .status)
+        
+        // Date decoding
+        let createdAtString = try container.decode(String.self, forKey: .createdAt)
+        if let date = ISO8601DateFormatter().date(from: createdAtString) {
+            createdAt = date
+        } else {
+            createdAt = Date()
+        }
+        
+        let updatedAtString = try container.decode(String.self, forKey: .updatedAt)
+        if let date = ISO8601DateFormatter().date(from: updatedAtString) {
+            updatedAt = date
+        } else {
+            updatedAt = Date()
+        }
     }
 }

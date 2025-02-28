@@ -5,6 +5,7 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
+import Foundation
 
 // Set.swift
 struct Set: Codable, Identifiable {
@@ -26,5 +27,31 @@ struct Set: Codable, Identifiable {
         case completed
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decode(String.self, forKey: .id)
+        exerciseDetailsId = try container.decode(String.self, forKey: .exerciseDetailsId)
+        weight = try container.decode(Double.self, forKey: .weight)
+        type = try container.decode(String.self, forKey: .type)
+        reps = try container.decode(Int.self, forKey: .reps)
+        completed = try container.decode(Bool.self, forKey: .completed)
+        
+        // Date decoding
+        let createdAtString = try container.decode(String.self, forKey: .createdAt)
+        if let date = ISO8601DateFormatter().date(from: createdAtString) {
+            createdAt = date
+        } else {
+            createdAt = Date()
+        }
+        
+        let updatedAtString = try container.decode(String.self, forKey: .updatedAt)
+        if let date = ISO8601DateFormatter().date(from: updatedAtString) {
+            updatedAt = date
+        } else {
+            updatedAt = Date()
+        }
     }
 }

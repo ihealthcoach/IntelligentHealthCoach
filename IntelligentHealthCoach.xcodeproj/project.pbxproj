@@ -57,7 +57,6 @@
 		E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */; };
 		E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28D2D70D20500C959C4 /* URL+Extensions.swift */; };
 		E940C2912D70E05800C959C4 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2902D70E05800C959C4 /* Supabase */; };
-		E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BB2D70683200153EA8 /* Assets.xcassets */; };
 		E97F15BF2D70683200153EA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97F15BE2D70683200153EA8 /* Preview Assets.xcassets */; };
 		E97F15C92D70683200153EA8 /* IntelligentHealthCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15C82D70683200153EA8 /* IntelligentHealthCoachTests.swift */; };
 		E97F15D32D70683200153EA8 /* IntelligentHealthCoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */; };
@@ -128,7 +127,6 @@
 		E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
 		E940C28D2D70D20500C959C4 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		E97F15B42D70682F00153EA8 /* IntelligentHealthCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelligentHealthCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E97F15BB2D70683200153EA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E97F15BE2D70683200153EA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E97F15C42D70683200153EA8 /* IntelligentHealthCoachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelligentHealthCoachTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97F15C82D70683200153EA8 /* IntelligentHealthCoachTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachTests.swift; sourceTree = "<group>"; };
@@ -541,7 +539,6 @@
 				E940C23A2D70C3F800C959C4 /* Features */,
 				E940C23C2D70C3F800C959C4 /* Preview Content */,
 				E940C24A2D70C3F800C959C4 /* UI */,
-				E97F15BB2D70683200153EA8 /* Assets.xcassets */,
 				E97F15BD2D70683200153EA8 /* Preview Content */,
 			);
 			path = IntelligentHealthCoach;
@@ -685,7 +682,6 @@
 				E940C26E2D70C3F800C959C4 /* main in Resources */,
 				E940C26F2D70C3F800C959C4 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
 				E940C2702D70C3F800C959C4 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
-				E97F15BC2D70683200153EA8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
