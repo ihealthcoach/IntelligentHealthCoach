@@ -89,7 +89,7 @@ class WorkoutSetViewModel: ObservableObject {
     
     private let supabaseService: SupabaseServiceProtocol
     
-    init(set: Set, supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+    init(set: WorkoutSet, supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
         self.id = set.id
         self.setNumber = set.id.hashValue % 100 // Placeholder for demo
         self.type = set.type

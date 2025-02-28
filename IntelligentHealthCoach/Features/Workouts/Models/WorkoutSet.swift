@@ -1,5 +1,5 @@
 //
-//  Set.swift
+//  WorkoutSet.swift
 //  iHealthCoachApp
 //
 //  Created by Casper Broe on 26/02/2025.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-// Set.swift
-struct Set: Codable, Identifiable {
+// WorkoutSet.swift (renamed from Set.swift)
+struct WorkoutSet: Codable, Identifiable {
     let id: String
     let exerciseDetailsId: String
     let weight: Double

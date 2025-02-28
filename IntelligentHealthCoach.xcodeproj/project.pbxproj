@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2002D70C3F800C959C4 /* AppDelegate.swift */; };
 		E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */; };
 		E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */; };
@@ -21,7 +22,7 @@
 		E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C20B2D70C3F800C959C4 /* UserProfile.swift */; };
 		E940C2572D70C3F800C959C4 /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2372D70C3F800C959C4 /* WorkoutsView.swift */; };
 		E940C2582D70C3F800C959C4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2212D70C3F800C959C4 /* ProfileView.swift */; };
-		E940C2592D70C3F800C959C4 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22D2D70C3F800C959C4 /* Set.swift */; };
+		E940C2592D70C3F800C959C4 /* WorkoutSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22D2D70C3F800C959C4 /* WorkoutSet.swift */; };
 		E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2362D70C3F800C959C4 /* ExerciseLibraryView.swift */; };
 		E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C21B2D70C3F800C959C4 /* DashboardView.swift */; };
 		E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C23E2D70C3F800C959C4 /* ButtonStyle.swift */; };
@@ -81,6 +82,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E940C2002D70C3F800C959C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E940C2012D70C3F800C959C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E940C2022D70C3F800C959C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,7 +103,7 @@
 		E940C2282D70C3F800C959C4 /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		E940C22B2D70C3F800C959C4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetails.swift; sourceTree = "<group>"; };
-		E940C22D2D70C3F800C959C4 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
+		E940C22D2D70C3F800C959C4 /* WorkoutSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSet.swift; sourceTree = "<group>"; };
 		E940C22E2D70C3F800C959C4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		E940C2302D70C3F800C959C4 /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
 		E940C2312D70C3F800C959C4 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		E940C20F2D70C3F800C959C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */,
 				E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */,
 				E940C20D2D70C3F800C959C4 /* SupabaseService.swift */,
 				E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */,
@@ -391,7 +394,7 @@
 			children = (
 				E940C22B2D70C3F800C959C4 /* Exercise.swift */,
 				E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */,
-				E940C22D2D70C3F800C959C4 /* Set.swift */,
+				E940C22D2D70C3F800C959C4 /* WorkoutSet.swift */,
 				E940C22E2D70C3F800C959C4 /* Workout.swift */,
 			);
 			path = Models;
@@ -713,6 +716,7 @@
 				E940C2862D70CB6D00C959C4 /* PreviewHelpers.swift in Sources */,
 				E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */,
 				E940C2502D70C3F800C959C4 /* WorkoutViewModel.swift in Sources */,
+				E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */,
 				E940C2512D70C3F800C959C4 /* RadioButton.swift in Sources */,
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
 				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
@@ -721,7 +725,7 @@
 				E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */,
 				E940C2572D70C3F800C959C4 /* WorkoutsView.swift in Sources */,
 				E940C2582D70C3F800C959C4 /* ProfileView.swift in Sources */,
-				E940C2592D70C3F800C959C4 /* Set.swift in Sources */,
+				E940C2592D70C3F800C959C4 /* WorkoutSet.swift in Sources */,
 				E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */,
 				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,
 				E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */,

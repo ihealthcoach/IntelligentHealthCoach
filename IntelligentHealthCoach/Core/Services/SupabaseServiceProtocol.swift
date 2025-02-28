@@ -9,7 +9,7 @@ protocol SupabaseServiceProtocol {
     func signOut() async throws
     func fetchWorkouts() async throws -> [Workout]
     func fetchExercises() async throws -> [Exercise]
-    func fetchSets(for exerciseId: String) async throws -> [Set]
+    func fetchSets(for exerciseId: String) async throws -> [WorkoutSet]
     func createWorkout(_ workout: Workout) async throws -> Workout
     func updateSet(id: String, data: [String: Any]) async throws
 }

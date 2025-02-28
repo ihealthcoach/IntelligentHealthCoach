@@ -1,16 +1,13 @@
 //
-//  TodayGoal.swift
+//  DashboardViewModel.swift
 //  iHealthCoachApp
 //
 //  Created by Casper Broe on 26/02/2025.
 //
 
-
-// DashboardViewModel.swift
 import SwiftUI
 import Combine
 
-// DashboardViewModel.swift
 class DashboardViewModel: ObservableObject {
     @Published var greeting: String = "Good morning"
     @Published var goals: [String] = ["Muscle building", "3 meals", "12 weeks", "Vegan"]
@@ -20,7 +17,8 @@ class DashboardViewModel: ObservableObject {
     @Published var hasNotifications: Bool = false
     @Published var isLoading: Bool = false
     
-    private var cancellables = Set<AnyCancellable>()
+    // Fix the ambiguity by explicitly using Swift.Set instead of just Set
+    private var cancellables = Swift.Set<AnyCancellable>()
     private let supabaseService: SupabaseServiceProtocol
     
     init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
@@ -37,6 +35,7 @@ class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // Rest of the class remains unchanged
     private func setupGreeting() {
         let hour = Calendar.current.component(.hour, from: Date())
         
@@ -110,7 +109,6 @@ class DashboardViewModel: ObservableObject {
         ]
     }
     
-    // In a real app, you would fetch data from your SupabaseService here
     func loadData() {
         isLoading = true
         

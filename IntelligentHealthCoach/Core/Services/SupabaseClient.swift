@@ -13,11 +13,12 @@ class SupabaseClient {
     private let supabaseKey: String
     
     // Session and auth data
-    private(set) var auth: SupabaseAuth
+    private(set) var auth: SupabaseAuth!
     
     init(supabaseURL: URL, supabaseKey: String) {
         self.supabaseURL = supabaseURL
         self.supabaseKey = supabaseKey
+        // Initialize auth after all properties are set
         self.auth = SupabaseAuth(client: self)
     }
     
@@ -65,7 +66,9 @@ class SupabaseAuth {
         
         let (data, _) = try await client.makeRequest("auth/v1/token?grant_type=password", method: "POST", body: jsonData)
         
-        let response = try JSONDecoder().decode(SupabaseAuthResponse.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let response = try decoder.decode(SupabaseAuthResponse.self, from: data)
         self.session = response.session
         return response
     }
@@ -85,7 +88,9 @@ class SupabaseAuth {
         
         let (data, _) = try await client.makeRequest("auth/v1/signup", method: "POST", body: jsonData)
         
-        let response = try JSONDecoder().decode(SupabaseAuthResponse.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let response = try decoder.decode(SupabaseAuthResponse.self, from: data)
         self.session = response.session
         return response
     }
@@ -155,34 +160,38 @@ class SupabaseQuery {
     }
     
     // Insert data
-    func insert<T: Encodable>(_ value: T) -> Self {
-        // In a real implementation, we would encode the value and prepare it for the API call
-        return self
+    func insert<T: Encodable>(_ value: T) async throws -> SupabaseResponse {
+        guard let client = client else {
+            throw NSError(domain: "SupabaseQuery", code: 1, userInfo: [NSLocalizedDescriptionKey: "Client is nil"])
+        }
+        
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        let jsonData = try encoder.encode(value)
+        
+        let endpoint = "rest/v1/\(table)"
+        let (data, _) = try await client.makeRequest(endpoint, method: "POST", body: jsonData)
+        
+        return SupabaseResponse(data: data)
     }
     
     // Update data
-    func update(_ values: [String: Any]) -> Self {
-        // In a real implementation, we would prepare the update parameters
-        return self
-    }
-}
-
-// Response types
-struct SupabaseSession {
-    let accessToken: String
-    let refreshToken: String
-    let user: AuthUser?
-}
-
-struct SupabaseAuthResponse {
-    let user: AuthUser?
-    let session: SupabaseSession?
-}
-
-struct SupabaseResponse {
-    let data: Data
-    
-    func decoded<T: Decodable>(to type: T.Type) throws -> T {
-        return try JSONDecoder().decode(type, from: data)
+    func update(_ values: [String: Any]) async throws -> SupabaseResponse {
+        guard let client = client else {
+            throw NSError(domain: "SupabaseQuery", code: 1, userInfo: [NSLocalizedDescriptionKey: "Client is nil"])
+        }
+        
+        let jsonData = try JSONSerialization.data(withJSONObject: values)
+        
+        var endpoint = "rest/v1/\(table)"
+        
+        // Add filter parameters
+        if !queryParameters.isEmpty {
+            let queryString = queryParameters.map { "\($0.key)=\($0.value)" }.joined(separator: "&")
+            endpoint += "?\(queryString)"
+        }
+        
+        let (data, _) = try await client.makeRequest(endpoint, method: "PATCH", body: jsonData)
+        return SupabaseResponse(data: data)
     }
 }

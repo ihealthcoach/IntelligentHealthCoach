@@ -33,7 +33,8 @@ class CacheManager {
         kingfisherConfig.requestCachePolicy = .returnCacheDataElseLoad
         
         // Clear expired cache on app start
-        ImageCache.default.clearExpiredMemoryCache()
+        // Update to correct method
+        ImageCache.default.clearMemoryCache()
         
         print("CacheManager configured successfully")
         

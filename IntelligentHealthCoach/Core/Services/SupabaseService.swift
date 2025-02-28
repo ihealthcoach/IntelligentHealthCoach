@@ -86,7 +86,7 @@ class SupabaseService: SupabaseServiceProtocol {
         return try response.decoded(to: [Exercise].self)
     }
     
-    func fetchSets(for exerciseId: String) async throws -> [Set] {
+    func fetchSets(for exerciseId: String) async throws -> [WorkoutSet] {
         let response = try await client
             .from("sets")
             .select()
@@ -94,7 +94,7 @@ class SupabaseService: SupabaseServiceProtocol {
             .order("created_at", ascending: true)
             .execute()
         
-        return try response.decoded(to: [Set].self)
+        return try response.decoded(to: [WorkoutSet].self)
     }
     
     func createWorkout(_ workout: Workout) async throws -> Workout {
