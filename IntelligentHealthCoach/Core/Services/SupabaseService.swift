@@ -89,7 +89,7 @@ class SupabaseService: SupabaseServiceProtocol {
     
     func fetchSets(for workoutExerciseDetailsId: String) async throws -> [WorkoutSet] {
         let response = try await client
-            .from("sets")
+            .from("workout_sets")  // Changed from "sets" to "workout_sets"
             .select()
             .eq("workout_exercise_details_id", value: workoutExerciseDetailsId)
             .order("created_at", ascending: true)
@@ -136,7 +136,7 @@ class SupabaseService: SupabaseServiceProtocol {
     
     func updateSet(id: String, data: [String: Any]) async throws {
         let _ = try await client
-            .from("sets")
+            .from("workout_sets")  // Changed from "sets" to "workout_sets"
             .update(data)
             .eq("id", value: id)
             .execute()

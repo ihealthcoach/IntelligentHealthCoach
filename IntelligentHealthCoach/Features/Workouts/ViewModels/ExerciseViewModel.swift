@@ -20,9 +20,9 @@ class ExerciseViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var searchQuery = ""
     
-    private let supabaseService: SupabaseServiceProtocol
+    private let supabaseService: IntelligentHealthCoach.SupabaseServiceProtocol
     
-    init(supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+    init(supabaseService: IntelligentHealthCoach.SupabaseServiceProtocol = SupabaseService.shared) {
         self.supabaseService = supabaseService
     }
     

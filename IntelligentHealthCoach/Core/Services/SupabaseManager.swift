@@ -68,7 +68,7 @@ class SupabaseManager {
         initializationLock.lock()
         defer { initializationLock.unlock() }
         
-        client = nil
+        client = nil as SupabaseClient?  // Add explicit type
         isInitialized = false
     }
     
