@@ -5,11 +5,11 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
-import SwiftUI  // Make sure SwiftUI is imported
-import Combine  // This is needed for ObservableObject
+import SwiftUI
+import Combine
 
 // AuthViewModel.swift
-class AuthViewModel: ObservableObject {  // Ensure ObservableObject is here
+class AuthViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var isAuthenticated = false
     @Published var isLoading = false
@@ -22,26 +22,28 @@ class AuthViewModel: ObservableObject {  // Ensure ObservableObject is here
         checkSession()
     }
     
-    
     func checkSession() {
         Task {
-            do {
-                if let session = try await supabaseService.client.auth.session {
-                    if let user = session.user {
-                        let appUser = User(from: user)
-                        await MainActor.run {
-                            self.currentUser = appUser
-                            self.isAuthenticated = true
-                        }
+            // Access session property directly since it's not async/throwing
+            if let session = supabaseService.client.auth.session {
+                if let user = session.user {
+                    let appUser = User(from: user)
+                    await MainActor.run {
+                        self.currentUser = appUser
+                        self.isAuthenticated = true
                     }
                 }
-            } catch {
-                print("Session error: \(error)")
             }
         }
     }
     
-    // Update AuthViewModel.swift method:
+    // Create an encodable struct for profile data
+    private struct ProfileData: Encodable {
+        let user_id: String
+        let first_name: String
+        let last_name: String
+    }
+    
     func signUp(email: String, password: String, firstName: String = "", lastName: String = "") {
         Task {
             await MainActor.run {
@@ -71,15 +73,16 @@ class AuthViewModel: ObservableObject {  // Ensure ObservableObject is here
         }
     }
 
-    // Add this method to AuthViewModel
     private func createUserProfile(userId: String, firstName: String, lastName: String) async throws {
-        let profileData: [String: Any] = [
-            "user_id": userId,
-            "first_name": firstName,
-            "last_name": lastName
-        ]
+        // Use a struct that conforms to Encodable
+        let profileData = ProfileData(
+            user_id: userId,
+            first_name: firstName,
+            last_name: lastName
+        )
         
-        try await supabaseService.client
+        // Capture the result with underscore to show it's intentionally unused
+        let _ = try await supabaseService.client
             .from("profiles")
             .insert(profileData)
             .execute()
@@ -87,7 +90,7 @@ class AuthViewModel: ObservableObject {  // Ensure ObservableObject is here
     
     func signIn(email: String, password: String) {
         Task {
-            await MainActor.run { 
+            await MainActor.run {
                 self.isLoading = true
                 self.errorMessage = nil
             }
@@ -110,7 +113,7 @@ class AuthViewModel: ObservableObject {  // Ensure ObservableObject is here
     
     func signOut() {
         Task {
-            await MainActor.run { 
+            await MainActor.run {
                 self.isLoading = true
                 self.errorMessage = nil
             }

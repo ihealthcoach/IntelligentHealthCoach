@@ -67,24 +67,38 @@ class QuestionnaireViewModel: ObservableObject {
         questionnaire.bodytype = bodyType
     }
     
+    // Create an encodable struct for questionnaire data
+    private struct QuestionnaireData: Encodable {
+        let user_id: String
+        let gender: String
+        let goal: String
+        let workout_days: [Int]
+        let level: String
+        let weight: Int
+        let height: Int
+        let age: Int
+        let bodytype: String
+    }
+
     func saveQuestionnaire() async throws {
         guard let userId = supabaseService.client.auth.session?.user?.id else {
             throw AuthError.sessionExpired
         }
         
-        let data: [String: Any] = [
-            "user_id": userId,
-            "gender": questionnaire.gender ?? "",
-            "goal": questionnaire.goal ?? "",
-            "workout_days": questionnaire.workoutDays,
-            "level": questionnaire.level ?? "",
-            "weight": questionnaire.weight ?? 0,
-            "height": questionnaire.height ?? 0,
-            "age": questionnaire.age ?? 0,
-            "bodytype": questionnaire.bodytype ?? ""
-        ]
+        let data = QuestionnaireData(
+            user_id: userId,
+            gender: questionnaire.gender ?? "",
+            goal: questionnaire.goal ?? "",
+            workout_days: questionnaire.workoutDays,
+            level: questionnaire.level ?? "",
+            weight: questionnaire.weight ?? 0,
+            height: questionnaire.height ?? 0,
+            age: questionnaire.age ?? 0,
+            bodytype: questionnaire.bodytype ?? ""
+        )
         
-        try await supabaseService.client
+        // Capture the result with underscore to show it's intentionally unused
+        let _ = try await supabaseService.client
             .from("profile")
             .insert(data)
             .execute()
