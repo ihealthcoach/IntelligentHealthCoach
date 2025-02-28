@@ -86,25 +86,30 @@ class SupabaseService: SupabaseServiceProtocol {
         return try response.decoded(to: [Exercise].self)
     }
     
-    func fetchSets(for exerciseId: String) async throws -> [WorkoutSet] {
+    func fetchSets(for workoutExerciseDetailsId: String) async throws -> [WorkoutSet] {
         let response = try await client
             .from("sets")
             .select()
-            .eq("exercise_details_id", value: exerciseId)
+            .eq("workout_exercise_details_id", value: workoutExerciseDetailsId)
             .order("created_at", ascending: true)
             .execute()
         
         return try response.decoded(to: [WorkoutSet].self)
     }
     
-    func createWorkout(_ workout: Workout) async throws -> Workout {
+    func createWorkoutExerciseDetails(workoutId: String, exerciseId: String) async throws -> WorkoutExerciseDetails {
+        let data = [
+            "workout_id": workoutId,
+            "exercise_id": exerciseId
+        ]
+        
         let response = try await client
-            .from("workouts")
-            .insert(workout)
+            .from("workout_exercise_details")
+            .insert(data)
             .single()
             .execute()
         
-        return try response.decoded(to: Workout.self)
+        return try response.decoded(to: WorkoutExerciseDetails.self)
     }
     
     func updateSet(id: String, data: [String: Any]) async throws {

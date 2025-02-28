@@ -7,10 +7,9 @@
 
 import Foundation
 
-// WorkoutSet.swift (renamed from Set.swift)
 struct WorkoutSet: Codable, Identifiable {
     let id: String
-    let exerciseDetailsId: String
+    let workoutExerciseDetailsId: String  // Updated field name
     let weight: Double
     let type: String
     let reps: Int
@@ -20,7 +19,7 @@ struct WorkoutSet: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case exerciseDetailsId = "exercise_details_id"
+        case workoutExerciseDetailsId = "workout_exercise_details_id" // Updated key
         case weight
         case type
         case reps

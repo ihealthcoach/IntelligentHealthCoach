@@ -1,0 +1,3 @@
+# Configuration files with sensitive info
+Config/Development.xcconfig
+# Don't ignore Production.xcconfig since it uses environment variables

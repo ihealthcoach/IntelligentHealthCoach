@@ -7,8 +7,7 @@
 
 import Foundation
 
-// ExerciseDetails.swift
-struct ExerciseDetails: Codable, Identifiable {
+struct WorkoutExerciseDetails: Codable, Identifiable {
     let id: String
     let workoutId: String
     let exerciseId: String

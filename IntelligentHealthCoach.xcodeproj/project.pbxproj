@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 71;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
+		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2002D70C3F800C959C4 /* AppDelegate.swift */; };
 		E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */; };
 		E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */; };
@@ -26,7 +27,7 @@
 		E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2362D70C3F800C959C4 /* ExerciseLibraryView.swift */; };
 		E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C21B2D70C3F800C959C4 /* DashboardView.swift */; };
 		E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C23E2D70C3F800C959C4 /* ButtonStyle.swift */; };
-		E940C25D2D70C3F800C959C4 /* ExerciseDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */; };
+		E940C25D2D70C3F800C959C4 /* WorkoutExerciseDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22C2D70C3F800C959C4 /* WorkoutExerciseDetails.swift */; };
 		E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2242D70C3F800C959C4 /* Questionnaire.swift */; };
 		E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C22E2D70C3F800C959C4 /* Workout.swift */; };
 		E940C2602D70C3F800C959C4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C23F2D70C3F800C959C4 /* CardView.swift */; };
@@ -54,7 +55,6 @@
 		E940C2822D70C93100C959C4 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2812D70C93100C959C4 /* CacheManager.swift */; };
 		E940C2862D70CB6D00C959C4 /* PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2852D70CB6D00C959C4 /* PreviewHelpers.swift */; };
 		E940C2882D70D18400C959C4 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2872D70D18400C959C4 /* AuthUser.swift */; };
-		E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */; };
 		E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */; };
 		E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C28D2D70D20500C959C4 /* URL+Extensions.swift */; };
 		E940C2912D70E05800C959C4 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = E940C2902D70E05800C959C4 /* Supabase */; };
@@ -83,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
+		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E940C2002D70C3F800C959C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E940C2012D70C3F800C959C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E940C2022D70C3F800C959C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,7 +103,7 @@
 		E940C2262D70C3F800C959C4 /* QuestionnaireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireViewModel.swift; sourceTree = "<group>"; };
 		E940C2282D70C3F800C959C4 /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		E940C22B2D70C3F800C959C4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
-		E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetails.swift; sourceTree = "<group>"; };
+		E940C22C2D70C3F800C959C4 /* WorkoutExerciseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExerciseDetails.swift; sourceTree = "<group>"; };
 		E940C22D2D70C3F800C959C4 /* WorkoutSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSet.swift; sourceTree = "<group>"; };
 		E940C22E2D70C3F800C959C4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		E940C2302D70C3F800C959C4 /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
@@ -125,7 +126,6 @@
 		E940C2812D70C93100C959C4 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		E940C2852D70CB6D00C959C4 /* PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelpers.swift; sourceTree = "<group>"; };
 		E940C2872D70D18400C959C4 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
-		E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
 		E940C28B2D70D1DD00C959C4 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
 		E940C28D2D70D20500C959C4 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		E97F15B42D70682F00153EA8 /* IntelligentHealthCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelligentHealthCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +136,10 @@
 		E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITests.swift; sourceTree = "<group>"; };
 		E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E9177D5C2D71E3B7005FEE6A /* Config */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Config; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E97F15B12D70682F00153EA8 /* Frameworks */ = {
@@ -227,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */,
-				E940C2892D70D1AA00C959C4 /* SupabaseClient.swift */,
 				E940C20D2D70C3F800C959C4 /* SupabaseService.swift */,
 				E940C20E2D70C3F800C959C4 /* SupabaseServiceProtocol.swift */,
 				E940C27F2D70C8F000C959C4 /* SupabaseManager.swift */,
@@ -392,8 +395,9 @@
 		E940C22F2D70C3F800C959C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */,
 				E940C22B2D70C3F800C959C4 /* Exercise.swift */,
-				E940C22C2D70C3F800C959C4 /* ExerciseDetails.swift */,
+				E940C22C2D70C3F800C959C4 /* WorkoutExerciseDetails.swift */,
 				E940C22D2D70C3F800C959C4 /* WorkoutSet.swift */,
 				E940C22E2D70C3F800C959C4 /* Workout.swift */,
 			);
@@ -537,6 +541,7 @@
 		E97F15B62D70682F00153EA8 /* IntelligentHealthCoach */ = {
 			isa = PBXGroup;
 			children = (
+				E9177D5C2D71E3B7005FEE6A /* Config */,
 				E940C2042D70C3F800C959C4 /* App */,
 				E940C2112D70C3F800C959C4 /* Core */,
 				E940C23A2D70C3F800C959C4 /* Features */,
@@ -586,6 +591,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E9177D5C2D71E3B7005FEE6A /* Config */,
 			);
 			name = IntelligentHealthCoach;
 			productName = IntelligentHealthCoach;
@@ -729,7 +737,7 @@
 				E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */,
 				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,
 				E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */,
-				E940C25D2D70C3F800C959C4 /* ExerciseDetails.swift in Sources */,
+				E940C25D2D70C3F800C959C4 /* WorkoutExerciseDetails.swift in Sources */,
 				E940C2802D70C8F000C959C4 /* SupabaseManager.swift in Sources */,
 				E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */,
 				E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */,
@@ -740,6 +748,7 @@
 				E940C28C2D70D1DF00C959C4 /* DashboardModels.swift in Sources */,
 				E940C2642D70C3F800C959C4 /* GenderView.swift in Sources */,
 				E940C2822D70C93100C959C4 /* CacheManager.swift in Sources */,
+				E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */,
 				E940C2652D70C3F800C959C4 /* IntelligentHealthCoachApp.swift in Sources */,
 				E940C2662D70C3F800C959C4 /* ProgressBar.swift in Sources */,
 				E940C2882D70D18400C959C4 /* AuthUser.swift in Sources */,
@@ -748,7 +757,6 @@
 				E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */,
 				E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */,
 				E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */,
-				E940C28A2D70D1AD00C959C4 /* SupabaseClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +793,255 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		E9177D632D71E5C8005FEE6A /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Development;
+		};
+		E9177D642D71E5C8005FEE6A /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = E9177D5C2D71E3B7005FEE6A /* Config */;
+			baseConfigurationReferenceRelativePath = Development.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"IntelligentHealthCoach/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoach;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Development;
+		};
+		E9177D652D71E5C8005FEE6A /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoachTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntelligentHealthCoach.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/IntelligentHealthCoach";
+			};
+			name = Development;
+		};
+		E9177D662D71E5C8005FEE6A /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoachUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = IntelligentHealthCoach;
+			};
+			name = Development;
+		};
+		E9177D672D71E5E2005FEE6A /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Production;
+		};
+		E9177D682D71E5E2005FEE6A /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = E9177D5C2D71E3B7005FEE6A /* Config */;
+			baseConfigurationReferenceRelativePath = Production.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"IntelligentHealthCoach/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoach;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Production;
+		};
+		E9177D692D71E5E2005FEE6A /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoachTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntelligentHealthCoach.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/IntelligentHealthCoach";
+			};
+			name = Production;
+		};
+		E9177D6A2D71E5E2005FEE6A /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoachUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = IntelligentHealthCoach;
+			};
+			name = Production;
+		};
 		E97F15D62D70683200153EA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1037,7 +1294,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E97F15D62D70683200153EA8 /* Debug */,
+				E9177D632D71E5C8005FEE6A /* Development */,
 				E97F15D72D70683200153EA8 /* Release */,
+				E9177D672D71E5E2005FEE6A /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1046,7 +1305,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E97F15D92D70683200153EA8 /* Debug */,
+				E9177D642D71E5C8005FEE6A /* Development */,
 				E97F15DA2D70683200153EA8 /* Release */,
+				E9177D682D71E5E2005FEE6A /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1055,7 +1316,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E97F15DC2D70683200153EA8 /* Debug */,
+				E9177D652D71E5C8005FEE6A /* Development */,
 				E97F15DD2D70683200153EA8 /* Release */,
+				E9177D692D71E5E2005FEE6A /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1064,7 +1327,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E97F15DF2D70683200153EA8 /* Debug */,
+				E9177D662D71E5C8005FEE6A /* Development */,
 				E97F15E02D70683200153EA8 /* Release */,
+				E9177D6A2D71E5E2005FEE6A /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
