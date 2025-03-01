@@ -48,7 +48,6 @@ class WorkoutViewModel: ObservableObject {
         }
     }
     
-    // Update the other methods in a similar way
     func createWorkout(name: String) {
         Task {
             await MainActor.run {
@@ -61,17 +60,16 @@ class WorkoutViewModel: ObservableObject {
                     throw AuthError.sessionExpired
                 }
                 
+                // Fix: Ensure we're using uuidString to convert UUID to String
                 let newWorkout = Workout(
-                    id: UUID().uuidString,
+                    id: UUID().uuidString,  // This is already correct in your code
                     userId: userId,
-                    title: name,  // Add this line
-                    exercises: [],  // Add this line
+                    title: name,
+                    exercises: [],
                     createdAt: Date(),
                     updatedAt: Date(),
                     status: "active"
                 )
-                
-                // Rest of the method stays the same
                 
                 let createdWorkout = try await supabaseService.createWorkout(newWorkout)
                 

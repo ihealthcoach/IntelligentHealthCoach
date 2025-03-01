@@ -127,6 +127,32 @@ class DashboardViewModel: ObservableObject {
             // Potentially update data based on API response
             self.updateProgressMessage()
         }
+        
+        func testSupabaseConnection() {
+            isLoading = true
+            
+            Task {
+                do {
+                    // Try a simple query
+                    let response = try await supabaseService.client
+                        .from("workouts")
+                        .select()
+                        .limit(1)
+                        .execute()
+                    
+                    await MainActor.run {
+                        print("✅ Supabase connection successful!")
+                        print("Response: \(response)")
+                        isLoading = false
+                    }
+                } catch {
+                    await MainActor.run {
+                        print("❌ Supabase connection failed with error: \(error)")
+                        isLoading = false
+                    }
+                }
+            }
+        }
     }
     
     private func updateProgressMessage() {

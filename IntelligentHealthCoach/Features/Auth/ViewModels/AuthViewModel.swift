@@ -26,24 +26,46 @@ class AuthViewModel: ObservableObject {
     
     func checkSession() {
         Task {
-            // Access session property directly since it's not async/throwing
             if let session = supabaseService.client.auth.session {
-                if let user = session.user {
-                    let appUser = User(from: user)
-                    await MainActor.run {
-                        self.currentUser = appUser
-                        self.isAuthenticated = true
-                    }
+                // First, convert UUID to String if needed
+                let userId = session.user.id is UUID ? (session.user.id as! UUID).uuidString : String(describing: session.user.id)
+                
+                // Create User with the string ID
+                let appUser = User(
+                    id: userId,  // Use the string version
+                    email: session.user.email,
+                    firstName: nil,
+                    lastName: nil,
+                    avatarUrl: nil
+                )
+                
+                await MainActor.run {
+                    self.currentUser = appUser
+                    self.isAuthenticated = true
                 }
             }
         }
     }
+    }
     
-    // Create an encodable struct for profile data
+    // Define this at the class level (outside of methods)
     private struct ProfileData: Encodable {
         let user_id: String
         let first_name: String
         let last_name: String
+    }
+
+    private func createUserProfile(userId: String, firstName: String, lastName: String) async throws {
+        let profileData = ProfileData(
+            user_id: userId,
+            first_name: firstName,
+            last_name: lastName
+        )
+        
+        let _ = try await supabaseService.client
+            .from("profiles")
+            .insert(profileData)
+            .execute()
     }
     
     func signUp(email: String, password: String, firstName: String = "", lastName: String = "") {

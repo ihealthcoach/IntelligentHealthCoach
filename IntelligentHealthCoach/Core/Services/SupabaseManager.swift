@@ -52,6 +52,9 @@ class SupabaseManager {
         
         configureClient()
         
+        // Add somewhere in your initialization code
+        print("Storage client type: \(type(of: SupabaseManager.shared.client.storage))")
+        
         print("SupabaseManager initialized successfully with URL: \(supabaseURL)")
         
         // Set flag to prevent reinitialization

@@ -46,21 +46,23 @@ class SupabaseService: SupabaseServiceProtocol {
             email: email,
             password: password
         )
-        guard let user = response.user else {
+        guard let authUser = response.user else {
             throw AuthError.signUpFailed
         }
-        return User(from: user)
+        // Make sure you're creating a User from AuthUser correctly
+        return User(from: authUser)
     }
-    
+
     func signIn(email: String, password: String) async throws -> User {
         let response = try await client.auth.signIn(
             email: email,
             password: password
         )
-        guard let user = response.user else {
+        guard let authUser = response.user else {
             throw AuthError.signInFailed
         }
-        return User(from: user)
+        // Make sure you're creating a User from AuthUser correctly
+        return User(from: authUser)
     }
     
     func signOut() async throws {
