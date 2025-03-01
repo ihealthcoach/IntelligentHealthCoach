@@ -70,13 +70,13 @@ class QuestionnaireViewModel: ObservableObject {
     private struct QuestionnaireData: Encodable {
         let user_id: String
         let gender: String
-        let main_goal: String  // Changed from goal to match the renamed column
+        let main_goal: String  // Correct mapping from goal to main_goal in database
         let workout_days: [Int]
         let level: String
         let weight: Int
         let height: Int
         let age: Int
-        let body_type: String  // Changed from bodytype to match the renamed column
+        let body_type: String  // Correct mapping from bodytype to body_type in database
     }
 
     func saveQuestionnaire() async throws {

@@ -1,11 +1,9 @@
 //
-//  Untitled.swift
-//  iHealthCoachApp
+//  ProfileViewModel.swift
 //
 //  Created by Casper Broe on 26/02/2025.
 //
 
-// ProfileViewModel.swift
 import SwiftUI
 import Combine
 

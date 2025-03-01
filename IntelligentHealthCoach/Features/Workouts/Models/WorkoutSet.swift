@@ -24,8 +24,8 @@ struct WorkoutSet: Codable, Identifiable {
         case type
         case reps
         case completed
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+        case createdAt = "created_at" // This is correct based on the database schema
+        case updatedAt = "updated_at" // This is correct based on the database schema
     }
     
     init(from decoder: Decoder) throws {

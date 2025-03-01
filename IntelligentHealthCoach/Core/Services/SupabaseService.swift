@@ -52,7 +52,7 @@ class SupabaseService: SupabaseServiceProtocol {
         // Make sure you're creating a User from AuthUser correctly
         return User(from: authUser)
     }
-
+    
     func signIn(email: String, password: String) async throws -> User {
         let response = try await client.auth.signIn(
             email: email,
@@ -75,6 +75,7 @@ class SupabaseService: SupabaseServiceProtocol {
         let response = try await client
             .from("workouts")
             .select()
+            .order("created", ascending: false) // Using 'created' instead of 'created_at'
             .execute()
         
         return try decodeResponse(response)
@@ -91,7 +92,7 @@ class SupabaseService: SupabaseServiceProtocol {
     
     func fetchSets(for workoutExerciseDetailsId: String) async throws -> [WorkoutSet] {
         let response = try await client
-            .from("workout_sets")  // Changed from "sets" to "workout_sets"
+            .from("workout_sets")
             .select()
             .eq("workout_exercise_details_id", value: workoutExerciseDetailsId)
             .order("created_at", ascending: true)
@@ -101,11 +102,14 @@ class SupabaseService: SupabaseServiceProtocol {
     }
     
     func createWorkout(_ workout: Workout) async throws -> Workout {
-        // Create dictionary for insertion
+        // Create dictionary for insertion, using the correct field names
         var workoutDict: [String: Any] = [
             "id": workout.id,
             "user_id": workout.userId,
-            "status": workout.status
+            "status": workout.status,
+            // Using 'created' and 'modified' instead of 'created_at' and 'updated_at'
+            "created": ISO8601DateFormatter().string(from: workout.createdAt),
+            "modified": ISO8601DateFormatter().string(from: workout.updatedAt)
         ]
         
         if let title = workout.title {
@@ -138,7 +142,7 @@ class SupabaseService: SupabaseServiceProtocol {
     
     func updateSet(id: String, data: [String: Any]) async throws {
         let _ = try await client
-            .from("workout_sets")  // Changed from "sets" to "workout_sets"
+            .from("workout_sets")
             .update(data)
             .eq("id", value: id)
             .execute()
@@ -147,10 +151,10 @@ class SupabaseService: SupabaseServiceProtocol {
     // MARK: - Helper methods
     
     private func decodeResponse<T: Decodable>(_ response: PostgrestResponse) throws -> T {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
-        
-        return try decoder.decode(T.self, from: response.data)
+        // Use different decoders based on the type
+        if T.self == [Workout].self || T.self == Workout.self {
+            return try JSONDecoder.workoutsDecoder().decode(T.self, from: response.data)
+        } else {
+            return try JSONDecoder.supabaseDecoder().decode(T.self, from: response.data)
+        }
     }
-}

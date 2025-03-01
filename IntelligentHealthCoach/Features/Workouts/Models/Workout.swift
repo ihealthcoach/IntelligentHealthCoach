@@ -8,6 +8,11 @@
 import Foundation
 
 // Workout.swift
+/// Represents a user workout in the system
+/// Note on database field mapping:
+/// - "created" in the database maps to "createdAt" in this model
+/// - "modified" in the database maps to "updatedAt" in this model
+/// - Other fields use standard snake_case to camelCase conversion
 struct Workout: Codable, Identifiable {
     let id: String
     let userId: String
@@ -18,14 +23,14 @@ struct Workout: Codable, Identifiable {
     let status: String
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case userId = "user_id"
-        case title
-        case exercises
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case status
-    }
+            case id
+            case userId = "user_id"
+            case title
+            case exercises
+            case createdAt = "created" // Changed from created_at to match database schema
+            case updatedAt = "modified" // Changed from updated_at to match database schema
+            case status
+        }
     
     // Add initializer to support creating workout with exercises
     init(id: String, userId: String, title: String? = nil, exercises: [Exercise]? = nil, createdAt: Date, updatedAt: Date, status: String) {
@@ -52,14 +57,27 @@ struct Workout: Codable, Identifiable {
         if let date = ISO8601DateFormatter().date(from: createdAtString) {
             createdAt = date
         } else {
-            createdAt = Date()
+            // Try a standard date formatter for TIMESTAMP format
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = formatter.date(from: createdAtString) {
+                createdAt = date
+            } else {
+                createdAt = Date()
+            }
         }
-        
+
         let updatedAtString = try container.decode(String.self, forKey: .updatedAt)
         if let date = ISO8601DateFormatter().date(from: updatedAtString) {
             updatedAt = date
         } else {
-            updatedAt = Date()
+            // Try a standard date formatter for TIMESTAMP format
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = formatter.date(from: updatedAtString) {
+                updatedAt = date
+            } else {
+                updatedAt = Date()
+            }
         }
-    }
 }
