@@ -49,7 +49,6 @@ class SupabaseService: SupabaseServiceProtocol {
         guard let authUser = response.user else {
             throw AuthError.signUpFailed
         }
-        // Make sure you're creating a User from AuthUser correctly
         return User(from: authUser)
     }
     
@@ -61,7 +60,6 @@ class SupabaseService: SupabaseServiceProtocol {
         guard let authUser = response.user else {
             throw AuthError.signInFailed
         }
-        // Make sure you're creating a User from AuthUser correctly
         return User(from: authUser)
     }
     
@@ -75,7 +73,7 @@ class SupabaseService: SupabaseServiceProtocol {
         let response = try await client
             .from("workouts")
             .select()
-            .order("created", ascending: false) // Using 'created' instead of 'created_at'
+            .order("created", ascending: false)
             .execute()
         
         return try decodeResponse(response)
@@ -158,3 +156,4 @@ class SupabaseService: SupabaseServiceProtocol {
             return try JSONDecoder.supabaseDecoder().decode(T.self, from: response.data)
         }
     }
+}
