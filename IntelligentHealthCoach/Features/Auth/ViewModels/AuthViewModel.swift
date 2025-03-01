@@ -162,4 +162,3 @@ class AuthViewModel: ObservableObject {
         // Placeholder for password reset functionality
         // Implement when adding this feature
     }
-}

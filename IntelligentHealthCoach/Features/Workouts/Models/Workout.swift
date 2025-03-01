@@ -23,14 +23,14 @@ struct Workout: Codable, Identifiable {
     let status: String
     
     enum CodingKeys: String, CodingKey {
-            case id
-            case userId = "user_id"
-            case title
-            case exercises
-            case createdAt = "created" // Changed from created_at to match database schema
-            case updatedAt = "modified" // Changed from updated_at to match database schema
-            case status
-        }
+        case id
+        case userId = "user_id"
+        case title
+        case exercises
+        case createdAt = "created" // Changed from created_at to match database schema
+        case updatedAt = "modified" // Changed from updated_at to match database schema
+        case status
+    }
     
     // Add initializer to support creating workout with exercises
     init(id: String, userId: String, title: String? = nil, exercises: [Exercise]? = nil, createdAt: Date, updatedAt: Date, status: String) {
@@ -66,7 +66,7 @@ struct Workout: Codable, Identifiable {
                 createdAt = Date()
             }
         }
-
+        
         let updatedAtString = try container.decode(String.self, forKey: .updatedAt)
         if let date = ISO8601DateFormatter().date(from: updatedAtString) {
             updatedAt = date
@@ -80,4 +80,5 @@ struct Workout: Codable, Identifiable {
                 updatedAt = Date()
             }
         }
+    }
 }
