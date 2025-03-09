@@ -26,14 +26,24 @@ class AuthViewModel: ObservableObject {
     
     func checkSession() {
         Task {
-            if let session = supabaseService.client.auth.session {
-                // First, convert UUID to String if needed
-                let userId = session.user.id is UUID ? (session.user.id as! UUID).uuidString : String(describing: session.user.id)
+            do {
+                // Get the current session
+                let authResponse = try await supabaseService.client.auth.session
+                guard let user = authResponse.user else {
+                    // No user in session
+                    await MainActor.run {
+                        self.isAuthenticated = false
+                    }
+                    return
+                }
                 
-                // Create User with the string ID
+                // Convert UUID to String explicitly
+                let userId = user.id.uuidString
+                
+                // Create a user model from the auth user
                 let appUser = User(
-                    id: userId,  // Use the string version
-                    email: session.user.email,
+                    id: user.id,
+                    email: user.email,
                     firstName: nil,
                     lastName: nil,
                     avatarUrl: nil
@@ -43,9 +53,14 @@ class AuthViewModel: ObservableObject {
                     self.currentUser = appUser
                     self.isAuthenticated = true
                 }
+            } catch {
+                print("Session check failed: \(error)")
+                await MainActor.run {
+                    self.isAuthenticated = false
+                    self.currentUser = nil
+                }
             }
         }
-    }
     }
     
     // Define this at the class level (outside of methods)
@@ -54,7 +69,7 @@ class AuthViewModel: ObservableObject {
         let first_name: String
         let last_name: String
     }
-
+    
     private func createUserProfile(userId: String, firstName: String, lastName: String) async throws {
         let profileData = ProfileData(
             user_id: userId,
@@ -95,21 +110,6 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
-    }
-
-    private func createUserProfile(userId: String, firstName: String, lastName: String) async throws {
-        // Use a struct that conforms to Encodable
-        let profileData = ProfileData(
-            user_id: userId,
-            first_name: firstName,
-            last_name: lastName
-        )
-        
-        // Capture the result with underscore to show it's intentionally unused
-        let _ = try await supabaseService.client
-            .from("profiles")
-            .insert(profileData)
-            .execute()
     }
     
     func signIn(email: String, password: String) {
@@ -162,3 +162,4 @@ class AuthViewModel: ObservableObject {
         // Placeholder for password reset functionality
         // Implement when adding this feature
     }
+}

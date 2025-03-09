@@ -10,7 +10,7 @@
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
-		E9177D702D722BE8005FEE6A /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6F2D722BE6005FEE6A /* JSONDecoder+Extensions.swift */; };
+		E9177D702D722BE8005FEE6A /* JSONDecoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6F2D722BE6005FEE6A /* JSONDecoders.swift */; };
 		E9177D742D722F32005FEE6A /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D732D722F32005FEE6A /* AuthError.swift */; };
 		E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2002D70C3F800C959C4 /* AppDelegate.swift */; };
 		E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */; };
@@ -88,7 +88,7 @@
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
-		E9177D6F2D722BE6005FEE6A /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
+		E9177D6F2D722BE6005FEE6A /* JSONDecoders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoders.swift; sourceTree = "<group>"; };
 		E9177D732D722F32005FEE6A /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		E940C2002D70C3F800C959C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E940C2012D70C3F800C959C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 		E940C2052D70C3F800C959C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E9177D6F2D722BE6005FEE6A /* JSONDecoder+Extensions.swift */,
+				E9177D6F2D722BE6005FEE6A /* JSONDecoders.swift */,
 				E940C28D2D70D20500C959C4 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
@@ -749,7 +749,7 @@
 				E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */,
 				E9177D742D722F32005FEE6A /* AuthError.swift in Sources */,
 				E940C25D2D70C3F800C959C4 /* WorkoutExerciseDetails.swift in Sources */,
-				E9177D702D722BE8005FEE6A /* JSONDecoder+Extensions.swift in Sources */,
+				E9177D702D722BE8005FEE6A /* JSONDecoders.swift in Sources */,
 				E940C2802D70C8F000C959C4 /* SupabaseManager.swift in Sources */,
 				E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */,
 				E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */,
