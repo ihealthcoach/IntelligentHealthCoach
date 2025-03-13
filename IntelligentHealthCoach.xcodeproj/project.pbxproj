@@ -12,6 +12,9 @@
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
 		E9177D702D722BE8005FEE6A /* JSONDecoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6F2D722BE6005FEE6A /* JSONDecoders.swift */; };
 		E9177D742D722F32005FEE6A /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D732D722F32005FEE6A /* AuthError.swift */; };
+		E92A97B72D82026B0023F808 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A97B62D8202630023F808 /* LoadingView.swift */; };
+		E92A97B92D8203590023F808 /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A97B82D8203580023F808 /* ExerciseDetailView.swift */; };
+		E92A97BB2D8203DA0023F808 /* WorkoutTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A97BA2D8203D90023F808 /* WorkoutTrackingView.swift */; };
 		E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2002D70C3F800C959C4 /* AppDelegate.swift */; };
 		E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */; };
 		E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */; };
@@ -65,6 +68,7 @@
 		E97F15C92D70683200153EA8 /* IntelligentHealthCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15C82D70683200153EA8 /* IntelligentHealthCoachTests.swift */; };
 		E97F15D32D70683200153EA8 /* IntelligentHealthCoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */; };
 		E97F15D52D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */; };
+		E991DDD42D834793002B3287 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991DDD32D834793002B3287 /* SwiftUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +94,9 @@
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
 		E9177D6F2D722BE6005FEE6A /* JSONDecoders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoders.swift; sourceTree = "<group>"; };
 		E9177D732D722F32005FEE6A /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		E92A97B62D8202630023F808 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E92A97B82D8203580023F808 /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
+		E92A97BA2D8203D90023F808 /* WorkoutTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTrackingView.swift; sourceTree = "<group>"; };
 		E940C2002D70C3F800C959C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E940C2012D70C3F800C959C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E940C2022D70C3F800C959C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,6 +148,7 @@
 		E97F15CE2D70683200153EA8 /* IntelligentHealthCoachUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelligentHealthCoachUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITests.swift; sourceTree = "<group>"; };
 		E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E991DDD32D834793002B3287 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -320,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				E940C21B2D70C3F800C959C4 /* DashboardView.swift */,
+				E991DDD32D834793002B3287 /* SwiftUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -434,6 +443,8 @@
 		E940C2382D70C3F800C959C4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E92A97BA2D8203D90023F808 /* WorkoutTrackingView.swift */,
+				E92A97B82D8203580023F808 /* ExerciseDetailView.swift */,
 				E940C2352D70C3F800C959C4 /* Components */,
 				E940C2362D70C3F800C959C4 /* ExerciseLibraryView.swift */,
 				E940C2372D70C3F800C959C4 /* WorkoutsView.swift */,
@@ -474,6 +485,7 @@
 		E940C2432D70C3F800C959C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E92A97B62D8202630023F808 /* LoadingView.swift */,
 				E940C23D2D70C3F800C959C4 /* Badge.swift */,
 				E940C23E2D70C3F800C959C4 /* ButtonStyle.swift */,
 				E940C23F2D70C3F800C959C4 /* CardView.swift */,
@@ -727,6 +739,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */,
+				E92A97B92D8203590023F808 /* ExerciseDetailView.swift in Sources */,
 				E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */,
 				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
 				E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */,
@@ -738,6 +751,7 @@
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
 				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
 				E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */,
+				E991DDD42D834793002B3287 /* SwiftUIView.swift in Sources */,
 				E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */,
 				E940C2552D70C3F800C959C4 /* SupabaseService.swift in Sources */,
 				E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */,
@@ -751,6 +765,7 @@
 				E940C25D2D70C3F800C959C4 /* WorkoutExerciseDetails.swift in Sources */,
 				E9177D702D722BE8005FEE6A /* JSONDecoders.swift in Sources */,
 				E940C2802D70C8F000C959C4 /* SupabaseManager.swift in Sources */,
+				E92A97B72D82026B0023F808 /* LoadingView.swift in Sources */,
 				E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */,
 				E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */,
 				E940C2602D70C3F800C959C4 /* CardView.swift in Sources */,
@@ -769,6 +784,7 @@
 				E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */,
 				E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */,
 				E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */,
+				E92A97BB2D8203DA0023F808 /* WorkoutTrackingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1015,6 +1031,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1226,6 +1243,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = casperbroe.IntelligentHealthCoach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

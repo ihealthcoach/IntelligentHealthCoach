@@ -7,12 +7,14 @@
 
 
 // IntelligentHealthCoach/Core/Models/User.swift
+import Foundation
+
 struct User: Codable, Identifiable {
-    let id: String
+    let id: UUID
     let email: String?
-    let firstName: String?
-    let lastName: String?
-    let avatarUrl: String?
+    var firstName: String?
+    var lastName: String?
+    var avatarUrl: String?
     
     // First initializer from AuthUser
     init(from authUser: AuthUser) {
@@ -24,8 +26,17 @@ struct User: Codable, Identifiable {
     }
     
     // Second initializer with all properties
-    init(id: String, email: String?, firstName: String?, lastName: String?, avatarUrl: String?) {
+    init(id: UUID, email: String?, firstName: String?, lastName: String?, avatarUrl: String?) {
         self.id = id
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.avatarUrl = avatarUrl
+    }
+    
+    // String ID initializer for convenience
+    init(id: String, email: String?, firstName: String?, lastName: String?, avatarUrl: String?) {
+        self.id = UUID(uuidString: id) ?? UUID()
         self.email = email
         self.firstName = firstName
         self.lastName = lastName

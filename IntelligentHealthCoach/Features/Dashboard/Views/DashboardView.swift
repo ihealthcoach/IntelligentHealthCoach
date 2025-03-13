@@ -12,7 +12,7 @@ import Kingfisher
 
 struct DashboardView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @StateObject var workoutViewModel = WorkoutViewModel()
+    @StateObject var viewModel = DashboardViewModel()
     
     @State private var selectedTab = 0
     
@@ -24,7 +24,7 @@ struct DashboardView: View {
                 }
                 .tag(0)
             
-            workoutsView
+            WorkoutsView()
                 .tabItem {
                     Label("Workouts", systemImage: "dumbbell.fill")
                 }
@@ -36,14 +36,15 @@ struct DashboardView: View {
                 }
                 .tag(2)
             
-            profileView
+            ProfileView()
+                .environmentObject(authViewModel)
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
                 .tag(3)
         }
         .onAppear {
-            workoutViewModel.fetchWorkouts()
+            viewModel.loadData()
         }
     }
     
@@ -54,7 +55,7 @@ struct DashboardView: View {
                     // Header
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Good Morning")
+                            Text(viewModel.greeting)
                                 .font(.system(size: 24, weight: .light))
                             
                             Text(authViewModel.currentUser?.firstName ?? "User")
@@ -77,11 +78,24 @@ struct DashboardView: View {
                             Button(action: {
                                 selectedTab = 3 // Switch to profile tab
                             }) {
-                                Image("avatar")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
+                                if let avatarUrl = authViewModel.currentUser?.avatarUrl, !avatarUrl.isEmpty {
+                                    KFImage(URL(string: avatarUrl))
+                                        .placeholder {
+                                            Image(systemName: "person.circle.fill")
+                                                .resizable()
+                                                .foregroundColor(.gray)
+                                        }
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 40, height: 40)
+                                        .clipShape(Circle())
+                                } else {
+                                    Image(systemName: "person.circle.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
                     }
@@ -90,15 +104,14 @@ struct DashboardView: View {
                     // Goal badges
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            Badge(text: "Muscle building", hasBorder: true)
-                            Badge(text: "3 meals", hasBorder: true)
-                            Badge(text: "12 weeks", hasBorder: true)
-                            Badge(text: "Vegan", hasBorder: true)
+                            ForEach(viewModel.goals, id: \.self) { goal in
+                                Badge(text: goal, hasBorder: true)
+                            }
                         }
                         .padding(.horizontal)
                     }
                     
-                    Text("Great start of the day, a little more to reach today's goals")
+                    Text(viewModel.progressMessage)
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
                         .padding(.horizontal)
@@ -114,19 +127,23 @@ struct DashboardView: View {
                             
                             Spacer()
                             
-                            Text("Edit goals")
-                                .font(.system(size: 16, weight: .medium))
-                            
-                            Image(systemName: "arrow.right")
-                                .font(.system(size: 14))
+                            Button(action: {}) {
+                                HStack {
+                                    Text("Edit goals")
+                                        .font(.system(size: 16, weight: .medium))
+                                    
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 14))
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                         
                         // Goal cards grid
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                            goalCard(title: "Calories", value: "1,500", unit: "kcal", goal: "2,500", icon: "flame.fill", color: .orange.opacity(0.2))
-                            goalCard(title: "Active time", value: "60", unit: "min", goal: "120", icon: "clock.fill", color: .green.opacity(0.2))
-                            goalCard(title: "Steps", value: "3,500", unit: "steps", goal: "10,000", icon: "figure.walk", color: .blue.opacity(0.2))
-                            goalCard(title: "Distance", value: "9.4", unit: "km", goal: "10.00", icon: "mappin", color: .purple.opacity(0.2))
+                            ForEach(viewModel.todayGoals) { goal in
+                                goalCard(goal: goal)
+                            }
                         }
                         .padding(.horizontal)
                     }
@@ -150,7 +167,9 @@ struct DashboardView: View {
                     .padding(.horizontal)
                     
                     // Today's activities
-                    todayActivitiesSection
+                    if !viewModel.activities.isEmpty {
+                        todayActivitiesSection
+                    }
                     
                     // Add widget
                     Button(action: {}) {
@@ -179,29 +198,36 @@ struct DashboardView: View {
             }
             .navigationBarHidden(true)
             .background(Color.gray.opacity(0.05))
+            .loadingOverlay(isLoading: viewModel.isLoading, message: "Loading your dashboard...")
+            .refreshable {
+                await viewModel.refreshData()
+            }
         }
     }
     
-    func goalCard(title: String, value: String, unit: String, goal: String, icon: String, color: Color) -> some View {
+    func goalCard(goal: TodayGoal) -> some View {
         VStack(alignment: .leading, spacing: 5) {
-            Image(systemName: icon)
+            Image(systemName: goal.icon)
                 .font(.system(size: 16))
             
-            Text(title)
+            Text(goal.title)
                 .font(.system(size: 14, weight: .semibold))
             
-            Text("\(value) \(unit)")
+            Text("\(goal.currentValue) \(goal.unit)")
                 .font(.system(size: 20, weight: .medium))
             
             HStack {
-                Spacer()
-                Text("/\(goal)")
+                // Progress bar
+                ProgressBar(progress: goal.progress, color: goal.color.opacity(0.8))
+                    .frame(height: 6)
+                
+                Text("/\(goal.targetValue)")
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.gray)
             }
         }
         .padding()
-        .background(color)
+        .background(goal.color.opacity(0.2))
         .cornerRadius(12)
     }
     
@@ -227,23 +253,9 @@ struct DashboardView: View {
             .padding(.horizontal)
             
             VStack(spacing: 15) {
-                activityCard(
-                    type: "Running",
-                    stats: [
-                        ("40 min 17 sec", "clock"),
-                        ("140 kcal", "flame.fill"),
-                        ("4.2 km", "mappin")
-                    ]
-                )
-                
-                activityCard(
-                    type: "Gym",
-                    stats: [
-                        ("1 hour 15 min", "clock"),
-                        ("812 kcal", "flame.fill"),
-                        ("8 exercises", "dumbbell.fill")
-                    ]
-                )
+                ForEach(viewModel.activities) { activity in
+                    activityCard(activity: activity)
+                }
             }
             .padding()
             .background(Color.white)
@@ -252,14 +264,18 @@ struct DashboardView: View {
         }
     }
     
-    func activityCard(type: String, stats: [(String, String)]) -> some View {
+    func activityCard(activity: Activity) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(type)
+                Text(activity.type)
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.gray)
                 
                 Spacer()
+                
+                Text(activity.formattedTime)
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
                 
                 Image(systemName: "arrow.right")
                     .font(.system(size: 16))
@@ -267,17 +283,17 @@ struct DashboardView: View {
             }
             
             HStack {
-                ForEach(stats.indices, id: \.self) { index in
+                ForEach(activity.stats.indices, id: \.self) { index in
                     if index > 0 {
                         Divider()
                             .frame(height: 30)
                     }
                     
                     VStack(spacing: 5) {
-                        Image(systemName: stats[index].1)
+                        Image(systemName: activity.stats[index].1)
                             .font(.system(size: 18))
                         
-                        Text(stats[index].0)
+                        Text(activity.stats[index].0)
                             .font(.system(size: 12, weight: .semibold))
                     }
                     .frame(maxWidth: .infinity)
@@ -285,194 +301,11 @@ struct DashboardView: View {
             }
         }
     }
-    
-    var workoutsView: some View {
-        NavigationView {
-            VStack {
-                if workoutViewModel.isLoading {
-                    ProgressView()
-                } else if let error = workoutViewModel.errorMessage {
-                    Text("Error: \(error)")
-                        .foregroundColor(.red)
-                } else {
-                    workoutOptionsView
-                }
-            }
-            .navigationTitle("Workouts")
-        }
-    }
-    
-    var workoutOptionsView: some View {
-        VStack(spacing: 16) {
-            Button("Track a workout") {
-                // Navigate to choose workout flow
-            }
-            .buttonStyle(PrimaryButtonStyle())
-            .padding(.horizontal)
-            
-            Button("Workout history") {
-                // Navigate to workout history
-            }
-            .buttonStyle(SecondaryButtonStyle())
-            .padding(.horizontal)
-            
-            Button("My workout templates") {
-                // Navigate to workout templates
-            }
-            .buttonStyle(SecondaryButtonStyle())
-            .padding(.horizontal)
-            
-            Button("Find a workout") {
-                // Navigate to workout finder
-            }
-            .buttonStyle(SecondaryButtonStyle())
-            .padding(.horizontal)
-            
-            Spacer()
-        }
-        .padding(.top)
-    }
-    
-    var profileView: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 20) {
-                    HStack {
-                        Button(action: {
-                            // Go back to dashboard
-                            selectedTab = 0
-                        }) {
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.primary)
-                                .padding()
-                        }
-                        
-                        Spacer()
-                        
-                        HStack(spacing: 15) {
-                            Button(action: {}) {
-                                Image(systemName: "bell")
-                                    .font(.system(size: 20))
-                            }
-                            
-                            Button(action: {}) {
-                                Image(systemName: "message")
-                                    .font(.system(size: 20))
-                            }
-                            
-                            Image("avatar")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 40, height: 40)
-                                .clipShape(Circle())
-                        }
-                    }
-                    .padding(.horizontal)
-                    
-                    // Settings sections
-                    settingsSection(title: "Account", options: accountOptions)
-                    settingsSection(title: "Workout", options: workoutOptions)
-                    settingsSection(title: "More", options: moreOptions)
-                    
-                    // Sign out button
-                    Button("Sign Out") {
-                        authViewModel.signOut()
-                    }
-                    .buttonStyle(SecondaryButtonStyle())
-                    .padding(.horizontal)
-                    .padding(.bottom, 50)
-                }
-            }
-            .navigationBarHidden(true)
-        }
-    }
-    
-    func settingsSection(title: String, options: [SettingOption]) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.system(size: 24, weight: .semibold))
-                .padding(.horizontal)
-            
-            VStack(spacing: 0) {
-                ForEach(options) { option in
-                    HStack {
-                        HStack {
-                            Image(systemName: option.iconName)
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(.primary)
-                            
-                            Text(option.title)
-                                .font(.system(size: 16, weight: .medium))
-                        }
-                        
-                        Spacer()
-                        
-                        if let value = option.value {
-                            Text(value)
-                                .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.gray)
-                        }
-                        
-                        if option.hasToggle {
-                            Toggle("", isOn: .constant(false))
-                                .labelsHidden()
-                        } else {
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 12)
-                    
-                    if options.last?.id != option.id {
-                        Divider()
-                            .padding(.leading)
-                    }
-                }
-            }
-            .background(Color.white)
-            .cornerRadius(12)
-            .padding(.horizontal)
-        }
-    }
-    
-    // Setting option definitions
-    var accountOptions: [SettingOption] = [
-        SettingOption(id: 1, title: "Profile", iconName: "person"),
-        SettingOption(id: 2, title: "Questionnaire", iconName: "list.clipboard"),
-        SettingOption(id: 3, title: "Password", iconName: "lock"),
-        SettingOption(id: 4, title: "Language", iconName: "globe", value: "English"),
-        SettingOption(id: 5, title: "Notifications", iconName: "bell"),
-        SettingOption(id: 6, title: "Subscription", iconName: "checkmark.seal", value: "Free"),
-        SettingOption(id: 7, title: "Payment method", iconName: "creditcard", value: "Credit card"),
-        SettingOption(id: 8, title: "Face ID", iconName: "faceid", hasToggle: true)
-    ]
-    
-    var workoutOptions: [SettingOption] = [
-        SettingOption(id: 1, title: "Preferred units", iconName: "ruler", value: "Metric/kg"),
-        SettingOption(id: 2, title: "Rest timer", iconName: "timer", value: "45 sec"),
-        SettingOption(id: 3, title: "Export workout data", iconName: "square.and.arrow.up")
-    ]
-    
-    var moreOptions: [SettingOption] = [
-        SettingOption(id: 1, title: "Dark mode", iconName: "moon", hasToggle: true),
-        SettingOption(id: 2, title: "Integrations", iconName: "arrow.left.arrow.right"),
-        SettingOption(id: 3, title: "Rate & review", iconName: "star"),
-        SettingOption(id: 4, title: "Restore purchase", iconName: "arrow.clockwise.circle"),
-        SettingOption(id: 5, title: "Help & support", iconName: "questionmark.circle")
-    ]
 }
 
-struct SettingOption: Identifiable {
-    var id: Int
-    var title: String
-    var iconName: String
-    var value: String? = nil
-    var hasToggle: Bool = false
-}
-
-// Preview
-#Preview {
-    DashboardView()
-        .environmentObject(AuthViewModel.preview)
+struct DashboardView_Previews: PreviewProvider {
+    static var previews: some View {
+        DashboardView()
+            .environmentObject(AuthViewModel.preview)
+    }
 }

@@ -47,22 +47,66 @@ class SupabaseService: SupabaseServiceProtocol {
             password: password
         )
         
-        // Create a proper reference to the user in the response
-        let responseUser = response.user
+        guard let authUser = response.user else {
+            throw AuthError.signUpFailed
+        }
         
-        // Now you can use responseUser
-        let authUser = AuthUser(
-            id: responseUser.id,
-            email: responseUser.email,
-            aud: responseUser.aud ?? "authenticated",
-            role: responseUser.role
+        return User(
+            id: authUser.id,
+            email: authUser.email,
+            firstName: nil,
+            lastName: nil,
+            avatarUrl: nil
+        )
+    }
+    
+    func signIn(email: String, password: String) async throws -> User {
+        let response = try await client.auth.signIn(
+            email: email,
+            password: password
         )
         
-        return User(from: authUser)
+        guard let authUser = response.user else {
+            throw AuthError.signInFailed
+        }
+        
+        return User(
+            id: authUser.id,
+            email: authUser.email,
+            firstName: nil,
+            lastName: nil,
+            avatarUrl: nil
+        )
+    }
+    
+    func resetPassword(email: String) async throws {
+        try await client.auth.resetPasswordForEmail(email)
     }
     
     func signOut() async throws {
         try await client.auth.signOut()
+    }
+    
+    // MARK: - Profile Management
+    
+    func updateProfile(userId: String, data: [String: Any]) async throws {
+        let _ = try await client
+            .from("profiles")
+            .update(data)
+            .eq("user_id", value: userId)
+            .execute()
+    }
+    
+    func fetchProfile(userId: String) async throws -> UserProfile? {
+        let response = try await client
+            .from("profiles")
+            .select()
+            .eq("user_id", value: userId)
+            .single()
+            .execute()
+        
+        let profileData = response.data
+        return try JSONDecoder.supabaseDecoder().decode(UserProfile.self, from: profileData)
     }
     
     // MARK: - Data operations

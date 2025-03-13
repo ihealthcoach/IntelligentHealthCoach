@@ -7,7 +7,10 @@ protocol SupabaseServiceProtocol {
     
     func signUp(email: String, password: String) async throws -> User
     func signIn(email: String, password: String) async throws -> User
+    func resetPassword(email: String) async throws
     func signOut() async throws
+    func updateProfile(userId: String, data: [String: Any]) async throws
+    func fetchProfile(userId: String) async throws -> UserProfile?
     func fetchWorkouts() async throws -> [Workout]
     func fetchExercises() async throws -> [Exercise]
     func fetchSets(for workoutExerciseDetailsId: String) async throws -> [WorkoutSet]

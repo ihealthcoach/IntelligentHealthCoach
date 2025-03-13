@@ -5,6 +5,7 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
+// DashboardViewModel.swift
 import SwiftUI
 import Combine
 
@@ -35,7 +36,6 @@ class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    // Rest of the class remains unchanged
     private func setupGreeting() {
         let hour = Calendar.current.component(.hour, from: Date())
         
@@ -58,7 +58,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "2,500",
                 unit: "kcal",
                 icon: "flame.fill",
-                color: .orange.opacity(0.2)
+                color: .orange
             ),
             TodayGoal(
                 title: "Active time",
@@ -66,7 +66,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "120",
                 unit: "min",
                 icon: "clock.fill",
-                color: .green.opacity(0.2)
+                color: .green
             ),
             TodayGoal(
                 title: "Steps",
@@ -74,7 +74,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "10,000",
                 unit: "steps",
                 icon: "figure.walk",
-                color: .blue.opacity(0.2)
+                color: .blue
             ),
             TodayGoal(
                 title: "Distance",
@@ -82,7 +82,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "10.00",
                 unit: "km",
                 icon: "mappin",
-                color: .purple.opacity(0.2)
+                color: .purple
             )
         ]
         
@@ -112,9 +112,24 @@ class DashboardViewModel: ObservableObject {
     func loadData() {
         isLoading = true
         
-        // Simulate network request
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.isLoading = false
+        // In a real app, you'd fetch this data from your API
+        Task {
+            do {
+                // Simulate network delay for demonstration purposes
+                try await Task.sleep(nanoseconds: 1_500_000_000)
+                
+                // In the future, you can replace this with real data fetching from Supabase
+                // For now, we're using mock data
+                
+                await MainActor.run {
+                    self.isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    print("Error loading data: \(error)")
+                    self.isLoading = false
+                }
+            }
         }
     }
     
@@ -126,32 +141,6 @@ class DashboardViewModel: ObservableObject {
         await MainActor.run {
             // Potentially update data based on API response
             self.updateProgressMessage()
-        }
-        
-        func testSupabaseConnection() {
-            isLoading = true
-            
-            Task {
-                do {
-                    // Try a simple query
-                    let response = try await supabaseService.client
-                        .from("workouts")
-                        .select()
-                        .limit(1)
-                        .execute()
-                    
-                    await MainActor.run {
-                        print("✅ Supabase connection successful!")
-                        print("Response: \(response)")
-                        isLoading = false
-                    }
-                } catch {
-                    await MainActor.run {
-                        print("❌ Supabase connection failed with error: \(error)")
-                        isLoading = false
-                    }
-                }
-            }
         }
     }
     
@@ -167,6 +156,33 @@ class DashboardViewModel: ObservableObject {
             progressMessage = "Almost there! Just a few more goals to complete"
         } else {
             progressMessage = "Amazing! You've completed all your goals for today"
+        }
+    }
+    
+    // Function to test Supabase connection (for debugging)
+    func testSupabaseConnection() {
+        isLoading = true
+        
+        Task {
+            do {
+                // Try a simple query
+                let response = try await supabaseService.client
+                    .from("workouts")
+                    .select()
+                    .limit(1)
+                    .execute()
+                
+                await MainActor.run {
+                    print("✅ Supabase connection successful!")
+                    print("Response: \(response)")
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    print("❌ Supabase connection failed with error: \(error)")
+                    isLoading = false
+                }
+            }
         }
     }
 }

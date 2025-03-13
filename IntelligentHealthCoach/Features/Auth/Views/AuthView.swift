@@ -6,7 +6,7 @@
 //
 
 
-// AuthView.swift
+//  AuthView.swift
 import SwiftUI
 
 struct AuthView: View {
@@ -165,6 +165,7 @@ struct AuthView: View {
                                 .foregroundColor(.red)
                                 .font(.system(size: 14))
                                 .padding(.horizontal, 8)
+                                .multilineTextAlignment(.center)
                         }
                         
                         // Sign In / Sign Up Button
@@ -205,6 +206,17 @@ struct AuthView: View {
                             withAnimation {
                                 isSignUp.toggle()
                                 authViewModel.errorMessage = nil
+                                
+                                // Clear fields when switching modes
+                                if isSignUp {
+                                    password = ""
+                                    confirmPassword = ""
+                                } else {
+                                    password = ""
+                                    confirmPassword = ""
+                                    firstName = ""
+                                    lastName = ""
+                                }
                             }
                         }) {
                             HStack {
@@ -226,17 +238,60 @@ struct AuthView: View {
                 }
                 .padding(.horizontal)
             }
-            .alert(isPresented: $showForgotPassword) {
-                Alert(
-                    title: Text("Reset Password"),
-                    message: Text("Enter your email address to receive a password reset link."),
-                    primaryButton: .default(Text("Reset")) {
-                        if !email.isEmpty {
-                            authViewModel.resetPassword(email: email)
+            .alert("Reset Password", isPresented: $showForgotPassword) {
+                VStack {
+                    TextField("Enter your email", text: $email)
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                    
+                    HStack {
+                        Button("Cancel", role: .cancel) { }
+                        
+                        Button("Reset") {
+                            if isValidEmail(email) {
+                                authViewModel.resetPassword(email: email)
+                            }
                         }
-                    },
-                    secondaryButton: .cancel()
-                )
+                    }
+                }
+            } message: {
+                Text("Enter your email address to receive a password reset link.")
+            }
+            
+            // Password reset confirmation
+            if authViewModel.passwordResetSent {
+                VStack {
+                    Spacer()
+                    
+                    VStack(spacing: 20) {
+                        Image(systemName: "envelope.circle.fill")
+                            .font(.system(size: 50))
+                            .foregroundColor(.green)
+                        
+                        Text("Password Reset Email Sent")
+                            .font(.headline)
+                        
+                        Text("Please check your email inbox for instructions to reset your password.")
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
+                        Button("OK") {
+                            authViewModel.passwordResetSent = false
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .padding(.horizontal, 40)
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(15)
+                    .shadow(radius: 10)
+                    .padding()
+                    
+                    Spacer()
+                }
+                .background(Color.black.opacity(0.4).ignoresSafeArea())
+                .transition(.opacity)
+                .zIndex(1)
             }
         }
     }
@@ -272,24 +327,29 @@ struct AuthView: View {
     
     // Validation for sign up
     func validateSignUp() -> Bool {
-        if email.isEmpty || password.isEmpty || confirmPassword.isEmpty {
-            authViewModel.errorMessage = "Please fill in all required fields."
-            return false
-        }
-        
-        if !isValidEmail(email) {
+        // Validate email
+        if email.isEmpty || !isValidEmail(email) {
             authViewModel.errorMessage = "Please enter a valid email address."
             return false
         }
         
-        if password.count < 6 {
+        // Validate password
+        if password.isEmpty || password.count < 6 {
             authViewModel.errorMessage = "Password must be at least 6 characters."
             return false
         }
         
+        // Validate password match
         if password != confirmPassword {
             authViewModel.errorMessage = "Passwords do not match."
             return false
+        }
+        
+        // First and last name are optional but recommended
+        if firstName.isEmpty && lastName.isEmpty {
+            // Show a warning but allow to proceed
+            authViewModel.errorMessage = "Adding your name is recommended but optional."
+            return true
         }
         
         return true
@@ -301,9 +361,11 @@ struct AuthView: View {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
-    
-    // Preview
-    #Preview {
+}
+
+// Preview
+struct AuthView_Previews: PreviewProvider {
+    static var previews: some View {
         AuthView()
             .environmentObject(AuthViewModel.unauthenticated)
     }
