@@ -53,4 +53,16 @@ struct WorkoutSet: Codable, Identifiable {
             updatedAt = Date()
         }
     }
+    
+    // Add this initializer to WorkoutSet struct
+    init(id: String, workoutExerciseDetailsId: String, weight: Double, type: String, reps: Int, completed: Bool, createdAt: Date, updatedAt: Date) {
+        self.id = id
+        self.workoutExerciseDetailsId = workoutExerciseDetailsId
+        self.weight = weight
+        self.type = type
+        self.reps = reps
+        self.completed = completed
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+    }
 }

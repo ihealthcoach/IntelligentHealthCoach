@@ -15,6 +15,8 @@ struct ExerciseLibraryView: View {
     @State private var selectedCategory = "A-Z"
     @State private var showingFilters = false
     
+    var selectionMode: Bool = false
+    var onExerciseSelected: ((Exercise) -> Void)? = nil
     let categories = ["A-Z", "Recent", "Favorites", "My workouts"]
     
     var body: some View {
@@ -104,8 +106,16 @@ struct ExerciseLibraryView: View {
                                     .listRowInsets(EdgeInsets())
                                 ) {
                                     ForEach(viewModel.exerciseGroups[key] ?? [], id: \.id) { exercise in
-                                        NavigationLink(destination: ExerciseDetailView(exercise: exercise)) {
-                                            ExerciseRow(exercise: exercise)
+                                        if selectionMode {
+                                            Button(action: {
+                                                onExerciseSelected?(exercise)
+                                            }) {
+                                                ExerciseRow(exercise: exercise)
+                                            }
+                                        } else {
+                                            NavigationLink(destination: ExerciseDetailView(exercise: exercise)) {
+                                                ExerciseRow(exercise: exercise)
+                                            }
                                         }
                                     }
                                 }
@@ -424,8 +434,8 @@ struct ExerciseDetailView: View {
             }
         }
         .navigationBarItems(
-            leading: NavigationLink(destination: EmptyView()) {
-                Image(systemName: "arrow.left")
+            leading: NavigationLink(destination: ExerciseDetailView(exercise: exercise)) {
+                ExerciseRow(exercise: exercise)
             },
             trailing: HStack {
                 Button(action: {}) {

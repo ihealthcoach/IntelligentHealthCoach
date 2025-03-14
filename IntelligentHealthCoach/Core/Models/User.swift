@@ -18,7 +18,11 @@ struct User: Codable, Identifiable {
     
     // First initializer from AuthUser
     init(from authUser: AuthUser) {
-        self.id = authUser.id
+        if let uuid = UUID(uuidString: authUser.id) {
+            self.id = uuid
+        } else {
+            self.id = UUID()
+        }
         self.email = authUser.email
         self.firstName = nil
         self.lastName = nil
@@ -36,7 +40,11 @@ struct User: Codable, Identifiable {
     
     // String ID initializer for convenience
     init(id: String, email: String?, firstName: String?, lastName: String?, avatarUrl: String?) {
-        self.id = UUID(uuidString: id) ?? UUID()
+        if let uuid = UUID(uuidString: id) {
+            self.id = uuid
+        } else {
+            self.id = UUID()
+        }
         self.email = email
         self.firstName = firstName
         self.lastName = lastName

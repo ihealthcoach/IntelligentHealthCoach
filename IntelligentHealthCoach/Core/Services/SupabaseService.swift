@@ -90,9 +90,10 @@ class SupabaseService: SupabaseServiceProtocol {
     // MARK: - Profile Management
     
     func updateProfile(userId: String, data: [String: Any]) async throws {
+        let updateData = ProfileUpdateData(data: data)
         let _ = try await client
             .from("profiles")
-            .update(data)
+            .update(updateData)
             .eq("user_id", value: userId)
             .execute()
     }
@@ -181,21 +182,48 @@ class SupabaseService: SupabaseServiceProtocol {
     }
     
     func updateSet(id: String, data: [String: Any]) async throws {
+        let updateData = WorkoutSetUpdateData(data: data)
         let _ = try await client
             .from("workout_sets")
-            .update(data)
+            .update(updateData)
             .eq("id", value: id)
             .execute()
     }
     
     // MARK: - Helper methods
     
-    private func decodeResponse<T: Decodable>(_ response: PostgrestResponse) throws -> T {
+    private func decodeResponse<T: Decodable>(_ response: PostgrestResponse<T>) throws -> T {
         // Use different decoders based on the type
         if T.self == [Workout].self || T.self == Workout.self {
             return try JSONDecoder.workoutsDecoder().decode(T.self, from: response.data)
         } else {
             return try JSONDecoder.supabaseDecoder().decode(T.self, from: response.data)
+        }
+    }
+    
+    struct ProfileUpdateData: Encodable {
+        var firstName: String?
+        var lastName: String?
+        var avatarUrl: String?
+        // Add more fields as needed
+        
+        init(data: [String: Any]) {
+            self.firstName = data["first_name"] as? String
+            self.lastName = data["last_name"] as? String
+            self.avatarUrl = data["avatar_url"] as? String
+            // Initialize other fields as needed
+        }
+    }
+
+    struct WorkoutSetUpdateData: Encodable {
+        var weight: Double?
+        var reps: Int?
+        var completed: Bool?
+        
+        init(data: [String: Any]) {
+            self.weight = data["weight"] as? Double
+            self.reps = data["reps"] as? Int
+            self.completed = data["completed"] as? Bool
         }
     }
 }

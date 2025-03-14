@@ -69,6 +69,7 @@
 		E97F15D32D70683200153EA8 /* IntelligentHealthCoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */; };
 		E97F15D52D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */; };
 		E991DDD42D834793002B3287 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991DDD32D834793002B3287 /* SwiftUIView.swift */; };
+		E991DE152D834D78002B3287 /* SettingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991DE142D834D77002B3287 /* SettingOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITests.swift; sourceTree = "<group>"; };
 		E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E991DDD32D834793002B3287 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		E991DE142D834D77002B3287 /* SettingOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -328,7 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				E940C21B2D70C3F800C959C4 /* DashboardView.swift */,
-				E991DDD32D834793002B3287 /* SwiftUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,6 +347,7 @@
 		E940C21E2D70C3F800C959C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E991DE142D834D77002B3287 /* SettingOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -569,6 +571,7 @@
 				E940C23C2D70C3F800C959C4 /* Preview Content */,
 				E940C24A2D70C3F800C959C4 /* UI */,
 				E97F15BD2D70683200153EA8 /* Preview Content */,
+				E991DDD32D834793002B3287 /* SwiftUIView.swift */,
 			);
 			path = IntelligentHealthCoach;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 				E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */,
 				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
 				E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */,
+				E991DE152D834D78002B3287 /* SettingOption.swift in Sources */,
 				E940C2862D70CB6D00C959C4 /* PreviewHelpers.swift in Sources */,
 				E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */,
 				E940C2502D70C3F800C959C4 /* WorkoutViewModel.swift in Sources */,

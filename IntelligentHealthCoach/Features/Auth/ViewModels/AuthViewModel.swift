@@ -34,7 +34,7 @@ class AuthViewModel: ObservableObject {
             do {
                 // Get the current session
                 let authResponse = try await supabaseService.client.auth.session
-                guard let user = authResponse.user else {
+                if authResponse.user == nil {
                     // No user in session
                     await MainActor.run {
                         self.isAuthenticated = false
@@ -42,6 +42,8 @@ class AuthViewModel: ObservableObject {
                     }
                     return
                 }
+
+                let user = authResponse.user
                 
                 // Create a user model from the auth user
                 let appUser = User(
