@@ -43,7 +43,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     private func setupServices() {
         // Initialize any required background services
+        
+        // Initialize Supabase in a safer way
         SupabaseManager.shared.initialize()
+        
+        // Configure cache manager
         CacheManager.shared.configure()
+        
+        print("Services initialized successfully")
     }
 }

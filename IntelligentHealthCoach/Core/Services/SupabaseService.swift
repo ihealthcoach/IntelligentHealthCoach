@@ -33,8 +33,12 @@ class SupabaseService: SupabaseServiceProtocol {
         self.supabaseKey = supabaseKey
         
         // Initialize Supabase client
+        guard let url = URL(string: supabaseURL) else {
+            fatalError("Invalid Supabase URL: \(supabaseURL)")
+        }
+
         self.client = SupabaseClient(
-            supabaseURL: URL(string: supabaseURL)!,
+            supabaseURL: url,
             supabaseKey: supabaseKey
         )
     }

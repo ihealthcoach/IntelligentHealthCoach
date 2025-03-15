@@ -390,8 +390,16 @@ class WorkoutTrackingViewModel: ObservableObject {
         
         Task {
             do {
-                // In a real implementation, you would load the workout's exercises and sets
-                // For now, we'll just set loading to false
+                // Make a throwing call to fetch data
+                // For example:
+                // let details = try await supabaseService.fetchWorkoutDetails(workoutId: workout.id)
+                
+                // Since we're just using mock data for now, we can comment out the throwing calls
+                // and just set loading to false
+                
+                // Simulate a delay
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                
                 await MainActor.run {
                     self.isLoading = false
                 }

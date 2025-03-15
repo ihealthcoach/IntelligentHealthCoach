@@ -38,10 +38,17 @@ class SupabaseManager {
         guard !isInitialized else { return }
         
         // Get configuration from Info.plist (which pulls from .xcconfig)
-        guard let supabaseURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String,
+        guard let supabaseURLString = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String,
               let supabaseKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String,
-              let url = URL(string: supabaseURL) else {
-            fatalError("Supabase URL or key not found in Info.plist. Check your .xcconfig file.")
+              !supabaseURLString.isEmpty, !supabaseKey.isEmpty else {
+            print("⚠️ WARNING: Supabase URL or key not found in Info.plist. Check your .xcconfig file.")
+            return
+        }
+        
+        // Safely create URL
+        guard let url = URL(string: supabaseURLString) else {
+            print("⚠️ WARNING: Invalid Supabase URL format: \(supabaseURLString)")
+            return
         }
         
         // Create the actual client using the Supabase SDK
@@ -52,10 +59,7 @@ class SupabaseManager {
         
         configureClient()
         
-        // Add somewhere in your initialization code
-        print("Storage client type: \(type(of: SupabaseManager.shared.client.storage))")
-        
-        print("SupabaseManager initialized successfully with URL: \(supabaseURL)")
+        print("SupabaseManager initialized successfully with URL: \(supabaseURLString)")
         
         // Set flag to prevent reinitialization
         isInitialized = true
