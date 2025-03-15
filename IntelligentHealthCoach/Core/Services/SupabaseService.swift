@@ -47,9 +47,8 @@ class SupabaseService: SupabaseServiceProtocol {
             password: password
         )
         
-        guard let authUser = response.user else {
-            throw AuthError.signUpFailed
-        }
+        // User is now non-optional
+        let authUser = response.user
         
         return User(
             id: authUser.id,
@@ -66,9 +65,8 @@ class SupabaseService: SupabaseServiceProtocol {
             password: password
         )
         
-        guard let authUser = response.user else {
-            throw AuthError.signInFailed
-        }
+        // User is now non-optional
+        let authUser = response.user
         
         return User(
             id: authUser.id,
@@ -119,7 +117,8 @@ class SupabaseService: SupabaseServiceProtocol {
             .order("created", ascending: false)
             .execute()
         
-        return try decodeResponse(response)
+        let decoder = JSONDecoder.workoutsDecoder()
+        return try decoder.decode([Workout].self, from: response.data)
     }
     
     func fetchExercises() async throws -> [Exercise] {
@@ -128,7 +127,8 @@ class SupabaseService: SupabaseServiceProtocol {
             .select()
             .execute()
         
-        return try decodeResponse(response)
+        let decoder = JSONDecoder.supabaseDecoder()
+        return try decoder.decode([Exercise].self, from: response.data)
     }
     
     func fetchSets(for workoutExerciseDetailsId: String) async throws -> [WorkoutSet] {
@@ -139,12 +139,13 @@ class SupabaseService: SupabaseServiceProtocol {
             .order("created_at", ascending: true)
             .execute()
         
-        return try decodeResponse(response)
+        let decoder = JSONDecoder.supabaseDecoder()
+        return try decoder.decode([WorkoutSet].self, from: response.data)
     }
     
     func createWorkout(_ workout: Workout) async throws -> Workout {
         // Create dictionary for insertion, using the correct field names
-        var workoutDict: [String: Any] = [
+        var workoutDict: [String: String] = [
             "id": workout.id,
             "user_id": workout.userId,
             "status": workout.status,
@@ -163,11 +164,12 @@ class SupabaseService: SupabaseServiceProtocol {
             .single()
             .execute()
         
-        return try decodeResponse(response)
+        let decoder = JSONDecoder.workoutsDecoder()
+        return try decoder.decode(Workout.self, from: response.data)
     }
     
     func createWorkoutExerciseDetails(workoutId: String, exerciseId: String) async throws -> WorkoutExerciseDetails {
-        let data = [
+        let data: [String: String] = [
             "workout_id": workoutId,
             "exercise_id": exerciseId
         ]
@@ -178,7 +180,8 @@ class SupabaseService: SupabaseServiceProtocol {
             .single()
             .execute()
         
-        return try decodeResponse(response)
+        let decoder = JSONDecoder.supabaseDecoder()
+        return try decoder.decode(WorkoutExerciseDetails.self, from: response.data)
     }
     
     func updateSet(id: String, data: [String: Any]) async throws {
@@ -190,17 +193,7 @@ class SupabaseService: SupabaseServiceProtocol {
             .execute()
     }
     
-    // MARK: - Helper methods
-    
-    private func decodeResponse<T: Decodable>(_ response: PostgrestResponse<T>) throws -> T {
-        // Use different decoders based on the type
-        if T.self == [Workout].self || T.self == Workout.self {
-            return try JSONDecoder.workoutsDecoder().decode(T.self, from: response.data)
-        } else {
-            return try JSONDecoder.supabaseDecoder().decode(T.self, from: response.data)
-        }
-    }
-    
+    // Data structures for updates
     struct ProfileUpdateData: Encodable {
         var firstName: String?
         var lastName: String?
@@ -214,7 +207,7 @@ class SupabaseService: SupabaseServiceProtocol {
             // Initialize other fields as needed
         }
     }
-
+    
     struct WorkoutSetUpdateData: Encodable {
         var weight: Double?
         var reps: Int?

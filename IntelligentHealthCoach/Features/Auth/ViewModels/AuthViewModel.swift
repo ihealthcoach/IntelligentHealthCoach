@@ -34,17 +34,9 @@ class AuthViewModel: ObservableObject {
             do {
                 // Get the current session
                 let authResponse = try await supabaseService.client.auth.session
-                if authResponse.user == nil {
-                    // No user in session
-                    await MainActor.run {
-                        self.isAuthenticated = false
-                        self.isLoading = false
-                    }
-                    return
-                }
-
+                // User is now non-optional, so we can directly use it
                 let user = authResponse.user
-                
+
                 // Create a user model from the auth user
                 let appUser = User(
                     id: user.id,
@@ -132,9 +124,8 @@ class AuthViewModel: ObservableObject {
                     password: password
                 )
                 
-                guard let authUser = signUpResponse.user else {
-                    throw AuthError.signUpFailed
-                }
+                // User is now non-optional
+                let authUser = signUpResponse.user
                 
                 let user = User(
                     id: authUser.id,
@@ -176,9 +167,8 @@ class AuthViewModel: ObservableObject {
                     password: password
                 )
                 
-                guard let authUser = signInResponse.user else {
-                    throw AuthError.signInFailed
-                }
+                // User is now non-optional
+                let authUser = signInResponse.user
                 
                 let user = User(
                     id: authUser.id,

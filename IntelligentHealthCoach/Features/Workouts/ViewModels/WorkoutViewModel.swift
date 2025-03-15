@@ -56,15 +56,17 @@ class WorkoutViewModel: ObservableObject {
             }
             
             do {
+                // Get the auth session and user
                 let session = try await supabaseService.client.auth.session
-                guard let userId = session.user.id.uuidString else {
-                    throw AuthError.sessionExpired
-                }
+                // User is now non-optional
+                let user = session.user
+                
+                // Get the user ID as string
                 let userId = user.id.uuidString
                 
-                // Fix: Ensure we're using uuidString to convert UUID to String
+                // Create the new workout
                 let newWorkout = Workout(
-                    id: UUID().uuidString,  // This is already correct in your code
+                    id: UUID().uuidString,
                     userId: userId,
                     title: name,
                     exercises: [],
