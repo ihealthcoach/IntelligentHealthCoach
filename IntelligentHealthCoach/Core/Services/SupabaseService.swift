@@ -20,33 +20,6 @@ class SupabaseService: SupabaseServiceProtocol {
     
     // Make this a regular stored property
     private(set) var client: SupabaseClient
-  /*
-    private init() {
-        // Get these values from Info.plist which pulls from .xcconfig
-        guard let supabaseURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String,
-              let supabaseKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String,
-              let url = URL(string: supabaseURL) else {
-            // For safety, provide a sensible error message but don't crash in preview mode
-            print("⚠️ ERROR: Supabase URL or key not properly configured in Info.plist")
-            
-            // Create a placeholder client with a dummy URL to prevent crashes
-            let fallbackURL = URL(string: "https://placeholder.supabase.co")!
-            self.client = SupabaseClient(
-                supabaseURL: fallbackURL,
-                supabaseKey: "placeholder_key"
-            )
-            return
-        }
-        
-        // Initialize Supabase client
-        self.client = SupabaseClient(
-            supabaseURL: url,
-            supabaseKey: supabaseKey
-        )
-        
-        print("✅ Supabase client initialized with URL: \(url)")
-    }
-    */
     
     private init() {
         print("🔍 Beginning Supabase initialization...")
@@ -104,16 +77,12 @@ class SupabaseService: SupabaseServiceProtocol {
         print("✅ Validation successful, creating real Supabase client with URL: \(url)")
         
         // Initialize Supabase client
-        do {
-            self.client = SupabaseClient(
-                supabaseURL: url,
-                supabaseKey: supabaseKey
-            )
-            print("✅ Supabase client initialized successfully")
-        } catch {
-            print("❌ Error creating Supabase client: \(error)")
-            self.client = fallbackClient
-        }
+        self.client = SupabaseClient(
+            supabaseURL: url,
+            supabaseKey: supabaseKey
+        )
+        
+        print("✅ Supabase client initialized successfully")
     }
     
     // MARK: - Authentication
