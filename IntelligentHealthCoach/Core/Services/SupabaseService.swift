@@ -20,7 +20,7 @@ class SupabaseService: SupabaseServiceProtocol {
     
     // Make this a regular stored property
     private(set) var client: SupabaseClient
-    
+  /*
     private init() {
         // Get these values from Info.plist which pulls from .xcconfig
         guard let supabaseURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String,
@@ -45,6 +45,75 @@ class SupabaseService: SupabaseServiceProtocol {
         )
         
         print("✅ Supabase client initialized with URL: \(url)")
+    }
+    */
+    
+    private init() {
+        print("🔍 Beginning Supabase initialization...")
+        
+        // Print raw values from Info.plist for debugging
+        let rawURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String
+        let rawKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String
+        
+        print("📋 Raw SUPABASE_URL from Info.plist: \(rawURL ?? "nil")")
+        print("📋 Raw SUPABASE_ANON_KEY from Info.plist: \(rawKey?.prefix(10) ?? "nil")...")
+        
+        // Create fallback client for preview/development
+        let fallbackURL = URL(string: "https://example.supabase.co")!
+        let fallbackClient = SupabaseClient(
+            supabaseURL: fallbackURL,
+            supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.fallback.key"
+        )
+        
+        // Get and validate URL value
+        guard let supabaseURLString = rawURL,
+              !supabaseURLString.isEmpty else {
+            print("❌ SUPABASE_URL is missing or empty")
+            self.client = fallbackClient
+            return
+        }
+        
+        // Parse URL and validate
+        guard let url = URL(string: supabaseURLString) else {
+            print("❌ SUPABASE_URL is not a valid URL: \(supabaseURLString)")
+            self.client = fallbackClient
+            return
+        }
+        
+        // Validate URL has a host
+        guard let host = url.host, !host.isEmpty else {
+            print("❌ SUPABASE_URL does not have a valid host: \(supabaseURLString)")
+            self.client = fallbackClient
+            return
+        }
+        
+        // Ensure URL scheme is https
+        guard url.scheme == "https" else {
+            print("❌ SUPABASE_URL should use HTTPS scheme: \(supabaseURLString)")
+            self.client = fallbackClient
+            return
+        }
+        
+        // Validate API key
+        guard let supabaseKey = rawKey, !supabaseKey.isEmpty else {
+            print("❌ SUPABASE_ANON_KEY is missing or empty")
+            self.client = fallbackClient
+            return
+        }
+        
+        print("✅ Validation successful, creating real Supabase client with URL: \(url)")
+        
+        // Initialize Supabase client
+        do {
+            self.client = SupabaseClient(
+                supabaseURL: url,
+                supabaseKey: supabaseKey
+            )
+            print("✅ Supabase client initialized successfully")
+        } catch {
+            print("❌ Error creating Supabase client: \(error)")
+            self.client = fallbackClient
+        }
     }
     
     // MARK: - Authentication
