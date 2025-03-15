@@ -35,7 +35,10 @@ class ExerciseViewModel: ObservableObject {
             }
             
             do {
+                print("⏳ Attempting to fetch exercises from Supabase...")
                 let fetchedExercises = try await supabaseService.fetchExercises()
+                print("✅ Successfully fetched \(fetchedExercises.count) exercises")
+                
                 await MainActor.run {
                     self.exercises = fetchedExercises
                     self.filteredExercises = fetchedExercises
@@ -43,6 +46,7 @@ class ExerciseViewModel: ObservableObject {
                     self.isLoading = false
                 }
             } catch {
+                print("❌ Error fetching exercises: \(error)")
                 await MainActor.run {
                     self.errorMessage = error.localizedDescription
                     self.isLoading = false
@@ -51,12 +55,18 @@ class ExerciseViewModel: ObservableObject {
         }
     }
     
+    // Update the organizeExercisesAlphabetically method:
     func organizeExercisesAlphabetically() {
         var groups: [String: [Exercise]] = [:]
         
         for exercise in filteredExercises {
+            // Safely unwrap the name
+            guard let name = exercise.name, !name.isEmpty else {
+                continue // Skip exercises with no name
+            }
+            
             // Get the first letter of the exercise name, uppercased
-            if let firstChar = exercise.name.first?.uppercased() {
+            if let firstChar = name.first?.uppercased() {
                 let firstLetter = String(firstChar)
                 
                 // Create array if it doesn't exist for this letter
@@ -71,20 +81,26 @@ class ExerciseViewModel: ObservableObject {
         
         // Sort exercises within each group
         for (key, exercises) in groups {
-            groups[key] = exercises.sorted(by: { $0.name < $1.name })
+            groups[key] = exercises.sorted(by: {
+                ($0.name ?? "") < ($1.name ?? "")
+            })
         }
         
         self.exerciseGroups = groups
     }
     
+    // Update the filterExercises method:
     func filterExercises() {
         if searchQuery.isEmpty {
             filteredExercises = exercises
         } else {
             filteredExercises = exercises.filter { exercise in
-                exercise.name.lowercased().contains(searchQuery.lowercased()) ||
-                exercise.muscleGroup.lowercased().contains(searchQuery.lowercased()) ||
-                exercise.primaryMuscles.contains { $0.lowercased().contains(searchQuery.lowercased()) }
+                // Safely check each property with nil coalescing
+                (exercise.name ?? "").lowercased().contains(searchQuery.lowercased()) ||
+                (exercise.muscleGroup ?? "").lowercased().contains(searchQuery.lowercased()) ||
+                exercise.primaryMusclesArray.contains(where: {
+                    $0.lowercased().contains(searchQuery.lowercased())
+                })
             }
         }
         

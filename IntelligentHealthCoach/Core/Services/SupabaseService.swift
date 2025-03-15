@@ -85,8 +85,8 @@ class SupabaseService: SupabaseServiceProtocol {
         
         // Initialize Supabase client with validated URL
         self.client = SupabaseClient(
-            supabaseURL: url,
-            supabaseKey: rawKey
+            supabaseURL: URL(string: "https://fleiivpyjkvahakriuta.supabase.co")!,
+            supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsZWlpdnB5amt2YWhha3JpdXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwODAzNzUsImV4cCI6MjAxNjY1NjM3NX0.lUbyfDlEANGoONW3mmtO-1JDvCsa1uy7EKKTs9yLYwE"
         )
         
         print("✅ Supabase client initialized successfully")
@@ -242,10 +242,14 @@ class SupabaseService: SupabaseServiceProtocol {
     }
     
     func fetchExercises() async throws -> [Exercise] {
+        print("📊 Attempting Supabase query on 'exercises' table...")
+        
         let response = try await client
             .from("exercises")
             .select()
             .execute()
+        
+        print("📊 Raw response data: \(String(data: response.data, encoding: .utf8) ?? "Unable to decode")")
         
         let decoder = JSONDecoder.supabaseDecoder()
         return try decoder.decode([Exercise].self, from: response.data)

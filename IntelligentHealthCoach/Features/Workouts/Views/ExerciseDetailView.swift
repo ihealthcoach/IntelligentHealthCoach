@@ -21,7 +21,7 @@ struct ExerciseDetailView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // Exercise title and info
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(exercise.name)
+                    Text(exercise.name ?? "Unnamed Exercise")
                         .font(.system(size: 36, weight: .bold))
                     
                     Button(action: {
@@ -29,7 +29,7 @@ struct ExerciseDetailView: View {
                             showFullDescription.toggle()
                         }
                     }) {
-                        (Text(exercise.description)
+                        (Text(exercise.description ?? "No description available")
                             .font(.system(size: 14))
                             .foregroundColor(.gray)
                             + Text(showFullDescription ? " Read less" : " Read more")
@@ -48,7 +48,7 @@ struct ExerciseDetailView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.gray)
                             
-                            Text(exercise.exerciseType)
+                            Text(exercise.exerciseType ?? "Unknown")
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.indigo)
                         }
@@ -58,7 +58,7 @@ struct ExerciseDetailView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.gray)
                             
-                            Text(exercise.primaryMuscles.joined(separator: ", "))
+                            Text(exercise.primaryMusclesArray.joined(separator: ", "))
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.indigo)
                         }
@@ -71,7 +71,7 @@ struct ExerciseDetailView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.gray)
                             
-                            Text(exercise.equipment.joined(separator: ", "))
+                            Text(exercise.equipmentArray.joined(separator: ", "))
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.indigo)
                         }
@@ -81,7 +81,7 @@ struct ExerciseDetailView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.gray)
                             
-                            Text(exercise.secondaryMuscles.joined(separator: ", "))
+                            Text(exercise.secondaryMusclesArray.joined(separator: ", "))
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.indigo)
                         }
@@ -94,7 +94,7 @@ struct ExerciseDetailView: View {
                 .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
                 .padding(.horizontal)
                 
-                // Exercise demonstration (GIF and muscles)
+                // Exercise demonstration
                 HStack(spacing: 0) {
                     KFImage(URL(string: exercise.gifUrl))
                         .placeholder {
@@ -109,7 +109,7 @@ struct ExerciseDetailView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: UIScreen.main.bounds.width / 2)
                     
-                    // Muscle diagram (placeholder - would be replaced with actual muscle diagram)
+                    // Muscle diagram placeholder
                     ZStack {
                         Rectangle()
                             .foregroundColor(.gray.opacity(0.1))
@@ -132,7 +132,8 @@ struct ExerciseDetailView: View {
                         .font(.system(size: 24, weight: .semibold))
                     
                     // Step counter and navigation
-                    if !exercise.instructions.isEmpty {
+                    let instructionsArray = exercise.instructionsArray
+                    if !instructionsArray.isEmpty {
                         HStack {
                             Button(action: {
                                 withAnimation {
@@ -145,187 +146,188 @@ struct ExerciseDetailView: View {
                                     .font(.system(size: 24))
                                     .foregroundColor(currentStep > 1 ? .indigo : .gray.opacity(0.3))
                             }
-                                                        
-                                                        Spacer()
-                                                        
-                                                        Text("Step \(currentStep) of \(exercise.instructions.count)")
-                                                            .font(.system(size: 14, weight: .medium))
-                                                            .foregroundColor(.gray)
-                                                        
-                                                        Spacer()
-                                                        
-                                                        Button(action: {
-                                                            withAnimation {
-                                                                if currentStep < exercise.instructions.count {
-                                                                    currentStep += 1
-                                                                }
-                                                            }
-                                                        }) {
-                                                            Image(systemName: "arrow.right.circle.fill")
-                                                                .font(.system(size: 24))
-                                                                .foregroundColor(currentStep < exercise.instructions.count ? .indigo : .gray.opacity(0.3))
-                                                        }
-                                                    }
-                                                    .padding(.vertical, 10)
-                                                    
-                                                    // Current step instruction
-                                                    if exercise.instructions.indices.contains(currentStep - 1) {
-                                                        VStack(alignment: .leading, spacing: 10) {
-                                                            HStack(alignment: .top) {
-                                                                Text("\(currentStep).")
-                                                                    .font(.system(size: 16, weight: .bold))
-                                                                    .foregroundColor(.indigo)
-                                                                    .frame(width: 25, alignment: .leading)
-                                                                
-                                                                Text(exercise.instructions[currentStep - 1])
-                                                                    .font(.system(size: 16))
-                                                                    .foregroundColor(.primary)
-                                                                    .fixedSize(horizontal: false, vertical: true)
-                                                            }
-                                                            .padding()
-                                                            .background(Color.indigo.opacity(0.1))
-                                                            .cornerRadius(10)
-                                                        }
-                                                    }
-                                                    
-                                                    // All steps (collapsed)
-                                                    DisclosureGroup("View all steps") {
-                                                        VStack(alignment: .leading, spacing: 15) {
-                                                            ForEach(Array(exercise.instructions.enumerated()), id: \.offset) { index, instruction in
-                                                                HStack(alignment: .top, spacing: 10) {
-                                                                    Text("\(index + 1).")
-                                                                        .font(.system(size: 16))
-                                                                        .foregroundColor(.gray)
-                                                                        .frame(width: 25, alignment: .leading)
-                                                                    
-                                                                    Text(instruction)
-                                                                        .font(.system(size: 16))
-                                                                        .foregroundColor(.gray)
-                                                                        .fixedSize(horizontal: false, vertical: true)
-                                                                }
-                                                                .padding(.vertical, 5)
-                                                            }
-                                                        }
-                                                        .padding(.top, 10)
-                                                    }
-                                                    .accentColor(.indigo)
-                                                    .padding(.top, 10)
-                                                } else {
-                                                    Text("No instructions available for this exercise.")
-                                                        .font(.system(size: 16))
-                                                        .foregroundColor(.gray)
-                                                        .padding()
-                                                        .frame(maxWidth: .infinity)
-                                                        .background(Color.gray.opacity(0.1))
-                                                        .cornerRadius(10)
-                                                }
-                                            }
-                                            .padding(.horizontal)
-                                            
-                                            // Benefits section
-                                            if !exercise.benefits.isEmpty {
-                                                VStack(alignment: .leading, spacing: 15) {
-                                                    Text("Benefits")
-                                                        .font(.system(size: 24, weight: .semibold))
-                                                    
-                                                    VStack(alignment: .leading, spacing: 10) {
-                                                        ForEach(exercise.benefits, id: \.self) { benefit in
-                                                            HStack(alignment: .top, spacing: 10) {
-                                                                Image(systemName: "checkmark.circle.fill")
-                                                                    .foregroundColor(.green)
-                                                                
-                                                                Text(benefit)
-                                                                    .font(.system(size: 16))
-                                                                    .foregroundColor(.primary)
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                .padding(.horizontal)
-                                            }
-                                            
-                                            // Action buttons
-                                            VStack(spacing: 10) {
-                                                Button(action: {
-                                                    showingAddToWorkoutSheet = true
-                                                }) {
-                                                    HStack {
-                                                        Image(systemName: "plus")
-                                                            .font(.system(size: 16))
-                                                        
-                                                        Text("Add exercise to workout")
-                                                    }
-                                                }
-                                                .buttonStyle(PrimaryButtonStyle(bgColor: .indigo))
-                                                
-                                                Button(action: {
-                                                    isAdded.toggle()
-                                                }) {
-                                                    HStack {
-                                                        Image(systemName: isAdded ? "heart.fill" : "heart")
-                                                            .font(.system(size: 16))
-                                                        
-                                                        Text(isAdded ? "Remove from favorites" : "Add to favorites")
-                                                    }
-                                                }
-                                                .buttonStyle(SecondaryButtonStyle())
-                                            }
-                                            .padding(.horizontal)
-                                            .padding(.vertical, 20)
-                                        }
-                                        .navigationTitle("")
-                                        .navigationBarTitleDisplayMode(.inline)
-                                        .sheet(isPresented: $showingAddToWorkoutSheet) {
-                                            AddToWorkoutSheet(exercise: exercise)
-                                        }
+                            
+                            Spacer()
+                            
+                            Text("Step \(currentStep) of \(instructionsArray.count)")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.gray)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                withAnimation {
+                                    if currentStep < instructionsArray.count {
+                                        currentStep += 1
                                     }
                                 }
+                            }) {
+                                Image(systemName: "arrow.right.circle.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(currentStep < instructionsArray.count ? .indigo : .gray.opacity(0.3))
                             }
+                        }
+                        .padding(.vertical, 10)
+                        
+                        // Current step instruction
+                        if instructionsArray.indices.contains(currentStep - 1) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack(alignment: .top) {
+                                    Text("\(currentStep).")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundColor(.indigo)
+                                        .frame(width: 25, alignment: .leading)
+                                    
+                                    Text(instructionsArray[currentStep - 1])
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.primary)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding()
+                                .background(Color.indigo.opacity(0.1))
+                                .cornerRadius(10)
+                            }
+                        }
+                        
+                        // All steps (collapsed)
+                        DisclosureGroup("View all steps") {
+                            VStack(alignment: .leading, spacing: 15) {
+                                ForEach(Array(instructionsArray.enumerated()), id: \.offset) { index, instruction in
+                                    HStack(alignment: .top, spacing: 10) {
+                                        Text("\(index + 1).")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(.gray)
+                                            .frame(width: 25, alignment: .leading)
+                                        
+                                        Text(instruction)
+                                            .font(.system(size: 16))
+                                            .foregroundColor(.gray)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    .padding(.vertical, 5)
+                                }
+                            }
+                            .padding(.top, 10)
+                        }
+                        .accentColor(.indigo)
+                        .padding(.top, 10)
+                    } else {
+                        Text("No instructions available for this exercise.")
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(10)
+                    }
+                }
+                .padding(.horizontal)
+                
+                // Benefits section
+                let benefitsArray = exercise.benefitsArray
+                if !benefitsArray.isEmpty {
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Benefits")
+                            .font(.system(size: 24, weight: .semibold))
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(benefitsArray, id: \.self) { benefit in
+                                HStack(alignment: .top, spacing: 10) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                    
+                                    Text(benefit)
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                
+                // Action buttons
+                VStack(spacing: 10) {
+                    Button(action: {
+                        showingAddToWorkoutSheet = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus")
+                                .font(.system(size: 16))
+                            
+                            Text("Add exercise to workout")
+                        }
+                    }
+                    .buttonStyle(PrimaryButtonStyle(bgColor: .indigo))
+                    
+                    Button(action: {
+                        isAdded.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: isAdded ? "heart.fill" : "heart")
+                                .font(.system(size: 16))
+                            
+                            Text(isAdded ? "Remove from favorites" : "Add to favorites")
+                        }
+                    }
+                    .buttonStyle(SecondaryButtonStyle())
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 20)
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showingAddToWorkoutSheet) {
+                AddToWorkoutSheet(exercise: exercise)
+            }
+        }
+    }
+}
 
                             // Add to Workout Sheet
-                            struct AddToWorkoutSheet: View {
-                                @Environment(\.presentationMode) var presentationMode
-                                var exercise: Exercise
-                                @State private var workoutName = ""
-                                @State private var selectedWorkoutId: String? = nil
-                                @State private var showNewWorkoutField = false
-                                @State private var isLoading = false
-                                
-                                // Mock workouts for demonstration
-                                let workouts = [
-                                    ("Current Workout", "12345"),
-                                    ("Upper Body", "23456"),
-                                    ("Lower Body", "34567"),
-                                    ("Full Body", "45678")
-                                ]
-                                
-                                var body: some View {
-                                    NavigationView {
-                                        VStack(spacing: 20) {
-                                            // Header with exercise info
-                                            HStack {
-                                                KFImage(URL(string: exercise.gifUrl))
-                                                    .placeholder {
-                                                        Rectangle()
-                                                            .foregroundColor(.gray.opacity(0.2))
-                                                    }
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fill)
-                                                    .frame(width: 60, height: 60)
-                                                    .cornerRadius(6)
-                                                
-                                                VStack(alignment: .leading, spacing: 2) {
-                                                    Text(exercise.name)
-                                                        .font(.system(size: 16, weight: .semibold))
-                                                    
-                                                    Text(exercise.muscleGroup)
-                                                        .font(.system(size: 14))
-                                                        .foregroundColor(.gray)
-                                                }
-                                                
-                                                Spacer()
-                                            }
-                                            .padding(.horizontal)
+struct AddToWorkoutSheet: View {
+    @Environment(\.presentationMode) var presentationMode
+    var exercise: Exercise
+    @State private var workoutName = ""
+    @State private var selectedWorkoutId: String? = nil
+    @State private var showNewWorkoutField = false
+    @State private var isLoading = false
+    
+    // Mock workouts for demonstration
+    let workouts = [
+        ("Current Workout", "12345"),
+        ("Upper Body", "23456"),
+        ("Lower Body", "34567"),
+        ("Full Body", "45678")
+    ]
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 20) {
+                // Header with exercise info
+                HStack {
+                    KFImage(URL(string: exercise.gifUrl))
+                        .placeholder {
+                            Rectangle()
+                                .foregroundColor(.gray.opacity(0.2))
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(6)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(exercise.name ?? "Unnamed Exercise")
+                            .font(.system(size: 16, weight: .semibold))
+                        
+                        Text(exercise.muscleGroup ?? "Unknown Muscle Group")
+                            .font(.system(size: 14))
+                            .foregroundColor(.gray)
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
                                             
                                             Divider()
                                             
@@ -439,20 +441,18 @@ struct ExerciseDetailView: View {
         id: "1",
         name: "Bench Press",
         exerciseType: "Strength",
-        primaryMuscles: ["Chest", "Triceps"],
-        secondaryMuscles: ["Shoulders"],
-        instructions: [
-            "Lie on a flat bench with your feet flat on the floor.",
-            "Grip the barbell slightly wider than shoulder-width apart.",
-            "Unrack the barbell and lower it to your mid-chest.",
-            "Press the barbell back up to starting position.",
-            "Repeat for desired repetitions."
-        ],
+        primaryMuscles: "Chest,Triceps",
+        secondaryMuscles: "Shoulders",
+        instructions: "Lie on a flat bench with your feet flat on the floor.\nGrip the barbell slightly wider than shoulder-width apart.\nUnrack the barbell and lower it to your mid-chest.\nPress the barbell back up to starting position.\nRepeat for desired repetitions.",
         experienceLevel: "Intermediate",
         muscleGroup: "Chest",
         description: "The bench press is a compound exercise that primarily targets the pectoralis major and triceps.",
-        benefits: ["Builds chest strength", "Improves upper body power"],
-        equipment: ["Barbell", "Bench"],
-        gifUrl: "https://example.com/bench-press.gif"
+        benefits: "Builds chest strength,Improves upper body power",
+        equipment: "Barbell,Bench",
+        forceType: "Push",
+        mechanics: "Compound",
+        bodyPart: "Chest",
+        target: "Pecs",
+        experience: "Intermediate"
     ))
 }

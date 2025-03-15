@@ -28,7 +28,7 @@ struct ExerciseRow: View {
                 .cornerRadius(6)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(exercise.name)
+                Text(exercise.name ?? <#default value#>)
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
                 

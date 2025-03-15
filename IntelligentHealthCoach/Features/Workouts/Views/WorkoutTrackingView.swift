@@ -181,10 +181,10 @@ struct WorkoutTrackingView: View {
                     .cornerRadius(8)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(exercise.name)
+                    Text(exercise.name ?? <#default value#>)
                         .font(.system(size: 16, weight: .semibold))
                     
-                    Text(exercise.muscleGroup)
+                    Text(exercise.muscleGroup ?? <#default value#>)
                         .font(.system(size: 12))
                         .foregroundColor(.gray)
                 }
