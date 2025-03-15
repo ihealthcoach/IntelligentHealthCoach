@@ -18,29 +18,33 @@ import Functions
 class SupabaseService: SupabaseServiceProtocol {
     static let shared = SupabaseService()
     
-    private let supabaseURL: String
-    private let supabaseKey: String
+    // Make this a regular stored property
     private(set) var client: SupabaseClient
     
     private init() {
-        // Get these values from your environment or configuration
+        // Get these values from Info.plist which pulls from .xcconfig
         guard let supabaseURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String,
-              let supabaseKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String else {
-            fatalError("Supabase URL or key not found")
+              let supabaseKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String,
+              let url = URL(string: supabaseURL) else {
+            // For safety, provide a sensible error message but don't crash in preview mode
+            print("⚠️ ERROR: Supabase URL or key not properly configured in Info.plist")
+            
+            // Create a placeholder client with a dummy URL to prevent crashes
+            let fallbackURL = URL(string: "https://placeholder.supabase.co")!
+            self.client = SupabaseClient(
+                supabaseURL: fallbackURL,
+                supabaseKey: "placeholder_key"
+            )
+            return
         }
-        
-        self.supabaseURL = supabaseURL
-        self.supabaseKey = supabaseKey
         
         // Initialize Supabase client
-        guard let url = URL(string: supabaseURL) else {
-            fatalError("Invalid Supabase URL: \(supabaseURL)")
-        }
-
         self.client = SupabaseClient(
             supabaseURL: url,
             supabaseKey: supabaseKey
         )
+        
+        print("✅ Supabase client initialized with URL: \(url)")
     }
     
     // MARK: - Authentication

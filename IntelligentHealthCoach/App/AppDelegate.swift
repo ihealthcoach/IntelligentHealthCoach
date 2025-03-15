@@ -11,9 +11,11 @@ import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        // Initialize services and configure app
-        configureAppearance()
+        // Initialize services first
         setupServices()
+        
+        // Then configure appearance
+        configureAppearance()
         
         return true
     }
