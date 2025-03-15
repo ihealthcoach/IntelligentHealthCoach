@@ -29,13 +29,13 @@ struct ExerciseDetailView: View {
                             showFullDescription.toggle()
                         }
                     }) {
-                        Text(exercise.description)
+                        (Text(exercise.description)
                             .font(.system(size: 14))
                             .foregroundColor(.gray)
-                            .lineLimit(showFullDescription ? nil : 2)
                             + Text(showFullDescription ? " Read less" : " Read more")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.black)
+                            .foregroundColor(.black))
+                            .lineLimit(showFullDescription ? nil : 2)
                     }
                 }
                 .padding(.horizontal)

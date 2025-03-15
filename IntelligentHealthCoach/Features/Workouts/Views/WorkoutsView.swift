@@ -199,11 +199,9 @@ struct WorkoutRowView: View {
                         .font(.system(size: 12))
                         .foregroundColor(.gray)
                     
-                    if let date = workout.createdAt {
-                        Label(formattedDate(date), systemImage: "calendar")
-                            .font(.system(size: 12))
-                            .foregroundColor(.gray)
-                    }
+                    Label(formattedDate(workout.createdAt), systemImage: "calendar")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
                 }
             }
             

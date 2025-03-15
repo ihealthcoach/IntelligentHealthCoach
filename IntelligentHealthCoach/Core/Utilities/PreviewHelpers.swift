@@ -26,7 +26,7 @@ extension AuthViewModel {
 extension User {
     // Constructor for preview data
     init(preview: Bool) {
-        self.id = "preview-user-id"
+        self.id = UUID() // Use an actual UUID instead of a string
         self.email = "preview@example.com"
         self.firstName = "Preview"
         self.lastName = "User"

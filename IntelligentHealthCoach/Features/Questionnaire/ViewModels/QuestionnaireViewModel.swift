@@ -81,9 +81,8 @@ class QuestionnaireViewModel: ObservableObject {
 
     func saveQuestionnaire() async throws {
         let session = try await supabaseService.client.auth.session
-        guard let user = session.user else {
-            throw AuthError.sessionExpired
-        }
+        // User is now non-optional
+        let user = session.user
         let userId = user.id.uuidString
         
         let data = QuestionnaireData(

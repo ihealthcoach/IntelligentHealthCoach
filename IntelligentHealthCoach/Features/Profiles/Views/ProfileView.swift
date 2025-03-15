@@ -52,10 +52,14 @@ struct ProfileView: View {
                 Text("Are you sure you want to sign out?")
             }
             .refreshable {
-                await viewModel.loadUserProfile()
+                Task {
+                    await viewModel.loadUserProfile()
+                }
             }
             .onAppear {
-                viewModel.loadUserProfile()
+                Task {
+                    await viewModel.loadUserProfile()
+                }
             }
         }
     }
