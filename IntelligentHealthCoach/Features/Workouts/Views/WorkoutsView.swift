@@ -315,3 +315,9 @@ struct CreateWorkoutView: View {
         }
     }
 }
+
+
+#Preview {
+    WorkoutsView()
+        .environmentObject(AuthViewModel.preview)
+}

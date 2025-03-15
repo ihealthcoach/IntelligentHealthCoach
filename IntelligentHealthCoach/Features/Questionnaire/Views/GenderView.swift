@@ -118,3 +118,8 @@ struct GenderOptionCard: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
+
+
+#Preview {
+    GenderView(viewModel: QuestionnaireViewModel(), onContinue: {})
+}

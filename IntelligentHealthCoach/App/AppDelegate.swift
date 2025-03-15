@@ -11,6 +11,19 @@ import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        // Debug output for Supabase configuration
+        if let supabaseURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String {
+            print("Found SUPABASE_URL in Info.plist: \(supabaseURL)")
+        } else {
+            print("WARNING: SUPABASE_URL not found in Info.plist")
+        }
+        
+        if let supabaseKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String {
+            print("Found SUPABASE_ANON_KEY in Info.plist (first few chars): \(String(supabaseKey.prefix(10)))...")
+        } else {
+            print("WARNING: SUPABASE_ANON_KEY not found in Info.plist")
+        }
+        
         // Initialize services first
         setupServices()
         

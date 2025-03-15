@@ -295,3 +295,8 @@ struct ExerciseFiltersView: View {
         }
     }
 }
+
+
+#Preview {
+    ExerciseLibraryView()
+}

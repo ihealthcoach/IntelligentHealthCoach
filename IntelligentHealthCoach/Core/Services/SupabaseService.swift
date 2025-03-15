@@ -21,6 +21,79 @@ class SupabaseService: SupabaseServiceProtocol {
     // Make this a regular stored property
     private(set) var client: SupabaseClient
     
+    /* Debug start */
+    private init() {
+        print("🔍 Beginning Supabase initialization...")
+        
+        // Create a proper URL with explicit components rather than parsing from a string
+        
+        // Get base values
+        let rawURL = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String ?? ""
+        let rawKey = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String ?? ""
+        
+        print("📋 Raw SUPABASE_URL from Info.plist: \(rawURL)")
+        print("📋 Raw SUPABASE_ANON_KEY from Info.plist: \(rawKey.prefix(10))...")
+        
+        // Create fallback client for preview/development
+        let fallbackURL = URL(string: "https://fleiivpyjkvahakriuta.supabase.co")!
+        let fallbackClient = SupabaseClient(
+            supabaseURL: fallbackURL,
+            supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsZWlpdnB5amt2YWhha3JpdXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwODAzNzUsImV4cCI6MjAxNjY1NjM3NX0.lUbyfDlEANGoONW3mmtO-1JDvCsa1uy7EKKTs9yLYwE"
+        )
+        
+        // Create URL components programmatically to ensure proper structure
+        var components = URLComponents()
+        components.scheme = "https"
+        
+        // Extract the host without the protocol
+        var hostString = rawURL
+        if hostString.hasPrefix("https://") {
+            hostString = String(hostString.dropFirst(8))
+        } else if hostString.hasPrefix("http://") {
+            hostString = String(hostString.dropFirst(7))
+        }
+        
+        // Remove any trailing slashes
+        while hostString.hasSuffix("/") {
+            hostString = String(hostString.dropLast())
+        }
+        
+        // Check if host string is empty
+        if hostString.isEmpty {
+            print("❌ SUPABASE_URL host is empty after processing")
+            self.client = fallbackClient
+            return
+        }
+        
+        components.host = hostString
+        
+        // Ensure we have a valid URL with a host
+        guard let url = components.url else {
+            print("❌ Could not create URL from components with host: \(hostString)")
+            self.client = fallbackClient
+            return
+        }
+        
+        // Validate API key
+        guard !rawKey.isEmpty else {
+            print("❌ SUPABASE_ANON_KEY is missing or empty")
+            self.client = fallbackClient
+            return
+        }
+        
+        print("✅ Validation successful, creating real Supabase client with URL: \(url.absoluteString)")
+        
+        // Initialize Supabase client with validated URL
+        self.client = SupabaseClient(
+            supabaseURL: url,
+            supabaseKey: rawKey
+        )
+        
+        print("✅ Supabase client initialized successfully")
+    }
+    /* Debug end */
+    
+    /*
     private init() {
         print("🔍 Beginning Supabase initialization...")
         
@@ -84,6 +157,7 @@ class SupabaseService: SupabaseServiceProtocol {
         
         print("✅ Supabase client initialized successfully")
     }
+    */
     
     // MARK: - Authentication
     

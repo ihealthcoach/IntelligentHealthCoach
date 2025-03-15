@@ -313,3 +313,8 @@ struct ProfileView: View {
         func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
     }
 }
+
+#Preview {
+    ProfileView()
+        .environmentObject(AuthViewModel.preview)
+}

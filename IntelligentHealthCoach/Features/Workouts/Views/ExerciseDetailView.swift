@@ -434,27 +434,25 @@ struct ExerciseDetailView: View {
                                 }
                             }
 
-                            struct ExerciseDetailView_Previews: PreviewProvider {
-                                static var previews: some View {
-                                    ExerciseDetailView(exercise: Exercise(
-                                        id: "1",
-                                        name: "Bench Press",
-                                        exerciseType: "Strength",
-                                        primaryMuscles: ["Chest", "Triceps"],
-                                        secondaryMuscles: ["Shoulders"],
-                                        instructions: [
-                                            "Lie on a flat bench with your feet flat on the floor.",
-                                            "Grip the barbell slightly wider than shoulder-width apart.",
-                                            "Unrack the barbell and lower it to your mid-chest.",
-                                            "Press the barbell back up to starting position.",
-                                            "Repeat for desired repetitions."
-                                        ],
-                                        experienceLevel: "Intermediate",
-                                        muscleGroup: "Chest",
-                                        description: "The bench press is a compound exercise that primarily targets the pectoralis major (chest muscles) and triceps, with secondary benefits for the shoulders and other supporting muscles.",
-                                        benefits: ["Builds chest strength", "Improves upper body power", "Enhances pushing strength"],
-                                        equipment: ["Barbell", "Bench"],
-                                        gifUrl: "https://example.com/bench-press.gif"
-                                    ))
-                                }
-                            }
+#Preview {
+    ExerciseDetailView(exercise: Exercise(
+        id: "1",
+        name: "Bench Press",
+        exerciseType: "Strength",
+        primaryMuscles: ["Chest", "Triceps"],
+        secondaryMuscles: ["Shoulders"],
+        instructions: [
+            "Lie on a flat bench with your feet flat on the floor.",
+            "Grip the barbell slightly wider than shoulder-width apart.",
+            "Unrack the barbell and lower it to your mid-chest.",
+            "Press the barbell back up to starting position.",
+            "Repeat for desired repetitions."
+        ],
+        experienceLevel: "Intermediate",
+        muscleGroup: "Chest",
+        description: "The bench press is a compound exercise that primarily targets the pectoralis major and triceps.",
+        benefits: ["Builds chest strength", "Improves upper body power"],
+        equipment: ["Barbell", "Bench"],
+        gifUrl: "https://example.com/bench-press.gif"
+    ))
+}

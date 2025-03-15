@@ -26,9 +26,10 @@ class ExerciseViewModel: ObservableObject {
         self.supabaseService = supabaseService
     }
     
+    // In ExerciseViewModel.swift
     func fetchExercises() {
         Task {
-            await MainActor.run { 
+            await MainActor.run {
                 self.isLoading = true
                 self.errorMessage = nil
             }

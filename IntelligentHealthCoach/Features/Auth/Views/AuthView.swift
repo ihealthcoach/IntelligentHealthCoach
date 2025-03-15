@@ -363,10 +363,8 @@ struct AuthView: View {
     }
 }
 
-// Preview
-struct AuthView_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthView()
-            .environmentObject(AuthViewModel.unauthenticated)
-    }
+
+#Preview {
+    AuthView()
+        .environmentObject(AuthViewModel.unauthenticated)
 }
