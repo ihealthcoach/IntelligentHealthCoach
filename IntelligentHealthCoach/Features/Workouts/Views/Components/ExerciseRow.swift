@@ -28,11 +28,11 @@ struct ExerciseRow: View {
                 .cornerRadius(6)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(exercise.name ?? <#default value#>)
+                Text(exercise.name ?? "Unnamed Exercise")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
                 
-                Text(exercise.primaryMuscles.joined(separator: ", "))
+                Text(exercise.primaryMusclesArray.joined(separator: ", "))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(.gray)
             }
@@ -50,4 +50,25 @@ struct ExerciseRow: View {
         }
         .padding(.vertical, 8)
     }
+}
+
+#Preview {
+    ExerciseRow(exercise: Exercise(
+        id: "1",
+        name: "Bench Press",
+        exerciseType: "Strength",
+        primaryMuscles: "Chest,Triceps",
+        secondaryMuscles: "Shoulders",
+        instructions: "Lie on a flat bench...",
+        experienceLevel: "Intermediate",
+        muscleGroup: "Chest",
+        description: "The bench press is a compound exercise...",
+        benefits: "Builds chest strength,Improves upper body power",
+        equipment: "Barbell,Bench",
+        forceType: "Push",
+        mechanics: "Compound",
+        bodyPart: "Chest",
+        target: "Pecs",
+        experience: "Intermediate"
+    ))
 }

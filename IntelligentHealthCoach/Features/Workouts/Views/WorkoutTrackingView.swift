@@ -181,10 +181,10 @@ struct WorkoutTrackingView: View {
                     .cornerRadius(8)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(exercise.name ?? <#default value#>)
+                    Text(exercise.name ?? "Unnamed Exercise")
                         .font(.system(size: 16, weight: .semibold))
                     
-                    Text(exercise.muscleGroup ?? <#default value#>)
+                    Text(exercise.muscleGroup ?? "Unknown Muscle Group")
                         .font(.system(size: 12))
                         .foregroundColor(.gray)
                 }
@@ -537,4 +537,43 @@ class WorkoutTrackingViewModel: ObservableObject {
         
         // In a real app, you would update this in your backend
     }
+}
+
+#Preview {
+    let mockWorkout = Workout(
+        id: "preview-workout-id",
+        userId: "preview-user-id",
+        title: "Upper Body Workout",
+        exercises: [],
+        createdAt: Date(),
+        updatedAt: Date(),
+        status: "active"
+    )
+    
+    let viewModel = WorkoutTrackingViewModel(workout: mockWorkout)
+    
+    // Add a mock exercise
+    let exercise = Exercise(
+        id: "ex1",
+        name: "Bench Press",
+        exerciseType: "Strength",
+        primaryMuscles: "Chest,Triceps",
+        secondaryMuscles: "Shoulders",
+        instructions: "Lie on a flat bench...",
+        experienceLevel: "Intermediate",
+        muscleGroup: "Chest",
+        description: "The bench press is a compound exercise...",
+        benefits: "Builds chest strength,Improves upper body power",
+        equipment: "Barbell,Bench",
+        forceType: "Push",
+        mechanics: "Compound",
+        bodyPart: "Chest",
+        target: "Pecs",
+        experience: "Intermediate"
+    )
+    
+    // Add the exercise to the view model
+    viewModel.exercises = [exercise]
+    
+    return WorkoutTrackingView(viewModel: viewModel)
 }

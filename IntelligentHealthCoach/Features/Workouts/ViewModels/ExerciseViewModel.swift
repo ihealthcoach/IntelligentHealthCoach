@@ -66,8 +66,8 @@ class ExerciseViewModel: ObservableObject {
             }
             
             // Get the first letter of the exercise name, uppercased
-            if let firstChar = name.first?.uppercased() {
-                let firstLetter = String(firstChar)
+            if let firstChar = name.first {
+                let firstLetter = String(firstChar).uppercased()
                 
                 // Create array if it doesn't exist for this letter
                 if groups[firstLetter] == nil {
@@ -89,7 +89,6 @@ class ExerciseViewModel: ObservableObject {
         self.exerciseGroups = groups
     }
     
-    // Update the filterExercises method:
     func filterExercises() {
         if searchQuery.isEmpty {
             filteredExercises = exercises

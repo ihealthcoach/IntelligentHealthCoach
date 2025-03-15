@@ -5,7 +5,6 @@
 //  Created by Casper Broe on 12/03/2025.
 //
 
-// ExerciseDetailView.swift
 import SwiftUI
 import Kingfisher
 
@@ -284,7 +283,7 @@ struct ExerciseDetailView: View {
     }
 }
 
-                            // Add to Workout Sheet
+// Add to Workout Sheet
 struct AddToWorkoutSheet: View {
     @Environment(\.presentationMode) var presentationMode
     var exercise: Exercise
@@ -328,113 +327,113 @@ struct AddToWorkoutSheet: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                                            
-                                            Divider()
-                                            
-                                            // Select workout section
-                                            VStack(alignment: .leading, spacing: 15) {
-                                                Text("Select Workout")
-                                                    .font(.headline)
-                                                    .padding(.horizontal)
-                                                
-                                                ScrollView {
-                                                    VStack(spacing: 12) {
-                                                        ForEach(workouts, id: \.1) { workout in
-                                                            Button(action: {
-                                                                selectedWorkoutId = workout.1
-                                                                showNewWorkoutField = false
-                                                            }) {
-                                                                HStack {
-                                                                    Text(workout.0)
-                                                                        .foregroundColor(.primary)
-                                                                    
-                                                                    Spacer()
-                                                                    
-                                                                    if selectedWorkoutId == workout.1 {
-                                                                        Image(systemName: "checkmark.circle.fill")
-                                                                            .foregroundColor(.green)
-                                                                    }
-                                                                }
-                                                                .padding()
-                                                                .background(
-                                                                    RoundedRectangle(cornerRadius: 10)
-                                                                        .fill(selectedWorkoutId == workout.1 ? Color.green.opacity(0.1) : Color.gray.opacity(0.1))
-                                                                )
-                                                            }
-                                                        }
-                                                        
-                                                        Button(action: {
-                                                            showNewWorkoutField = true
-                                                            selectedWorkoutId = nil
-                                                        }) {
-                                                            HStack {
-                                                                Image(systemName: "plus.circle.fill")
-                                                                    .foregroundColor(.indigo)
-                                                                
-                                                                Text("Create New Workout")
-                                                                    .foregroundColor(.indigo)
-                                                                
-                                                                Spacer()
-                                                                
-                                                                if showNewWorkoutField {
-                                                                    Image(systemName: "checkmark.circle.fill")
-                                                                        .foregroundColor(.indigo)
-                                                                }
-                                                            }
-                                                            .padding()
-                                                            .background(
-                                                                RoundedRectangle(cornerRadius: 10)
-                                                                    .fill(showNewWorkoutField ? Color.indigo.opacity(0.1) : Color.gray.opacity(0.1))
-                                                            )
-                                                        }
-                                                        
-                                                        if showNewWorkoutField {
-                                                            TextField("Workout Name", text: $workoutName)
-                                                                .padding()
-                                                                .background(Color.gray.opacity(0.1))
-                                                                .cornerRadius(10)
-                                                                .padding(.top, 8)
-                                                        }
-                                                    }
-                                                    .padding(.horizontal)
-                                                }
-                                                
-                                                Spacer()
-                                                
-                                                // Add button
-                                                Button(action: {
-                                                    isLoading = true
-                                                    // Simulate adding to workout
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                        isLoading = false
-                                                        presentationMode.wrappedValue.dismiss()
-                                                    }
-                                                }) {
-                                                    HStack {
-                                                        Text("Add to Workout")
-                                                        
-                                                        if isLoading {
-                                                            ProgressView()
-                                                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                                                .padding(.leading, 5)
-                                                        }
-                                                    }
-                                                }
-                                                .buttonStyle(PrimaryButtonStyle())
-                                                .padding(.horizontal)
-                                                .disabled(selectedWorkoutId == nil && (showNewWorkoutField && workoutName.isEmpty) || isLoading)
-                                                .opacity((selectedWorkoutId == nil && (showNewWorkoutField && workoutName.isEmpty) || isLoading) ? 0.6 : 1)
-                                            }
+                
+                Divider()
+                
+                // Select workout section
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Select Workout")
+                        .font(.headline)
+                        .padding(.horizontal)
+                    
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(workouts, id: \.1) { workout in
+                                Button(action: {
+                                    selectedWorkoutId = workout.1
+                                    showNewWorkoutField = false
+                                }) {
+                                    HStack {
+                                        Text(workout.0)
+                                            .foregroundColor(.primary)
+                                        
+                                        Spacer()
+                                        
+                                        if selectedWorkoutId == workout.1 {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundColor(.green)
                                         }
-                                        .navigationTitle("Add to Workout")
-                                        .navigationBarItems(
-                                            trailing: Button("Cancel") {
-                                                presentationMode.wrappedValue.dismiss()
-                                            }
-                                        )
                                     }
+                                    .padding()
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(selectedWorkoutId == workout.1 ? Color.green.opacity(0.1) : Color.gray.opacity(0.1))
+                                    )
                                 }
                             }
+                            
+                            Button(action: {
+                                showNewWorkoutField = true
+                                selectedWorkoutId = nil
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus.circle.fill")
+                                        .foregroundColor(.indigo)
+                                    
+                                    Text("Create New Workout")
+                                        .foregroundColor(.indigo)
+                                    
+                                    Spacer()
+                                    
+                                    if showNewWorkoutField {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(.indigo)
+                                    }
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(showNewWorkoutField ? Color.indigo.opacity(0.1) : Color.gray.opacity(0.1))
+                                )
+                            }
+                            
+                            if showNewWorkoutField {
+                                TextField("Workout Name", text: $workoutName)
+                                    .padding()
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(10)
+                                    .padding(.top, 8)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    
+                    Spacer()
+                    
+                    // Add button
+                    Button(action: {
+                        isLoading = true
+                        // Simulate adding to workout
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            isLoading = false
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        HStack {
+                            Text("Add to Workout")
+                            
+                            if isLoading {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                    .padding(.leading, 5)
+                            }
+                        }
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .padding(.horizontal)
+                    .disabled(selectedWorkoutId == nil && (showNewWorkoutField && workoutName.isEmpty) || isLoading)
+                    .opacity((selectedWorkoutId == nil && (showNewWorkoutField && workoutName.isEmpty) || isLoading) ? 0.6 : 1)
+                }
+            }
+            .navigationTitle("Add to Workout")
+            .navigationBarItems(
+                trailing: Button("Cancel") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
+        }
+    }
+}
 
 #Preview {
     ExerciseDetailView(exercise: Exercise(
