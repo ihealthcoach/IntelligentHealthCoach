@@ -41,11 +41,11 @@ class DashboardViewModel: ObservableObject {
         
         switch hour {
         case 0..<12:
-            greeting = "Good morning"
+            greeting = "Good morning 🍳"
         case 12..<17:
-            greeting = "Good afternoon"
+            greeting = "Good afternoon 😊"
         default:
-            greeting = "Good evening"
+            greeting = "Good evening 💪🏻"
         }
     }
     

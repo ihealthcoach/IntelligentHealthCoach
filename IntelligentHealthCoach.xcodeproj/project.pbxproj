@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90E04392D85DFED003237CC /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04382D85DFED003237CC /* TabBarView.swift */; };
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
@@ -90,6 +91,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E90E04382D85DFED003237CC /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				E940C2402D70C3F800C959C4 /* CheckboxToggle.swift */,
 				E940C2412D70C3F800C959C4 /* ProgressBar.swift */,
 				E940C2422D70C3F800C959C4 /* RadioButton.swift */,
+				E90E04382D85DFED003237CC /* TabBarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				E940C2862D70CB6D00C959C4 /* PreviewHelpers.swift in Sources */,
 				E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */,
 				E940C2502D70C3F800C959C4 /* WorkoutViewModel.swift in Sources */,
+				E90E04392D85DFED003237CC /* TabBarView.swift in Sources */,
 				E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */,
 				E940C2512D70C3F800C959C4 /* RadioButton.swift in Sources */,
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,

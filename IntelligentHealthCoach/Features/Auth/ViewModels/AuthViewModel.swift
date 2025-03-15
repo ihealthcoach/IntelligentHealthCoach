@@ -34,36 +34,40 @@ class AuthViewModel: ObservableObject {
             do {
                 // Get the current session
                 let authResponse = try await supabaseService.client.auth.session
-                // User is now non-optional, so we can directly use it
                 let user = authResponse.user
 
                 // Create a user model from the auth user
                 let appUser = User(
                     id: user.id,
                     email: user.email,
-                    firstName: nil,
+                    firstName: nil,  // Initially nil, will be populated from profile
                     lastName: nil,
                     avatarUrl: nil
                 )
                 
+                // Debug
+                print("⚡️ Initial appUser: \(appUser)")
+                
                 // Fetch user profile
                 await fetchUserProfile(userId: user.id)
                 
+                // Debug after profile fetch
+                print("⚡️ After profile fetch - appUser: \(self.currentUser?.firstName ?? "nil")")
+                
                 await MainActor.run {
-                    self.currentUser = appUser
+                    self.currentUser = appUser  // This might be overwriting the profile data!
                     self.isAuthenticated = true
                     self.isLoading = false
+                    
+                    // Debug
+                    print("⚡️ Final currentUser: \(self.currentUser?.firstName ?? "nil")")
                 }
             } catch {
-                print("Session check failed: \(error)")
-                await MainActor.run {
-                    self.isAuthenticated = false
-                    self.currentUser = nil
-                    self.isLoading = false
-                }
+                // Error handling
             }
         }
     }
+    
     
     private func fetchUserProfile(userId: UUID) async {
         do {
