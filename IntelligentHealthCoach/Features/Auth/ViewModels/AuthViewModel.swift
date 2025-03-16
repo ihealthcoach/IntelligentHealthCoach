@@ -147,12 +147,12 @@ class AuthViewModel: ObservableObject {
                 await MainActor.run {
                     self.currentUser = user
                     self.isAuthenticated = true
-                    self.isLoading = false
+                    self.isLoading = false  // Set loading to false on success
                 }
             } catch {
                 await MainActor.run {
                     self.errorMessage = handleAuthError(error)
-                    self.isLoading = false
+                    self.isLoading = false  // Set loading to false on error
                 }
             }
         }

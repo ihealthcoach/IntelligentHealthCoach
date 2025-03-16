@@ -6,363 +6,409 @@
 //
 
 
+//
 //  AuthView.swift
+//  IntelligentHealthCoach
+//
+
 import SwiftUI
+import AuthenticationServices
 
 struct AuthView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var showingSignIn = false
+    
+    // Form fields
     @State private var email = ""
     @State private var password = ""
-    @State private var confirmPassword = ""
     @State private var firstName = ""
     @State private var lastName = ""
-    @State private var isSignUp = false
+    
+    // Form validation and state
     @State private var isPasswordVisible = false
-    @State private var rememberMe = false
-    @State private var showForgotPassword = false
+    @State private var forgotPasswordEmail = ""
+    @State private var showingForgotPassword = false
+    @State private var showingPasswordResetConfirmation = false
+    @State private var showAdvancedSignUp = false
+    
+    // Animation state
+    @State private var buttonScale: CGFloat = 1.0
     
     var body: some View {
         ZStack {
-            // Background with gradient
-            LinearGradient(
-                gradient: Gradient(colors: [Color.indigo.opacity(0.6), Color.blue.opacity(0.2)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            // Background
+            Color(UIColor.systemGray6)
+                .ignoresSafeArea()
             
-            // Content
-            ScrollView {
-                VStack(spacing: 25) {
-                    // Logo and App Name
-                    VStack(spacing: 15) {
-                        Image(systemName: "heart.circle.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 80, height: 80)
-                            .foregroundColor(.white)
+            // Main content
+            VStack(spacing: 24) {
+                Spacer().frame(height: 40)
+                
+                // App logo
+                Image("app-logo") // Replace with your actual logo
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(Color.mint)
+                    .frame(width: 80, height: 80)
+                    .padding(.bottom, 20)
+                
+                // Title and subtitle
+                VStack(spacing: 8) {
+                    if showingSignIn {
+                        Text("Sign in")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.black)
+                    } else {
+                        Text("Create your account")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.black)
                         
-                        Text("iHealth Coach")
-                            .font(.system(size: 30, weight: .bold))
-                            .foregroundColor(.white)
-                        
-                        Text(isSignUp ? "Create your account" : "Welcome back")
+                        Text("and unlock your true potential with")
                             .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.8))
+                            .foregroundColor(.gray)
+                        
+                        Text("Intelligent Health Coach")
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
                     }
-                    .padding(.top, 30)
-                    .padding(.bottom, 40)
-                    
-                    // Auth Form
-                    VStack(spacing: 20) {
-                        // Email Field
-                        inputField(
-                            title: "Email",
-                            text: $email,
-                            placeholder: "Enter your email",
-                            icon: "envelope",
-                            isSecure: false
+                }
+                .padding(.bottom, 20)
+                
+                if !showAdvancedSignUp {
+                    // Social sign in buttons
+                    VStack(spacing: 12) {
+                        socialButton(
+                            text: "Sign up with Google",
+                            logo: "google-logo",
+                            action: {
+                                // Handle Google sign up
+                            }
                         )
                         
-                        // Password Field
+                        socialButton(
+                            text: "Sign up with Facebook",
+                            logo: "facebook-logo",
+                            action: {
+                                // Handle Facebook sign up
+                            }
+                        )
+                        
+                        socialButton(
+                            text: "Sign up with Apple",
+                            logo: "apple-logo",
+                            isSFSymbol: true,
+                            action: {
+                                // Handle Apple sign up
+                                handleAppleSignIn()
+                            }
+                        )
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    // Or sign up with email text
+                    Text("or sign up with your email")
+                        .font(.system(size: 14))
+                        .foregroundColor(.gray)
+                        .padding(.vertical, 16)
+                    
+                    // Email and password fields
+                    VStack(spacing: 12) {
+                        // Email field
+                        TextField("Email", text: $email)
+                            .autocapitalization(.none)
+                            .keyboardType(.emailAddress)
+                            .disableAutocorrection(true)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                        
+                        // Password field
                         HStack {
                             if isPasswordVisible {
-                                inputField(
-                                    title: "Password",
-                                    text: $password,
-                                    placeholder: "Enter your password",
-                                    icon: "lock",
-                                    isSecure: false
-                                )
+                                TextField("Password", text: $password)
+                                    .autocapitalization(.none)
+                                    .disableAutocorrection(true)
                             } else {
-                                inputField(
-                                    title: "Password",
-                                    text: $password,
-                                    placeholder: "Enter your password",
-                                    icon: "lock",
-                                    isSecure: true
-                                )
+                                SecureField("Password", text: $password)
+                                    .autocapitalization(.none)
+                                    .disableAutocorrection(true)
                             }
                             
                             Button(action: {
                                 isPasswordVisible.toggle()
                             }) {
-                                Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
+                                Text(isPasswordVisible ? "Hide" : "Show")
+                                    .font(.system(size: 14))
                                     .foregroundColor(.gray)
                             }
-                            .padding(.trailing, 8)
                         }
-                        
-                        // Show additional fields for signup
-                        if isSignUp {
-                            if isPasswordVisible {
-                                inputField(
-                                    title: "Confirm Password",
-                                    text: $confirmPassword,
-                                    placeholder: "Confirm your password",
-                                    icon: "lock",
-                                    isSecure: false
-                                )
-                            } else {
-                                inputField(
-                                    title: "Confirm Password",
-                                    text: $confirmPassword,
-                                    placeholder: "Confirm your password",
-                                    icon: "lock",
-                                    isSecure: true
-                                )
-                            }
-                            
-                            inputField(
-                                title: "First Name",
-                                text: $firstName,
-                                placeholder: "Enter your first name",
-                                icon: "person",
-                                isSecure: false
-                            )
-                            
-                            inputField(
-                                title: "Last Name",
-                                text: $lastName,
-                                placeholder: "Enter your last name",
-                                icon: "person",
-                                isSecure: false
-                            )
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    // Continue with email button
+                    Button(action: {
+                        if showingSignIn {
+                            loginWithEmail()
+                        } else {
+                            // Show advanced signup or directly sign up
+                            showAdvancedSignUp = true
                         }
-                        
-                        // Remember me & Forgot password (only for sign in)
-                        if !isSignUp {
-                            HStack {
-                                Button(action: {
-                                    rememberMe.toggle()
-                                }) {
-                                    HStack {
-                                        Image(systemName: rememberMe ? "checkmark.square.fill" : "square")
-                                            .foregroundColor(rememberMe ? .blue : .gray)
-                                        
-                                        Text("Remember me")
-                                            .foregroundColor(.gray)
-                                            .font(.system(size: 14))
-                                    }
-                                }
-                                
-                                Spacer()
-                                
-                                Button(action: {
-                                    showForgotPassword = true
-                                }) {
-                                    Text("Forgot Password?")
-                                        .foregroundColor(.blue)
-                                        .font(.system(size: 14))
-                                }
-                            }
-                            .padding(.horizontal, 8)
-                        }
-                        
-                        // Error message
-                        if let errorMessage = authViewModel.errorMessage {
-                            Text(errorMessage)
-                                .foregroundColor(.red)
-                                .font(.system(size: 14))
-                                .padding(.horizontal, 8)
-                                .multilineTextAlignment(.center)
-                        }
-                        
-                        // Sign In / Sign Up Button
-                        Button(action: {
-                            if isSignUp {
-                                if validateSignUp() {
-                                    authViewModel.signUp(
-                                        email: email,
-                                        password: password,
-                                        firstName: firstName,
-                                        lastName: lastName
-                                    )
-                                }
-                            } else {
-                                authViewModel.signIn(email: email, password: password)
-                            }
-                        }) {
-                            HStack {
-                                Text(isSignUp ? "Sign Up" : "Sign In")
-                                    .font(.system(size: 16, weight: .bold))
-                                
-                                if authViewModel.isLoading {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                        .padding(.leading, 5)
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.indigo)
+                    }) {
+                        Text(showingSignIn ? "Sign in" : "Continue with email")
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.white)
-                            .cornerRadius(10)
-                        }
-                        .disabled(authViewModel.isLoading)
-                        
-                        // Switch between Sign In / Sign Up
-                        Button(action: {
-                            withAnimation {
-                                isSignUp.toggle()
-                                authViewModel.errorMessage = nil
-                                
-                                // Clear fields when switching modes
-                                if isSignUp {
-                                    password = ""
-                                    confirmPassword = ""
-                                } else {
-                                    password = ""
-                                    confirmPassword = ""
-                                    firstName = ""
-                                    lastName = ""
-                                }
-                            }
-                        }) {
-                            HStack {
-                                Text(isSignUp ? "Already have an account?" : "Don't have an account?")
-                                    .foregroundColor(.gray)
-                                
-                                Text(isSignUp ? "Sign In" : "Sign Up")
-                                    .foregroundColor(.blue)
-                            }
-                            .font(.system(size: 14))
-                        }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color(UIColor.systemGray5))
+                            .cornerRadius(8)
                     }
-                    .padding(25)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+                    .disabled(email.isEmpty || password.isEmpty)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                } else {
+                    // Advanced signup form (name fields)
+                    VStack(spacing: 12) {
+                        // First Name field
+                        TextField("First Name", text: $firstName)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                        
+                        // Last Name field
+                        TextField("Last Name", text: $lastName)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                    }
+                    .padding(.horizontal, 16)
                     
-                    Spacer(minLength: 50)
+                    // Create account button
+                    Button(action: {
+                        createAccount()
+                    }) {
+                        Text("Create Account")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color(UIColor.systemGray5))
+                            .cornerRadius(8)
+                    }
+                    .disabled(firstName.isEmpty || lastName.isEmpty)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                    
+                    // Back button
+                    Button(action: {
+                        showAdvancedSignUp = false
+                    }) {
+                        Text("Back")
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.top, 16)
                 }
-                .padding(.horizontal)
+                
+                Spacer()
+                
+                // Already have an account or Sign up link
+                Button(action: {
+                    withAnimation {
+                        showingSignIn.toggle()
+                    }
+                }) {
+                    if showingSignIn {
+                        HStack(spacing: 4) {
+                            Text("Don't have an account?")
+                                .foregroundColor(.gray)
+                            Text("Sign up")
+                                .foregroundColor(.blue)
+                        }
+                        .font(.system(size: 14))
+                    } else {
+                        HStack(spacing: 4) {
+                            Text("Already have an account?")
+                                .foregroundColor(.gray)
+                            Text("Sign in")
+                                .foregroundColor(.blue)
+                        }
+                        .font(.system(size: 14))
+                    }
+                }
+                .padding(.bottom, 16)
             }
-            .alert("Reset Password", isPresented: $showForgotPassword) {
+            
+            // Loading overlay
+            if authViewModel.isLoading {
+                LoadingView(message: "Processing...")
+                    .transition(.opacity)
+                    .zIndex(100)
+            }
+            
+            // Error message
+            if let errorMessage = authViewModel.errorMessage {
                 VStack {
-                    TextField("Enter your email", text: $email)
-                        .autocapitalization(.none)
-                        .keyboardType(.emailAddress)
-                    
-                    HStack {
-                        Button("Cancel", role: .cancel) { }
-                        
-                        Button("Reset") {
-                            if isValidEmail(email) {
-                                authViewModel.resetPassword(email: email)
-                            }
-                        }
-                    }
+                    Spacer()
+                    Text(errorMessage)
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red.opacity(0.8))
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                        .padding(.bottom, 20)
                 }
-            } message: {
-                Text("Enter your email address to receive a password reset link.")
+                .transition(.move(edge: .bottom))
+                .animation(.easeInOut, value: authViewModel.errorMessage != nil)
+                .zIndex(90)
             }
             
             // Password reset confirmation
-            if authViewModel.passwordResetSent {
-                VStack {
-                    Spacer()
-                    
-                    VStack(spacing: 20) {
-                        Image(systemName: "envelope.circle.fill")
-                            .font(.system(size: 50))
-                            .foregroundColor(.green)
-                        
-                        Text("Password Reset Email Sent")
-                            .font(.headline)
-                        
-                        Text("Please check your email inbox for instructions to reset your password.")
-                            .multilineTextAlignment(.center)
-                            .padding()
-                        
-                        Button("OK") {
-                            authViewModel.passwordResetSent = false
-                        }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .padding(.horizontal, 40)
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .shadow(radius: 10)
-                    .padding()
-                    
-                    Spacer()
-                }
-                .background(Color.black.opacity(0.4).ignoresSafeArea())
-                .transition(.opacity)
-                .zIndex(1)
+            if showingPasswordResetConfirmation {
+                passwordResetConfirmationView
             }
         }
     }
     
-    // Helper function to create consistent input fields
-    func inputField(title: String, text: Binding<String>, placeholder: String, icon: String, isSecure: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.gray)
+    // MARK: - Helper Views
+    
+    // Password reset confirmation view
+    var passwordResetConfirmationView: some View {
+        ZStack {
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
             
-            HStack {
-                Image(systemName: icon)
-                    .foregroundColor(.gray)
-                    .frame(width: 20)
+            VStack(spacing: 20) {
+                Image(systemName: "envelope.circle.fill")
+                    .font(.system(size: 50))
+                    .foregroundColor(.green)
                 
-                if isSecure {
-                    SecureField(placeholder, text: text)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                } else {
-                    TextField(placeholder, text: text)
-                        .autocapitalization(icon == "envelope" ? .none : .words)
-                        .disableAutocorrection(true)
-                        .keyboardType(icon == "envelope" ? .emailAddress : .default)
+                Text("Password Reset Email Sent")
+                    .font(.headline)
+                
+                Text("We've sent password reset instructions to your email. Please check your inbox.")
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .font(.body)
+                
+                Button("OK") {
+                    showingPasswordResetConfirmation = false
                 }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding(.horizontal, 50)
+                .padding(.vertical, 12)
+                .background(Color.mint)
+                .cornerRadius(10)
             }
-            .padding()
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(10)
+            .padding(30)
+            .background(Color.white)
+            .cornerRadius(20)
+            .shadow(radius: 10)
+            .padding(40)
+        }
+        .transition(.opacity)
+        .animation(.easeInOut, value: showingPasswordResetConfirmation)
+    }
+    
+    // MARK: - Helper Functions
+    
+    // Social button styled according to the design
+    func socialButton(text: String, logo: String, isSFSymbol: Bool = false, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack {
+                if isSFSymbol {
+                    Image(systemName: logo)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                } else {
+                    Image(logo) // Use your own logo assets
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                }
+                
+                Text(text)
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+                
+                Spacer()
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 16)
+            .background(Color.white)
+            .cornerRadius(8)
+            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
         }
     }
     
-    // Validation for sign up
-    func validateSignUp() -> Bool {
-        // Validate email
-        if email.isEmpty || !isValidEmail(email) {
-            authViewModel.errorMessage = "Please enter a valid email address."
-            return false
-        }
-        
-        // Validate password
-        if password.isEmpty || password.count < 6 {
-            authViewModel.errorMessage = "Password must be at least 6 characters."
-            return false
-        }
-        
-        // Validate password match
-        if password != confirmPassword {
-            authViewModel.errorMessage = "Passwords do not match."
-            return false
-        }
-        
-        // First and last name are optional but recommended
-        if firstName.isEmpty && lastName.isEmpty {
-            // Show a warning but allow to proceed
-            authViewModel.errorMessage = "Adding your name is recommended but optional."
-            return true
-        }
-        
-        return true
+    // Form validation
+    private func validateForm() {
+        // Not needed for this simplified UI, validation is handled directly in button disabled states
     }
     
-    // Simple email validation
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
+    // Handle account creation with email
+    private func createAccount() {
+        authViewModel.signUp(
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName
+        )
+    }
+    
+    // Handle login with email
+    private func loginWithEmail() {
+        authViewModel.signIn(email: email, password: password)
+    }
+    
+    // Handle password reset
+    private func resetPassword(email: String) {
+        Task {
+            // This prevents any issues with state updates in alert closures
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            
+            authViewModel.resetPassword(email: email)
+            showingPasswordResetConfirmation = true
+        }
+    }
+    
+    // Handle Apple Sign In
+    private func handleAppleSignIn() {
+        // This is where you'd implement Apple Sign In
+        // Since the implementation depends on additional setup,
+        // this is a placeholder for now
     }
 }
 
+
+// MARK: - Extensions
+
+// TextField placeholder modifier
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+        
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
 
 #Preview {
     AuthView()
