@@ -22,12 +22,12 @@ struct Badge: View {
             }
             
             Text(text)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundColor(isDark ? .white : .primary)
+                .font(.system(size: 12))
+                .foregroundColor(isDark ? .white : Color("gray900"))
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-        .background(isDark ? Color.black : Color.white)
+        .background(isDark ? Color.black : Color("White"))
         .cornerRadius(20)
         .overlay(
             RoundedRectangle(cornerRadius: 20)

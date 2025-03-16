@@ -13,10 +13,13 @@ struct DashboardView: View {
     @StateObject var viewModel = DashboardViewModel()
     @State private var showGoalDetails = true
     @State private var selectedTab = 0
+    @State private var showingWorkoutSheet = false
+    @State private var showChooseWorkoutView = false
+    @State private var navigationPath = NavigationPath()
     
     var body: some View {
         ZStack {
-            NavigationView {
+            NavigationStack(path: $navigationPath) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         // Header with user info
@@ -35,7 +38,7 @@ struct DashboardView: View {
                         // Progress message
                         Text(viewModel.progressMessage)
                             .font(.system(size: 14))
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.gray900)
                             .padding(.horizontal)
                         
                         // Today's goals section
@@ -48,7 +51,7 @@ struct DashboardView: View {
                                     showGoalDetails.toggle()
                                 }) {
                                     Image(systemName: showGoalDetails ? "chevron.down" : "chevron.right")
-                                        .foregroundColor(.primary)
+                                        .foregroundColor(Color("gray900"))
                                 }
                                 
                                 Spacer()
@@ -60,14 +63,14 @@ struct DashboardView: View {
                                         Image(systemName: "chevron.right")
                                             .font(.system(size: 12))
                                     }
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.gray900)
                                 }
                             }
                             .padding(.horizontal)
                             
                             if showGoalDetails {
                                 // Today's goal cards in 2x2 grid
-                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 6) {
                                     ForEach(viewModel.todayGoals) { goal in
                                         goalCard(goal: goal)
                                     }
@@ -83,7 +86,7 @@ struct DashboardView: View {
                                     summaryRow(title: "Calories", value: "1.350/2.500", showArrow: true)
                                 }
                                 .padding()
-                                .background(Color(.systemBackground))
+                                .background(Color("white"))
                                 .cornerRadius(12)
                                 .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
                                 .padding(.horizontal)
@@ -92,23 +95,16 @@ struct DashboardView: View {
                         
                         // Track workout button
                         Button(action: {
-                            selectedTab = 3 // Switch to workouts tab
+                            showingWorkoutSheet = true
                         }) {
-                            HStack {
+                            HStack(spacing: 12) {
                                 Text("Track a workout")
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.white)
-                                
-                                Spacer()
-                                
                                 Image(systemName: "arrow.right")
-                                    .foregroundColor(.white)
                             }
-                            .padding()
-                            .background(Color(.systemIndigo))
-                            .cornerRadius(12)
-                            .padding(.horizontal)
                         }
+                        .buttonStyle(SecondaryButtonStyle())
+                        .padding(.horizontal)
+                        
                         
                         // Today's activities section
                         VStack(spacing: 16) {
@@ -136,7 +132,7 @@ struct DashboardView: View {
                                     .foregroundColor(.secondary)
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color(.systemBackground))
+                                    .background(Color(.white))
                                     .cornerRadius(12)
                                     .padding(.horizontal)
                             } else {
@@ -161,7 +157,7 @@ struct DashboardView: View {
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 120)
-                            .background(Color(.systemBackground))
+                            .background(Color.clear)
                             .cornerRadius(12)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
@@ -176,23 +172,54 @@ struct DashboardView: View {
                     .padding(.top)
                     .padding(.bottom, 80) // Add padding for tab bar
                 }
-                .background(Color(.systemGroupedBackground))
+                .background(Color("gray100"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
                 .loadingOverlay(isLoading: viewModel.isLoading, message: "Loading your dashboard...")
                 .refreshable {
                     await viewModel.refreshData()
                 }
+                .navigationDestination(isPresented: $showChooseWorkoutView) {
+                    ChooseWorkoutView()
+                }
             }
             
             // Bottom tab bar using the reusable component
             VStack {
                 Spacer()
-                TabBarView(selectedTab: $selectedTab, actionHandler: {
-                    // Action for the center + button
-                })
+                TabBarView(
+                    selectedTab: $selectedTab,
+                    onShowChooseWorkout: {
+                        showChooseWorkoutView = true
+                    }
+                )
             }
         }
+        .sheet(isPresented: $showingWorkoutSheet) {
+            WorkoutActionSheet(
+                onTrackWorkout: {
+                    // Dismiss the current sheet and show ChooseWorkoutView
+                    showingWorkoutSheet = false
+                    
+                    // Use a slight delay to avoid UI conflicts with sheet transitions
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        showChooseWorkoutView = true
+                    }
+                },
+                onWorkoutHistory: {
+                    // Navigate to workout history
+                },
+                onWorkoutTemplates: {
+                    // Navigate to workout templates
+                },
+                onFindWorkout: {
+                    // Navigate to find workout
+                }
+            )
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
+        }
+        
         .onAppear {
             viewModel.loadData()
             print("🧪 DashboardView onAppear - authViewModel.currentUser?.firstName = \(authViewModel.currentUser?.firstName ?? "nil")")
@@ -200,7 +227,7 @@ struct DashboardView: View {
         }
     }
     
-    // Header view with menu icon, greeting and user profile
+    // Header view with menu icon, greeting and user profile - MOVED OUTSIDE BODY
     var headerView: some View {
         VStack(spacing: 16) {
             // Top row with menu, notifications, and avatar
@@ -211,7 +238,7 @@ struct DashboardView: View {
                 }) {
                     Image(systemName: "line.horizontal.3")
                         .font(.system(size: 22))
-                        .foregroundColor(.primary)
+                        .foregroundColor(Color("gray900"))
                 }
                 
                 Spacer()
@@ -223,10 +250,10 @@ struct DashboardView: View {
                     }) {
                         Image(systemName: "bell")
                             .font(.system(size: 20))
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color("gray900"))
                             .overlay(
                                 viewModel.hasNotifications ?
-                                    Circle()
+                                Circle()
                                     .fill(Color.red)
                                     .frame(width: 8, height: 8)
                                     .offset(x: 8, y: -8) : nil
@@ -238,7 +265,7 @@ struct DashboardView: View {
                     }) {
                         Image(systemName: "message")
                             .font(.system(size: 20))
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color("gray900"))
                     }
                     
                     // Avatar links to settings/profile
@@ -264,10 +291,10 @@ struct DashboardView: View {
             // Greeting text below top row
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.greeting)
-                    .font(.system(size: 24))
+                    .font(.system(size: 30, weight: .light))
                 
                 Text(authViewModel.currentUser?.firstName ?? "User")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.system(size: 30, weight: .bold))
                     .id(authViewModel.currentUser?.firstName ?? "User") // Force refresh when firstName changes
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -275,18 +302,18 @@ struct DashboardView: View {
         .padding(.horizontal)
     }
     
-    // Goal pill badge
+    // Goal pill badge - MOVED OUTSIDE BODY
     func goalPill(text: String) -> some View {
         Text(text)
-            .font(.system(size: 14))
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(Color(.systemBackground))
-            .foregroundColor(.primary)
+            .font(.system(size: 11,weight: .medium))
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color.clear)
+            .foregroundColor(Color("gray900"))
             .clipShape(Capsule())
             .overlay(
                 Capsule()
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    .stroke(Color("gray900"), lineWidth: 1)
             )
     }
     
@@ -298,16 +325,16 @@ struct DashboardView: View {
                     .foregroundColor(goal.color)
                 
                 Text(goal.title)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 16, weight: .medium))
             }
             
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 Text(goal.currentValue)
-                    .font(.system(size: 24, weight: .bold))
+                    .font(.system(size: 30, weight: .bold))
                 
                 Text(goal.unit)
-                    .font(.system(size: 14))
-                    .foregroundColor(.secondary)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.gray900)
             }
             
             VStack(alignment: .leading, spacing: 4) {
@@ -316,29 +343,54 @@ struct DashboardView: View {
                 
                 Text("/\(goal.targetValue)")
                     .font(.system(size: 12))
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.gray500)
             }
         }
         .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
+        .background(Color.white)
+        .cornerRadius(8)
     }
     
     // Summary row for additional stats
     func summaryRow(title: String, value: String, showArrow: Bool = false) -> some View {
         HStack {
+            // Title with medium weight
             Text(title)
-                .font(.system(size: 16))
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(Color("gray900"))
             
             Spacer()
             
-            Text(value)
-                .font(.system(size: 16, weight: .semibold))
+            // Value split into two parts: before and after "/"
+            if value.contains("/") {
+                let components = value.split(separator: "/")
+                if components.count == 2 {
+                    // First part (like "3") with semibold weight
+                    Text(String(components[0]))
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color("gray900"))
+                    
+                    // The slash and second part (like "/5") with medium weight and gray400 color
+                    Text("/" + String(components[1]))
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(Color("gray400"))
+                } else {
+                    // Fallback if format is unexpected
+                    Text(value)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color("gray900"))
+                }
+            } else {
+                // For values without a slash
+                Text(value)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(Color("gray900"))
+            }
             
             if showArrow {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("gray400"))
             }
         }
     }
@@ -380,7 +432,7 @@ struct DashboardView: View {
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(Color.white)
         .cornerRadius(12)
         .padding(.horizontal)
     }

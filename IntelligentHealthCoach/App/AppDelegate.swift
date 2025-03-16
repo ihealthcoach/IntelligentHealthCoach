@@ -5,9 +5,8 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
-
-import SwiftUI
 import UIKit
+import SwiftUI
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -34,12 +33,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     private func configureAppearance() {
+        // Register and override system fonts with Inter
+        UIFont.registerInterFonts()
+        UIFont.overrideSystemFont()
+        
         // Configure global app appearance
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(Color.white)
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(Color.black)]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Color.black)]
+        appearance.backgroundColor = UIColor(Color("White"))
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(Color("gray900"))]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Color("gray900"))]
         
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
@@ -48,7 +51,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Tab bar appearance
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = UIColor(Color.white)
+        tabBarAppearance.backgroundColor = UIColor(Color("White"))
         
         UITabBar.appearance().standardAppearance = tabBarAppearance
         if #available(iOS 15.0, *) {

@@ -12,7 +12,7 @@ import Combine
 class DashboardViewModel: ObservableObject {
     @Published var greeting: String = "Good morning"
     @Published var goals: [String] = ["Muscle building", "3 meals", "12 weeks", "Vegan"]
-    @Published var progressMessage: String = "Great start of the day, a little more to reach today's goals"
+    @Published var progressMessage: String = "Great start of the day, a little more to reach today's goals even thoght it's a long text"
     @Published var todayGoals: [TodayGoal] = []
     @Published var activities: [Activity] = []
     @Published var hasNotifications: Bool = false
@@ -58,7 +58,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "2,500",
                 unit: "kcal",
                 icon: "flame.fill",
-                color: .orange
+                color: .gray900
             ),
             TodayGoal(
                 title: "Active time",
@@ -66,7 +66,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "120",
                 unit: "min",
                 icon: "clock.fill",
-                color: .green
+                color: .gray900
             ),
             TodayGoal(
                 title: "Steps",
@@ -74,7 +74,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "10,000",
                 unit: "steps",
                 icon: "figure.walk",
-                color: .blue
+                color: .gray900
             ),
             TodayGoal(
                 title: "Distance",
@@ -82,7 +82,7 @@ class DashboardViewModel: ObservableObject {
                 targetValue: "10.00",
                 unit: "km",
                 icon: "mappin",
-                color: .purple
+                color: .gray900
             )
         ]
         

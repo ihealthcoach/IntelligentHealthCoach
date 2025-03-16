@@ -11,15 +11,14 @@ import SwiftUI
 
 struct ProgressBar: View {
     var progress: Double
-    var color: Color = .blue
+    var color: Color = .gray900
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
                     .frame(width: geometry.size.width, height: 6)
-                    .opacity(0.3)
-                    .foregroundColor(color)
+                    .foregroundColor(Color("gray100"))
                 
                 Rectangle()
                     .frame(width: min(CGFloat(self.progress) * geometry.size.width, geometry.size.width), height: 6)
