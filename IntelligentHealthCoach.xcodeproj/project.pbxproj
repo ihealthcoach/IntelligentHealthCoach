@@ -14,6 +14,8 @@
 		E90E04412D86DF74003237CC /* ShortcutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04402D86DF73003237CC /* ShortcutSheet.swift */; };
 		E90E04432D86EE1F003237CC /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04422D86EE1B003237CC /* BackButton.swift */; };
 		E90E04452D86EE7A003237CC /* ChooseWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04442D86EE7A003237CC /* ChooseWorkoutView.swift */; };
+		E90E04472D87348C003237CC /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04462D87348C003237CC /* CategoryButton.swift */; };
+		E90E04492D873A14003237CC /* AlphabetSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04482D873A14003237CC /* AlphabetSelector.swift */; };
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
@@ -75,7 +77,6 @@
 		E97F15C92D70683200153EA8 /* IntelligentHealthCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15C82D70683200153EA8 /* IntelligentHealthCoachTests.swift */; };
 		E97F15D32D70683200153EA8 /* IntelligentHealthCoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */; };
 		E97F15D52D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */; };
-		E991DDD42D834793002B3287 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991DDD32D834793002B3287 /* SwiftUIView.swift */; };
 		E991DE152D834D78002B3287 /* SettingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991DE142D834D77002B3287 /* SettingOption.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +105,8 @@
 		E90E04402D86DF73003237CC /* ShortcutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutSheet.swift; sourceTree = "<group>"; };
 		E90E04422D86EE1B003237CC /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		E90E04442D86EE7A003237CC /* ChooseWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseWorkoutView.swift; sourceTree = "<group>"; };
+		E90E04462D87348C003237CC /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		E90E04482D873A14003237CC /* AlphabetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetSelector.swift; sourceTree = "<group>"; };
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
@@ -163,7 +166,6 @@
 		E97F15CE2D70683200153EA8 /* IntelligentHealthCoachUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelligentHealthCoachUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97F15D22D70683200153EA8 /* IntelligentHealthCoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITests.swift; sourceTree = "<group>"; };
 		E97F15D42D70683200153EA8 /* IntelligentHealthCoachUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentHealthCoachUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		E991DDD32D834793002B3287 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		E991DE142D834D77002B3287 /* SettingOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -515,6 +517,8 @@
 				E940C2422D70C3F800C959C4 /* RadioButton.swift */,
 				E90E04382D85DFED003237CC /* TabBarView.swift */,
 				E90E043C2D86A6BE003237CC /* FlexibleSheet.swift */,
+				E90E04462D87348C003237CC /* CategoryButton.swift */,
+				E90E04482D873A14003237CC /* AlphabetSelector.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -592,7 +596,6 @@
 				E940C23C2D70C3F800C959C4 /* Preview Content */,
 				E940C24A2D70C3F800C959C4 /* UI */,
 				E97F15BD2D70683200153EA8 /* Preview Content */,
-				E991DDD32D834793002B3287 /* SwiftUIView.swift */,
 			);
 			path = IntelligentHealthCoach;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
 				E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */,
 				E991DE152D834D78002B3287 /* SettingOption.swift in Sources */,
+				E90E04492D873A14003237CC /* AlphabetSelector.swift in Sources */,
 				E940C2862D70CB6D00C959C4 /* PreviewHelpers.swift in Sources */,
 				E90E043D2D86A6BE003237CC /* FlexibleSheet.swift in Sources */,
 				E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */,
@@ -780,13 +784,13 @@
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
 				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
 				E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */,
-				E991DDD42D834793002B3287 /* SwiftUIView.swift in Sources */,
 				E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */,
 				E940C2552D70C3F800C959C4 /* SupabaseService.swift in Sources */,
 				E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */,
 				E940C2572D70C3F800C959C4 /* WorkoutsView.swift in Sources */,
 				E940C2582D70C3F800C959C4 /* ProfileView.swift in Sources */,
 				E90E04452D86EE7A003237CC /* ChooseWorkoutView.swift in Sources */,
+				E90E04472D87348C003237CC /* CategoryButton.swift in Sources */,
 				E940C2592D70C3F800C959C4 /* WorkoutSet.swift in Sources */,
 				E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */,
 				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,

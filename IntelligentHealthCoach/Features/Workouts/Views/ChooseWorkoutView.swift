@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChooseWorkoutView: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var selectedTab = 3
+    @State private var showingExerciseLibrary = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -26,10 +28,10 @@ struct ChooseWorkoutView: View {
             Text("Choose from the selection below")
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(Color("gray400"))
-                .padding(.bottom, 16)
+                .padding(.bottom, 24)
             
             // Option buttons
-            VStack(spacing: 16) {
+            VStack(spacing: 8) {
                 ChooseWorkoutButton(
                     title: "Using a saved template",
                     description: "Follow a workout template from your saved workout templates"
@@ -41,7 +43,8 @@ struct ChooseWorkoutView: View {
                     title: "Without a template",
                     description: "Add exercises as you go"
                 ) {
-                    // Handle without template option
+                    // Navigate to ExerciseLibraryView
+                    showingExerciseLibrary = true
                 }
                 
                 ChooseWorkoutButton(
@@ -51,8 +54,7 @@ struct ChooseWorkoutView: View {
                     // Handle previous workout option
                 }
             }
-            
-            Spacer()
+            .frame(maxWidth: .infinity)
             
             // Cancel button
             Button("Cancel") {
@@ -61,10 +63,31 @@ struct ChooseWorkoutView: View {
             .font(.system(size: 16, weight: .medium))
             .foregroundColor(Color("gray400"))
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.bottom, 16)
+            .padding(.top, 16)
         }
+        
+
         .padding(.horizontal, 16)
-        .background(Color.white)
+        .padding(.vertical, 16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(Color("gray100"))
+        .navigationBarBackButtonHidden(true)
+        .navigationDestination(isPresented: $showingExerciseLibrary) {
+            ExerciseLibraryView(selectionMode: true, onExerciseSelected: { exercise in
+                // Handle selected exercise
+                showingExerciseLibrary = false // Navigate back when done
+            })
+            .navigationBarBackButtonHidden(true) // Hide default back button on the library view
+        }
+        
+        VStack {
+            Spacer()
+            TabBarView(
+                selectedTab: $selectedTab,
+                onShowChooseWorkout: {
+                }
+            )
+        }
     }
 }
 

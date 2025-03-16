@@ -5,6 +5,7 @@ struct WorkoutsView: View {
     @StateObject var viewModel = WorkoutViewModel()
     @State private var showingExerciseLibrary = false
     @State private var showingCreateWorkout = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {

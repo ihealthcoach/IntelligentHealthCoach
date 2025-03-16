@@ -106,21 +106,25 @@ struct ChooseWorkoutButton: View {
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(Color("gray400"))
                 }
+                .layoutPriority(1)
                 
                 Spacer()
-                    .frame(width: 24) // 24px gap
+                    //.frame(width: 24) // 24px gap
                 
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color("gray400"))
             }
             .padding(16)
+            .frame(maxWidth: .infinity)
             .background(Color("gray50"))
             .cornerRadius(8)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color("gray200"), lineWidth: 1)
             )
+            .frame(maxWidth: .infinity)
         }
         .buttonStyle(PlainButtonStyle())
+        .frame(maxWidth: .infinity)
     }
 }

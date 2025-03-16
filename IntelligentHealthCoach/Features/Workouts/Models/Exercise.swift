@@ -70,4 +70,13 @@ struct Exercise: Codable, Identifiable {
     var gifUrl: String {
         return "https://example.com/exercises/\(id).gif" // Provide a default or placeholder
     }
+    
+    // Add hash and equality implementations for Hashable conformance
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Exercise, rhs: Exercise) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
