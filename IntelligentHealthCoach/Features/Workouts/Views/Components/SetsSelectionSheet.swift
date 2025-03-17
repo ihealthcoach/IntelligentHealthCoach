@@ -12,10 +12,9 @@ struct SetsSelectionSheet: View {
     @Binding var selectedSetsCount: Int
     var exercises: [Exercise]
     var onConfirm: (Int) -> Void
-    var onCancel: () -> Void
     
     var body: some View {
-        FlexibleSheet(title: "Select Sets") {
+        FlexibleSheet(title: "Add set amount") {
             VStack(spacing: 20) {
                 // Exercise summary
                 HStack {
@@ -35,6 +34,7 @@ struct SetsSelectionSheet: View {
                     Picker("Sets", selection: $selectedSetsCount) {
                         ForEach(1...50, id: \.self) { count in
                             Text("\(count) set\(count > 1 ? "s" : "")")
+                                .font(.system(size: 24, weight: .bold))
                                 .tag(count)
                         }
                     }
@@ -43,33 +43,20 @@ struct SetsSelectionSheet: View {
                     .clipped()
                 }
                 .padding()
-                .background(Color("gray50"))
-                .cornerRadius(12)
                 .padding(.horizontal)
                 
-                // Action buttons
-                VStack(spacing: 12) {
-                    Button(action: {
-                        onConfirm(selectedSetsCount)
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Confirm")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                            .background(Color("gray900"))
-                            .cornerRadius(8)
-                    }
-                    
-                    Button(action: {
-                        onCancel()
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Cancel")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(Color("gray500"))
-                    }
+                // Action button
+                Button(action: {
+                    onConfirm(selectedSetsCount)
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Save sets")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color("indigo600"))
+                        .cornerRadius(8)
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 16)
@@ -134,10 +121,9 @@ struct SetsSelectionSheet_Previews: PreviewProvider {
             SetsSelectionSheet(
                 selectedSetsCount: $setsCount,
                 exercises: exercises,
-                onConfirm: { _ in },
-                onCancel: {}
+                onConfirm: { _ in }
             )
-            .background(Color.white) // Background for preview only
+            .background(Color.gray.opacity(0.3)) // Background for preview only
         }
     }
 }
