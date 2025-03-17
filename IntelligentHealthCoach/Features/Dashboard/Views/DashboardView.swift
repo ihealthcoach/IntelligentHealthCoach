@@ -172,7 +172,7 @@ struct DashboardView: View {
                     .padding(.top)
                     .padding(.bottom, 80) // Add padding for tab bar
                 }
-                .background(Color("gray100"))
+                .appBackground()
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
                 .loadingOverlay(isLoading: viewModel.isLoading, message: "Loading your dashboard...")

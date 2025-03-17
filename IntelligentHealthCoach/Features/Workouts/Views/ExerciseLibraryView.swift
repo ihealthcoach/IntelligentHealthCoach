@@ -16,6 +16,8 @@ struct ExerciseLibraryView: View {
     @State private var selectedExerciseIds: Set<String> = []
     @State private var showingSetsSheet = false
     @State private var scrollToLetter: String? = nil
+    @State private var selectedSetsCount = 3 // Default sets count
+    @State private var selectedExercises: [Exercise] = [] // Track selected exercise
     
     private let letters = ["#"] + (65...90).map { String(UnicodeScalar($0)) }
     
@@ -216,9 +218,10 @@ struct ExerciseLibraryView: View {
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
+                                .padding(.vertical, 18)
+                                .padding(.horizontal, 24)
                                 .background(Color("gray900"))
-                                .cornerRadius(8)
+                                .cornerRadius(50)
                         }
                         
                         // Build Super Set button (only if more than 1 exercise selected)
@@ -228,20 +231,21 @@ struct ExerciseLibraryView: View {
                             }) {
                                 Text("Build Super Set")
                                     .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.gray900)
                                     .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 16)
+                                    .padding(.vertical, 18)
+                                    .padding(.horizontal, 24)
                                     .background(Color.white)
-                                    .cornerRadius(8)
+                                    .cornerRadius(50)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                            .stroke(Color("gray100"), lineWidth: 1)
                                     )
                             }
                         }
                     }
                     .padding()
-                    .background(Color.white)
+                    //.background(Color.white)
                     .cornerRadius(16, corners: [.topLeft, .topRight])
                     .shadow(color: Color.black.opacity(0.1), radius: 4, y: -2)
                 }
@@ -268,14 +272,26 @@ struct ExerciseLibraryView: View {
                 }
             }
         }
+        .appBackground()
         .navigationBarHidden(true)
         .onAppear {
             viewModel.fetchExercises()
         }
         .sheet(isPresented: $showingSetsSheet) {
-            // We'll implement this sets selection sheet later
-            Text("Select number of sets")
-                .presentationDetents([.medium])
+            SetsSelectionSheet(
+                selectedSetsCount: $selectedSetsCount,
+                exercises: selectedExercises,
+                onConfirm: { setsCount in
+                    // Handle the selected sets count
+                    // Add the selected exercises to the workout with the specified sets count
+                    addExercisesToWorkout(exercises: selectedExercises, setsCount: setsCount)
+                    selectedExerciseIds.removeAll()
+                },
+                onCancel: {
+                    // Just dismiss the sheet
+                }
+            )
+            .presentationDetents([.medium])
         }
     }
     
@@ -283,9 +299,21 @@ struct ExerciseLibraryView: View {
     private func toggleExerciseSelection(_ exercise: Exercise) {
         if selectedExerciseIds.contains(exercise.id) {
             selectedExerciseIds.remove(exercise.id)
+            selectedExercises.removeAll(where: { $0.id == exercise.id })
         } else {
             selectedExerciseIds.insert(exercise.id)
+            selectedExercises.append(exercise)
         }
+    }
+    
+    private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
+        // Implementation would depend on your app's architecture
+        // This is where you would create workout sets for each exercise
+        print("Adding \(exercises.count) exercises with \(setsCount) sets each")
+        
+        // Clear selections after adding
+        selectedExercises.removeAll()
+        selectedExerciseIds.removeAll()
     }
 }
 

@@ -70,7 +70,7 @@ struct ChooseWorkoutView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color("gray100"))
+        .appBackground()
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $showingExerciseLibrary) {
             ExerciseLibraryView(selectionMode: true, onExerciseSelected: { exercise in

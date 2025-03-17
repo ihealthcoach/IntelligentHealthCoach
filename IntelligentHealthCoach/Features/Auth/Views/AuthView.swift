@@ -4,13 +4,7 @@
 //
 //  Created by Casper Broe on 26/02/2025.
 //
-
-
-//
-//  AuthView.swift
-//  IntelligentHealthCoach
-//
-
+/*
 import SwiftUI
 import AuthenticationServices
 
@@ -414,3 +408,124 @@ extension View {
     AuthView()
         .environmentObject(AuthViewModel.unauthenticated)
 }
+*/
+
+import SwiftUI
+import AuthenticationServices
+
+struct AuthView: View {
+    @State private var email = ""
+    @State private var password = ""
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 20) {
+                Spacer()
+
+                // Logo Placeholder
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.indigo)
+
+                // Heading Text
+                Text("Create your account")
+                    .font(.system(size: 28, weight: .bold))
+
+                // Subheading Text
+                Text("and unlock your true potential with Intelligent Health Coach")
+                    .font(.system(size: 16))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 32)
+
+                Spacer()
+
+                // Social Sign-In Buttons
+                VStack(spacing: 12) {
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "globe") // Placeholder for Google logo
+                            Text("Sign up with Google")
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                    }
+
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "f.circle") // Placeholder for Facebook logo
+                            Text("Sign up with Facebook")
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                    }
+
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "applelogo")
+                            Text("Sign up with Apple")
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                    }
+                }
+
+                Text("or sign up with your email")
+                    .foregroundColor(.gray)
+                    .padding(.vertical, 8)
+
+                // Email & Password Fields
+                VStack(spacing: 12) {
+                    TextField("Email", text: $email)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                }
+
+                // Continue Button
+                Button(action: {}) {
+                    Text("Continue with email")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(email.isEmpty || password.isEmpty ? Color(.systemGray4) : Color.indigo)
+                        .cornerRadius(10)
+                }
+                .disabled(email.isEmpty || password.isEmpty)
+
+                Spacer()
+
+                // Already have an account?
+                HStack {
+                    Text("Already have an account?")
+                    NavigationLink(destination: Text("Sign In View")) {
+                        Text("Sign in")
+                            .fontWeight(.bold)
+                            .foregroundColor(.indigo)
+                    }
+                }
+                .padding(.bottom, 20)
+            }
+            .padding()
+        }
+    }
+}
+
+struct AuthView_Previews: PreviewProvider {
+    static var previews: some View {
+        AuthView()
+    }
+}
+

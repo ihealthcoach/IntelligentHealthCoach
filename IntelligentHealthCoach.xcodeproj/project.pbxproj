@@ -16,6 +16,8 @@
 		E90E04452D86EE7A003237CC /* ChooseWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04442D86EE7A003237CC /* ChooseWorkoutView.swift */; };
 		E90E04472D87348C003237CC /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04462D87348C003237CC /* CategoryButton.swift */; };
 		E90E04492D873A14003237CC /* AlphabetSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04482D873A14003237CC /* AlphabetSelector.swift */; };
+		E90E044B2D886D76003237CC /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E044A2D886D75003237CC /* AppStyles.swift */; };
+		E90E044D2D8875AB003237CC /* SetsSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E044C2D8875AB003237CC /* SetsSelectionSheet.swift */; };
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
@@ -107,6 +109,8 @@
 		E90E04442D86EE7A003237CC /* ChooseWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseWorkoutView.swift; sourceTree = "<group>"; };
 		E90E04462D87348C003237CC /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E90E04482D873A14003237CC /* AlphabetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetSelector.swift; sourceTree = "<group>"; };
+		E90E044A2D886D75003237CC /* AppStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyles.swift; sourceTree = "<group>"; };
+		E90E044C2D8875AB003237CC /* SetsSelectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsSelectionSheet.swift; sourceTree = "<group>"; };
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
@@ -455,6 +459,7 @@
 			children = (
 				E940C2332D70C3F800C959C4 /* ExerciseRow.swift */,
 				E940C2342D70C3F800C959C4 /* WorkoutSetRow.swift */,
+				E90E044C2D8875AB003237CC /* SetsSelectionSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -544,6 +549,7 @@
 		E940C2492D70C3F800C959C4 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				E90E044A2D886D75003237CC /* AppStyles.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -768,6 +774,7 @@
 				E940C24B2D70C3F800C959C4 /* AppDelegate.swift in Sources */,
 				E92A97B92D8203590023F808 /* ExerciseDetailView.swift in Sources */,
 				E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */,
+				E90E044B2D886D76003237CC /* AppStyles.swift in Sources */,
 				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
 				E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */,
 				E991DE152D834D78002B3287 /* SettingOption.swift in Sources */,
@@ -817,6 +824,7 @@
 				E940C2672D70C3F800C959C4 /* ProfileViewModel.swift in Sources */,
 				E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */,
 				E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */,
+				E90E044D2D8875AB003237CC /* SetsSelectionSheet.swift in Sources */,
 				E90E04432D86EE1F003237CC /* BackButton.swift in Sources */,
 				E940C2692D70C3F800C959C4 /* ContentView.swift in Sources */,
 				E940C26A2D70C3F800C959C4 /* AuthView.swift in Sources */,
@@ -933,6 +941,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1054,6 +1063,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1237,6 +1247,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1266,6 +1277,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntelligentHealthCoach/App/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
