@@ -18,6 +18,7 @@ struct ExerciseLibraryView: View {
     @State private var scrollToLetter: String? = nil
     @State private var selectedSetsCount = 3 // Default sets count
     @State private var selectedExercises: [Exercise] = [] // Track selected exercise
+    @State private var showingWorkoutExercisesView = false // For navigation
     
     private let letters = ["#"] + (65...90).map { String(UnicodeScalar($0)) }
     
@@ -283,27 +284,36 @@ struct ExerciseLibraryView: View {
                 exercises: selectedExercises,
                 onConfirm: { setsCount in
                     // Handle the selected sets count
-                    // Add the selected exercises to the workout with the specified sets count
                     addExercisesToWorkout(exercises: selectedExercises, setsCount: setsCount)
-                    selectedExerciseIds.removeAll()
-                },
-                onCancel: {
-                    // Just dismiss the sheet
                 }
             )
             .presentationDetents([.medium])
         }
+        .navigationDestination(isPresented: $showingWorkoutExercisesView) {
+            WorkoutExercisesView()
+                .navigationBarBackButtonHidden(true)
+        }
     }
     
     // Helper function to toggle exercise selection
-    private func toggleExerciseSelection(_ exercise: Exercise) {
-        if selectedExerciseIds.contains(exercise.id) {
-            selectedExerciseIds.remove(exercise.id)
-            selectedExercises.removeAll(where: { $0.id == exercise.id })
-        } else {
-            selectedExerciseIds.insert(exercise.id)
-            selectedExercises.append(exercise)
+    private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
+        // Create a WorkoutExercisesViewModel and add the exercises
+        let workoutVM = WorkoutExercisesViewModel()
+        
+        // Add each exercise with the specified number of sets
+        for exercise in exercises {
+            workoutVM.addExercise(exercise, setsCount: setsCount)
         }
+        
+        // Print for debugging
+        print("Adding \(exercises.count) exercises with \(setsCount) sets each")
+        
+        // Navigate to the WorkoutExercisesView
+        showingWorkoutExercisesView = true
+        
+        // Clear selections after adding
+        selectedExercises.removeAll()
+        selectedExerciseIds.removeAll()
     }
     
     private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
