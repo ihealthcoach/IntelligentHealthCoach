@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct FloatingActionButtonView: View {
     var selectedCount: Int
@@ -45,5 +44,28 @@ struct FloatingActionButtonView: View {
                 .padding(.bottom, selectedCount == 0 ? 20 : 120) // Adjust based on buttons
             }
         }
+    }
+}
+
+struct FloatingActionButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            // Preview with filter icon
+            FloatingActionButtonView(
+                selectedCount: 0,
+                onTap: {}
+            )
+            .previewDisplayName("Filter Icon")
+            
+            // Preview with count
+            FloatingActionButtonView(
+                selectedCount: 5,
+                onTap: {}
+            )
+            .previewDisplayName("Exercise Count")
+        }
+        .previewLayout(.sizeThatFits)
+        .padding()
+        .background(Color("gray100"))
     }
 }

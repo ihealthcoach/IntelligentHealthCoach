@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct EnhancedAlphabetSelector: View {
     var availableLetters: Set<String>
@@ -33,5 +32,19 @@ struct EnhancedAlphabetSelector: View {
         .padding(.vertical, 10)
         .background(Color.white.opacity(0.5))
         .cornerRadius(16)
+    }
+}
+
+struct EnhancedAlphabetSelector_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            Color("gray100").edgesIgnoringSafeArea(.all)
+            EnhancedAlphabetSelector(
+                availableLetters: Set(["A", "B", "C", "M", "Z"]),
+                onLetterSelected: { _ in }
+            )
+        }
+        .previewLayout(.sizeThatFits)
+        .frame(height: 600)
     }
 }

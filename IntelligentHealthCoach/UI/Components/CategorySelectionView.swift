@@ -51,3 +51,12 @@ struct CategorySelectionView: View {
         .padding(.bottom, 10)
     }
 }
+
+struct CategorySelectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        CategorySelectionView(selectedCategory: .constant("A-Z"))
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .background(Color("gray100"))
+    }
+}

@@ -27,3 +27,12 @@ struct TitleView: View {
         .padding(.bottom, 16)
     }
 }
+
+struct TitleView_Previews: PreviewProvider {
+    static var previews: some View {
+        TitleView(title: "Library", subtitle: "Add exercises to your workout")
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .background(Color("gray100"))
+    }
+}

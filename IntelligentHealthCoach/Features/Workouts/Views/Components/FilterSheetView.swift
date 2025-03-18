@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct FilterSheetView: View {
     var onClose: () -> Void
@@ -25,5 +24,12 @@ struct FilterSheetView: View {
                 .padding()
         }
         .presentationDetents([.medium])
+    }
+}
+
+struct FilterSheetView_Previews: PreviewProvider {
+    static var previews: some View {
+        FilterSheetView(onClose: {})
+            .previewLayout(.sizeThatFits)
     }
 }

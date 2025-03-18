@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct BottomActionButtonsView: View {
     var selectedCount: Int
@@ -55,5 +54,30 @@ struct BottomActionButtonsView: View {
             .cornerRadius(24, corners: [.topLeft, .topRight])
             .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: -3)
         }
+    }
+}
+
+struct BottomActionButtonsView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            // Preview with single exercise
+            BottomActionButtonsView(
+                selectedCount: 1,
+                onAddExercises: {},
+                onBuildSuperSet: {}
+            )
+            .previewDisplayName("Single Exercise")
+            
+            // Preview with multiple exercises
+            BottomActionButtonsView(
+                selectedCount: 3,
+                onAddExercises: {},
+                onBuildSuperSet: {}
+            )
+            .previewDisplayName("Multiple Exercises")
+        }
+        .previewLayout(.sizeThatFits)
+        .padding()
+        .background(Color("gray100"))
     }
 }
