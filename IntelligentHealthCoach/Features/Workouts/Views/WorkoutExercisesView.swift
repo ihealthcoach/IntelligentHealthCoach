@@ -201,7 +201,13 @@ struct WorkoutExercisesView: View {
             .navigationBarBackButtonHidden(true)
         }
         .navigationDestination(isPresented: $viewModel.showingWorkoutTracking) {
-            WorkoutTrackingView(viewModel: WorkoutTrackingViewModel(workout: viewModel.createdWorkout!))
+            if let workout = viewModel.createdWorkout {
+                WorkoutTrackingView(viewModel: WorkoutTrackingViewModel(workout: workout))
+            } else {
+                // Fallback view when workout is nil
+                Text("No workout data available")
+                    .padding()
+            }
         }
         .loadingOverlay(isLoading: viewModel.isLoading)
     }
@@ -235,7 +241,6 @@ struct WorkoutExercisesView: View {
     }
 }
 
-// Preview
 #Preview {
     NavigationStack {
         WorkoutExercisesView()

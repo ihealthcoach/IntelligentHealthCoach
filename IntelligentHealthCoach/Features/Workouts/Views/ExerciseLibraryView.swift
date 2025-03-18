@@ -19,8 +19,7 @@ struct ExerciseLibraryView: View {
     @State private var selectedSetsCount = 3 // Default sets count
     @State private var selectedExercises: [Exercise] = [] // Track selected exercise
     @State private var showingWorkoutExercisesView = false // For navigation
-    
-    private let letters = ["#"] + (65...90).map { String(UnicodeScalar($0)) }
+    @State private var showFilterSheet = false // For filter functionality
     
     var selectionMode: Bool = true
     var onExerciseSelected: ((Exercise) -> Void)? = nil
@@ -29,249 +28,52 @@ struct ExerciseLibraryView: View {
         ZStack {
             // Main content
             VStack(spacing: 0) {
-                // Header row
-                HStack {
-                    // Back button
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 20))
-                            .foregroundColor(.black)
-                    }
-                    
-                    Spacer()
-                    
-                    // View workout button
-                    Button(action: {
-                        // Will implement later
-                    }) {
-                        HStack(spacing: 2) {
-                            Text("View workout")
-                                .font(.system(size: 14))
-                            
-                            Image(systemName: "chevron.down")
-                                .font(.system(size: 12))
-                        }
-                        .foregroundColor(.gray)
-                    }
-                    
-                    // Add exercise button
-                    Button(action: {
-                        // Will implement later
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 18))
-                            .foregroundColor(.black)
-                            .padding(8)
-                            .background(Color.white)
-                            .clipShape(Circle())
-                    }
-                    
-                    // Done button
-                    Button(action: {
-                        // Will implement later - finalize workout
-                    }) {
-                        HStack {
-                            Text("Done")
-                            Image(systemName: "checkmark")
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color(.darkText))
-                        .foregroundColor(.white)
-                        .cornerRadius(20)
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 8)
+                HeaderView(
+                    onBack: { presentationMode.wrappedValue.dismiss() }
+                )
                 
-                // Title and description
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Library")
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundColor(.black)
-                    
-                    Text("Add exercises to your workout")
-                        .font(.system(size: 14))
-                        .foregroundColor(.gray)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
-                .padding(.bottom, 16)
+                TitleView(
+                    title: "Library",
+                    subtitle: "Add exercises to your workout"
+                )
                 
-                // Category selection with our new component
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        // A-Z category
-                        CategoryButton(
-                            icon: "arrow.up.arrow.down",
-                            label: "A-Z",
-                            isSelected: selectedCategory == "A-Z"
-                        ) {
-                            selectedCategory = "A-Z"
-                        }
-                        
-                        // Recent category
-                        CategoryButton(
-                            icon: "clock",
-                            label: "Recent",
-                            isSelected: selectedCategory == "Recent"
-                        ) {
-                            selectedCategory = "Recent"
-                        }
-                        
-                        // Favorites category
-                        CategoryButton(
-                            icon: "heart",
-                            label: "Favorites",
-                            isSelected: selectedCategory == "Favorites"
-                        ) {
-                            selectedCategory = "Favorites"
-                        }
-                        
-                        // Search category
-                        CategoryButton(
-                            icon: "magnifyingglass",
-                            label: "Search",
-                            isSelected: selectedCategory == "Search"
-                        ) {
-                            selectedCategory = "Search"
-                            // Will implement search functionality later
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 10)
+                CategorySelectionView(
+                    selectedCategory: $selectedCategory
+                )
                 
                 // Exercise list with alphabet index
-                ZStack(alignment: .trailing) {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        // Main scrollable exercise list
-                        ScrollViewReader { scrollProxy in
-                            ScrollView {
-                                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
-                                    ForEach(Array(viewModel.exerciseGroups.keys.sorted()), id: \.self) { key in
-                                        if let exercises = viewModel.exerciseGroups[key], !exercises.isEmpty {
-                                            Section(header:
-                                                HStack {
-                                                    Spacer()
-                                                Text(key)
-                                                    .font(.system(size: 36, weight: .semibold))
-                                                    .foregroundColor(Color("gray900"))
-                                                    .padding()
-                                                    .id(key) //
-                                                }
-                                            ) {
-                                                ForEach(exercises) { exercise in
-                                                    ExerciseRow(
-                                                        exercise: exercise,
-                                                        isSelected: selectedExerciseIds.contains(exercise.id),
-                                                        onToggle: { toggleExerciseSelection(exercise) }
-                                                    )
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                .padding(.bottom, selectedExerciseIds.isEmpty ? 0 : 120) // Add padding if buttons should appear
-                            }
-                            .onChange(of: scrollToLetter) { oldValue, newValue in
-                                if let letter = newValue {
-                                    withAnimation {
-                                        scrollProxy.scrollTo(letter, anchor: .top)
-                                    }
-                                    // Reset after scrolling
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        scrollToLetter = nil
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // Alphabet selector using our new component
-                        AlphabetSelector(
-                            availableLetters: Set(viewModel.exerciseGroups.keys),
-                            onLetterSelected: { letter in
-                                scrollToLetter = letter
-                            }
-                        )
-                    }
-                }
+                ExerciseListView(
+                    viewModel: viewModel,
+                    selectedExerciseIds: $selectedExerciseIds,
+                    scrollToLetter: $scrollToLetter,
+                    onToggleSelection: toggleExerciseSelection
+                )
                 
                 Spacer(minLength: 0)
             }
             
             // Bottom action buttons (conditionally shown)
             if !selectedExerciseIds.isEmpty {
-                VStack {
-                    Spacer()
-                    
-                    VStack(spacing: 8) {
-                        // Add exercises button
-                        Button(action: {
-                            showingSetsSheet = true
-                        }) {
-                            Text("Add \(selectedExerciseIds.count > 1 ? "\(selectedExerciseIds.count) exercises" : "exercise")")
-                                .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 18)
-                                .padding(.horizontal, 24)
-                                .background(Color("gray900"))
-                                .cornerRadius(50)
-                        }
-                        
-                        // Build Super Set button (only if more than 1 exercise selected)
-                        if selectedExerciseIds.count > 1 {
-                            Button(action: {
-                                // Will implement later
-                            }) {
-                                Text("Build Super Set")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.gray900)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 18)
-                                    .padding(.horizontal, 24)
-                                    .background(Color.white)
-                                    .cornerRadius(50)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color("gray100"), lineWidth: 1)
-                                    )
-                            }
-                        }
-                    }
-                    .padding()
-                    //.background(Color.white)
-                    .cornerRadius(16, corners: [.topLeft, .topRight])
-                    .shadow(color: Color.black.opacity(0.1), radius: 4, y: -2)
-                }
+                BottomActionButtonsView(
+                    selectedCount: selectedExerciseIds.count,
+                    onAddExercises: { showingSetsSheet = true },
+                    onBuildSuperSet: { /* Will implement later */ }
+                )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .animation(.spring(response: 0.3, dampingFraction: 0.8), value: selectedExerciseIds.count)
+                .zIndex(1)
             }
             
-            // Exercise count indicator (bottom right)
-            if !selectedExerciseIds.isEmpty {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        ZStack {
-                            Circle()
-                                .fill(Color.black)
-                                .frame(width: 40, height: 40)
-                            
-                            Text("\(selectedExerciseIds.count)")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        .padding()
-                        .padding(.bottom, selectedExerciseIds.isEmpty ? 16 : 100) // Adjust based on buttons
+            // Floating Action Button
+            FloatingActionButtonView(
+                selectedCount: selectedExerciseIds.count,
+                onTap: {
+                    if selectedExerciseIds.isEmpty {
+                        showFilterSheet = true
                     }
                 }
-            }
+            )
+            .zIndex(2)
         }
         .appBackground()
         .navigationBarHidden(true)
@@ -289,13 +91,31 @@ struct ExerciseLibraryView: View {
             )
             .presentationDetents([.medium])
         }
+        .sheet(isPresented: $showFilterSheet) {
+            FilterSheetView(onClose: { showFilterSheet = false })
+        }
         .navigationDestination(isPresented: $showingWorkoutExercisesView) {
             WorkoutExercisesView()
                 .navigationBarBackButtonHidden(true)
         }
     }
     
-    // Helper function to toggle exercise selection
+    // Private function to toggle exercise selection
+    private func toggleExerciseSelection(_ exercise: Exercise) {
+        // Add haptic feedback for selection
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
+        if selectedExerciseIds.contains(exercise.id) {
+            selectedExerciseIds.remove(exercise.id)
+            selectedExercises.removeAll(where: { $0.id == exercise.id })
+        } else {
+            selectedExerciseIds.insert(exercise.id)
+            selectedExercises.append(exercise)
+        }
+    }
+    
+    // Helper function to add exercises to workout
     private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
         // Create a WorkoutExercisesViewModel and add the exercises
         let workoutVM = WorkoutExercisesViewModel()
@@ -305,21 +125,8 @@ struct ExerciseLibraryView: View {
             workoutVM.addExercise(exercise, setsCount: setsCount)
         }
         
-        // Print for debugging
-        print("Adding \(exercises.count) exercises with \(setsCount) sets each")
-        
         // Navigate to the WorkoutExercisesView
         showingWorkoutExercisesView = true
-        
-        // Clear selections after adding
-        selectedExercises.removeAll()
-        selectedExerciseIds.removeAll()
-    }
-    
-    private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
-        // Implementation would depend on your app's architecture
-        // This is where you would create workout sets for each exercise
-        print("Adding \(exercises.count) exercises with \(setsCount) sets each")
         
         // Clear selections after adding
         selectedExercises.removeAll()

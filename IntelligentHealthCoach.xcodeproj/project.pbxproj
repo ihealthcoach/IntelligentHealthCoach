@@ -23,6 +23,14 @@
 		E90E04532D88B0D9003237CC /* WorkoutExerciseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04522D88B0D9003237CC /* WorkoutExerciseRow.swift */; };
 		E90E04552D88B163003237CC /* ExerciseOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04542D88B162003237CC /* ExerciseOptionsSheet.swift */; };
 		E90E04572D88B335003237CC /* WorkoutOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04562D88B334003237CC /* WorkoutOptionsSheet.swift */; };
+		E90E04592D89C91A003237CC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04582D89C913003237CC /* HeaderView.swift */; };
+		E90E045B2D89C941003237CC /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E045A2D89C941003237CC /* TitleView.swift */; };
+		E90E045D2D89C964003237CC /* CategorySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E045C2D89C963003237CC /* CategorySelectionView.swift */; };
+		E90E045F2D89C994003237CC /* EnhancedAlphabetSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E045E2D89C993003237CC /* EnhancedAlphabetSelector.swift */; };
+		E90E04612D89C9B3003237CC /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04602D89C9B3003237CC /* ExerciseListView.swift */; };
+		E90E04632D89C9DB003237CC /* BottomActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */; };
+		E90E04652D89C9F9003237CC /* FloatingActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */; };
+		E90E04672D89CA1F003237CC /* FilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04662D89CA1D003237CC /* FilterSheetView.swift */; };
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
@@ -121,6 +129,14 @@
 		E90E04522D88B0D9003237CC /* WorkoutExerciseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExerciseRow.swift; sourceTree = "<group>"; };
 		E90E04542D88B162003237CC /* ExerciseOptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseOptionsSheet.swift; sourceTree = "<group>"; };
 		E90E04562D88B334003237CC /* WorkoutOptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutOptionsSheet.swift; sourceTree = "<group>"; };
+		E90E04582D89C913003237CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		E90E045A2D89C941003237CC /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		E90E045C2D89C963003237CC /* CategorySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionView.swift; sourceTree = "<group>"; };
+		E90E045E2D89C993003237CC /* EnhancedAlphabetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedAlphabetSelector.swift; sourceTree = "<group>"; };
+		E90E04602D89C9B3003237CC /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
+		E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomActionButtonsView.swift; sourceTree = "<group>"; };
+		E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingActionButtonView.swift; sourceTree = "<group>"; };
+		E90E04662D89CA1D003237CC /* FilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetView.swift; sourceTree = "<group>"; };
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
@@ -468,6 +484,11 @@
 		E940C2352D70C3F800C959C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E90E04662D89CA1D003237CC /* FilterSheetView.swift */,
+				E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */,
+				E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */,
+				E90E04602D89C9B3003237CC /* ExerciseListView.swift */,
+				E90E045E2D89C993003237CC /* EnhancedAlphabetSelector.swift */,
 				E90E04562D88B334003237CC /* WorkoutOptionsSheet.swift */,
 				E90E04542D88B162003237CC /* ExerciseOptionsSheet.swift */,
 				E940C2332D70C3F800C959C4 /* ExerciseRow.swift */,
@@ -526,6 +547,9 @@
 		E940C2432D70C3F800C959C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E90E045C2D89C963003237CC /* CategorySelectionView.swift */,
+				E90E045A2D89C941003237CC /* TitleView.swift */,
+				E90E04582D89C913003237CC /* HeaderView.swift */,
 				E90E04422D86EE1B003237CC /* BackButton.swift */,
 				E90E04402D86DF73003237CC /* ShortcutSheet.swift */,
 				E92A97B62D8202630023F808 /* LoadingView.swift */,
@@ -792,6 +816,7 @@
 				E940C24C2D70C3F800C959C4 /* CheckboxToggle.swift in Sources */,
 				E90E044B2D886D76003237CC /* AppStyles.swift in Sources */,
 				E940C24D2D70C3F800C959C4 /* WorkoutSetRow.swift in Sources */,
+				E90E04632D89C9DB003237CC /* BottomActionButtonsView.swift in Sources */,
 				E940C24E2D70C3F800C959C4 /* DashboardViewModel.swift in Sources */,
 				E991DE152D834D78002B3287 /* SettingOption.swift in Sources */,
 				E90E04492D873A14003237CC /* AlphabetSelector.swift in Sources */,
@@ -801,21 +826,26 @@
 				E940C24F2D70C3F800C959C4 /* ExerciseRow.swift in Sources */,
 				E940C2502D70C3F800C959C4 /* WorkoutViewModel.swift in Sources */,
 				E90E04412D86DF74003237CC /* ShortcutSheet.swift in Sources */,
+				E90E04592D89C91A003237CC /* HeaderView.swift in Sources */,
 				E90E04392D85DFED003237CC /* TabBarView.swift in Sources */,
 				E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */,
 				E940C2512D70C3F800C959C4 /* RadioButton.swift in Sources */,
 				E90E043B2D868FE3003237CC /* Font+Extensions.swift in Sources */,
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
 				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
+				E90E04672D89CA1F003237CC /* FilterSheetView.swift in Sources */,
 				E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */,
 				E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */,
+				E90E045B2D89C941003237CC /* TitleView.swift in Sources */,
 				E940C2552D70C3F800C959C4 /* SupabaseService.swift in Sources */,
 				E940C2562D70C3F800C959C4 /* UserProfile.swift in Sources */,
+				E90E04652D89C9F9003237CC /* FloatingActionButtonView.swift in Sources */,
 				E940C2572D70C3F800C959C4 /* WorkoutsView.swift in Sources */,
 				E940C2582D70C3F800C959C4 /* ProfileView.swift in Sources */,
 				E90E04452D86EE7A003237CC /* ChooseWorkoutView.swift in Sources */,
 				E90E04472D87348C003237CC /* CategoryButton.swift in Sources */,
 				E940C2592D70C3F800C959C4 /* WorkoutSet.swift in Sources */,
+				E90E045F2D89C994003237CC /* EnhancedAlphabetSelector.swift in Sources */,
 				E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */,
 				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,
 				E940C25C2D70C3F800C959C4 /* ButtonStyle.swift in Sources */,
@@ -825,6 +855,7 @@
 				E940C2802D70C8F000C959C4 /* SupabaseManager.swift in Sources */,
 				E92A97B72D82026B0023F808 /* LoadingView.swift in Sources */,
 				E940C25E2D70C3F800C959C4 /* Questionnaire.swift in Sources */,
+				E90E045D2D89C964003237CC /* CategorySelectionView.swift in Sources */,
 				E940C25F2D70C3F800C959C4 /* Workout.swift in Sources */,
 				E940C2602D70C3F800C959C4 /* CardView.swift in Sources */,
 				E90E04532D88B0D9003237CC /* WorkoutExerciseRow.swift in Sources */,
@@ -838,6 +869,7 @@
 				E90E04552D88B163003237CC /* ExerciseOptionsSheet.swift in Sources */,
 				E940C2652D70C3F800C959C4 /* IntelligentHealthCoachApp.swift in Sources */,
 				E940C2662D70C3F800C959C4 /* ProgressBar.swift in Sources */,
+				E90E04612D89C9B3003237CC /* ExerciseListView.swift in Sources */,
 				E940C2882D70D18400C959C4 /* AuthUser.swift in Sources */,
 				E90E043F2D86A76C003237CC /* WorkoutActionSheet.swift in Sources */,
 				E940C2672D70C3F800C959C4 /* ProfileViewModel.swift in Sources */,
