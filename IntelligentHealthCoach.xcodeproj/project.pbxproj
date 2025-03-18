@@ -485,10 +485,8 @@
 			isa = PBXGroup;
 			children = (
 				E90E04662D89CA1D003237CC /* FilterSheetView.swift */,
-				E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */,
 				E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */,
 				E90E04602D89C9B3003237CC /* ExerciseListView.swift */,
-				E90E045E2D89C993003237CC /* EnhancedAlphabetSelector.swift */,
 				E90E04562D88B334003237CC /* WorkoutOptionsSheet.swift */,
 				E90E04542D88B162003237CC /* ExerciseOptionsSheet.swift */,
 				E940C2332D70C3F800C959C4 /* ExerciseRow.swift */,
@@ -563,6 +561,8 @@
 				E90E043C2D86A6BE003237CC /* FlexibleSheet.swift */,
 				E90E04462D87348C003237CC /* CategoryButton.swift */,
 				E90E04482D873A14003237CC /* AlphabetSelector.swift */,
+				E90E045E2D89C993003237CC /* EnhancedAlphabetSelector.swift */,
+				E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
