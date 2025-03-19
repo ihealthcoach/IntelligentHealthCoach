@@ -38,14 +38,14 @@ struct TabBarView: View {
                 Circle()
                     .fill(Color.indigo)
                     .frame(width: 60, height: 60)
-                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                    .shadow(color: .gray900.opacity(0.2), radius: 4, x: 0, y: 2)
                 
                 Button(action: {
                     showingShortcutsSheet = true
                 }) {
                     Image(systemName: "plus")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                 }
             }
             .offset(y: -20)
@@ -62,8 +62,8 @@ struct TabBarView: View {
         .padding(.vertical, 8)
         .background(
             Rectangle()
-                .fill(Color("white"))
-                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: -5)
+                .fill(Color("offwhite"))
+                .shadow(color: .gray900.opacity(0.05), radius: 5, x: 0, y: -5)
                 .edgesIgnoringSafeArea(.bottom)
         )
         .sheet(isPresented: $showingShortcutsSheet) {

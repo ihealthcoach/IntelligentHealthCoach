@@ -86,9 +86,9 @@ struct DashboardView: View {
                                     summaryRow(title: "Calories", value: "1.350/2.500", showArrow: true)
                                 }
                                 .padding()
-                                .background(Color("white"))
+                                .background(Color("offwhite"))
                                 .cornerRadius(12)
-                                .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                                .shadow(color: Color.gray900.opacity(0.05), radius: 5, x: 0, y: 2)
                                 .padding(.horizontal)
                             }
                         }
@@ -132,7 +132,7 @@ struct DashboardView: View {
                                     .foregroundColor(.secondary)
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color(.white))
+                                    .background(Color(.offwhite))
                                     .cornerRadius(12)
                                     .padding(.horizontal)
                             } else {
@@ -347,7 +347,7 @@ struct DashboardView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(Color.offwhite)
         .cornerRadius(8)
     }
     
@@ -432,7 +432,7 @@ struct DashboardView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(Color.offwhite)
         .cornerRadius(12)
         .padding(.horizontal)
     }

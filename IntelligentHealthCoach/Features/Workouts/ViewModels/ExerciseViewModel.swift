@@ -65,17 +65,27 @@ class ExerciseViewModel: ObservableObject {
                 continue // Skip exercises with no name
             }
             
-            // Get the first letter of the exercise name, uppercased
+            // Get the first character of the exercise name
             if let firstChar = name.first {
-                let firstLetter = String(firstChar).uppercased()
+                let firstCharString = String(firstChar)
                 
-                // Create array if it doesn't exist for this letter
-                if groups[firstLetter] == nil {
-                    groups[firstLetter] = []
+                // Determine which group this exercise belongs to
+                let group: String
+                if firstCharString.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil {
+                    // If the first character is a number, use "#" as the group
+                    group = "#"
+                } else {
+                    // Otherwise, use the uppercase letter
+                    group = firstCharString.uppercased()
+                }
+                
+                // Create array if it doesn't exist for this group
+                if groups[group] == nil {
+                    groups[group] = []
                 }
                 
                 // Add exercise to the appropriate group
-                groups[firstLetter]?.append(exercise)
+                groups[group]?.append(exercise)
             }
         }
         

@@ -29,7 +29,7 @@ struct WorkoutOptionsSheet: View {
             HStack {
                 Image(systemName: option.iconName)
                     .frame(width: 24, height: 24)
-                    .foregroundColor(option == .clearAll ? .red : .white)
+                    .foregroundColor(option == .clearAll ? .red : .offwhite)
                     .background(
                         Circle()
                             .fill(option == .clearAll ? Color.red.opacity(0.2) : Color.gray.opacity(0.7))

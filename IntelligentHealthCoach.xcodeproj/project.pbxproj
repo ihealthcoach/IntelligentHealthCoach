@@ -31,6 +31,8 @@
 		E90E04632D89C9DB003237CC /* BottomActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */; };
 		E90E04652D89C9F9003237CC /* FloatingActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */; };
 		E90E04672D89CA1F003237CC /* FilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04662D89CA1D003237CC /* FilterSheetView.swift */; };
+		E90E04692D89E203003237CC /* WorkoutPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E04682D89E201003237CC /* WorkoutPreviewView.swift */; };
+		E90E046B2D89E4AB003237CC /* WorkoutBuilderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E046A2D89E4AA003237CC /* WorkoutBuilderViewModel.swift */; };
 		E9177D5B2D71A52C005FEE6A /* SupabaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */; };
 		E9177D622D71E4B0005FEE6A /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */; };
 		E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */; };
@@ -137,6 +139,8 @@
 		E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomActionButtonsView.swift; sourceTree = "<group>"; };
 		E90E04642D89C9F9003237CC /* FloatingActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingActionButtonView.swift; sourceTree = "<group>"; };
 		E90E04662D89CA1D003237CC /* FilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetView.swift; sourceTree = "<group>"; };
+		E90E04682D89E201003237CC /* WorkoutPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPreviewView.swift; sourceTree = "<group>"; };
+		E90E046A2D89E4AA003237CC /* WorkoutBuilderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutBuilderViewModel.swift; sourceTree = "<group>"; };
 		E9177D5A2D71A529005FEE6A /* SupabaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseModels.swift; sourceTree = "<group>"; };
 		E9177D612D71E4B0005FEE6A /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		E9177D6B2D7227BC005FEE6A /* SupabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseTypes.swift; sourceTree = "<group>"; };
@@ -474,6 +478,7 @@
 		E940C2322D70C3F800C959C4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E90E046A2D89E4AA003237CC /* WorkoutBuilderViewModel.swift */,
 				E90E04502D88AF2D003237CC /* WorkoutExercisesViewModel.swift */,
 				E940C2302D70C3F800C959C4 /* ExerciseViewModel.swift */,
 				E940C2312D70C3F800C959C4 /* WorkoutViewModel.swift */,
@@ -484,6 +489,7 @@
 		E940C2352D70C3F800C959C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E90E04682D89E201003237CC /* WorkoutPreviewView.swift */,
 				E90E04662D89CA1D003237CC /* FilterSheetView.swift */,
 				E90E04622D89C9D9003237CC /* BottomActionButtonsView.swift */,
 				E90E04602D89C9B3003237CC /* ExerciseListView.swift */,
@@ -833,6 +839,7 @@
 				E90E043B2D868FE3003237CC /* Font+Extensions.swift in Sources */,
 				E940C2522D70C3F800C959C4 /* ExerciseViewModel.swift in Sources */,
 				E940C2532D70C3F800C959C4 /* QuestionnaireViewModel.swift in Sources */,
+				E90E046B2D89E4AB003237CC /* WorkoutBuilderViewModel.swift in Sources */,
 				E90E04672D89CA1F003237CC /* FilterSheetView.swift in Sources */,
 				E9177D6C2D7227C1005FEE6A /* SupabaseTypes.swift in Sources */,
 				E940C2542D70C3F800C959C4 /* AuthViewModel.swift in Sources */,
@@ -845,6 +852,7 @@
 				E90E04452D86EE7A003237CC /* ChooseWorkoutView.swift in Sources */,
 				E90E04472D87348C003237CC /* CategoryButton.swift in Sources */,
 				E940C2592D70C3F800C959C4 /* WorkoutSet.swift in Sources */,
+				E90E04692D89E203003237CC /* WorkoutPreviewView.swift in Sources */,
 				E90E045F2D89C994003237CC /* EnhancedAlphabetSelector.swift in Sources */,
 				E940C25A2D70C3F800C959C4 /* ExerciseLibraryView.swift in Sources */,
 				E940C25B2D70C3F800C959C4 /* DashboardView.swift in Sources */,

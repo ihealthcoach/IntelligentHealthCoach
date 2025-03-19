@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PrimaryButtonStyle: ButtonStyle {
     var bgColor: Color = Color("indigo600")
-    var textColor: Color = .white
+    var textColor: Color = .offwhite
     
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 12) {
@@ -39,7 +39,7 @@ struct SecondaryButtonStyle: ButtonStyle {
             Spacer()
         }
             .font(.system(size: 16, weight: .medium))
-            .foregroundColor(.white)
+            .foregroundColor(.offwhite)
             .padding(.vertical, 16)
             .padding(.horizontal, 24)
             .frame(maxWidth: .infinity)

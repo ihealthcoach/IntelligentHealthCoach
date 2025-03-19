@@ -108,7 +108,7 @@ struct GenderOptionCard: View {
                 }
             }
             .padding()
-            .background(isSelected ? Color.teal.opacity(0.2) : Color.white)
+            .background(isSelected ? Color.teal.opacity(0.2) : Color.offwhite)
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)

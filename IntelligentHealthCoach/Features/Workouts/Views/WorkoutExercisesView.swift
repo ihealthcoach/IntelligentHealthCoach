@@ -36,8 +36,8 @@ struct WorkoutExercisesView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
-                    .background(Color.black)
-                    .foregroundColor(.white)
+                    .background(Color.gray900)
+                    .foregroundColor(.offwhite)
                     .cornerRadius(20)
                 }
                 
@@ -47,7 +47,7 @@ struct WorkoutExercisesView: View {
                     showingMoreOptions = true
                 }) {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.black)
+                        .foregroundColor(.gray900)
                         .padding(8)
                 }
             }
@@ -58,7 +58,7 @@ struct WorkoutExercisesView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Workout")
                     .font(.system(size: 36, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.gray900)
                 
                 Text("\(viewModel.exercises.count) exercises added to your workout")
                     .font(.system(size: 14))
@@ -96,7 +96,7 @@ struct WorkoutExercisesView: View {
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
                         .background(Color.indigo)
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                         .cornerRadius(8)
                     }
                 }
@@ -142,7 +142,7 @@ struct WorkoutExercisesView: View {
                     }) {
                         Text("Start workout")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.offwhite)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
                             .background(Color.indigo)
@@ -157,10 +157,10 @@ struct WorkoutExercisesView: View {
                             Text("Add exercise")
                         }
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.black)
+                        .foregroundColor(.gray900)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
-                        .background(Color.white)
+                        .background(Color.offwhite)
                         .cornerRadius(8)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
@@ -169,8 +169,8 @@ struct WorkoutExercisesView: View {
                     }
                 }
                 .padding()
-                .background(Color.white)
-                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: -3)
+                .background(Color.offwhite)
+                .shadow(color: Color.gray900.opacity(0.1), radius: 5, x: 0, y: -3)
             }
         }
         .appBackground()

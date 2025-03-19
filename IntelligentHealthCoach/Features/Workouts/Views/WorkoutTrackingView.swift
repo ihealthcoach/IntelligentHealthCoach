@@ -53,14 +53,14 @@ struct WorkoutTrackingView: View {
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(Color.indigo)
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                         .cornerRadius(8)
                 }
                 .padding(.leading, 12)
             }
             .padding()
-            .background(Color.white)
-            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+            .background(Color.offwhite)
+            .shadow(color: Color.gray900.opacity(0.05), radius: 5, x: 0, y: 2)
             
             // Exercise list
             if viewModel.exercises.isEmpty {
@@ -158,7 +158,7 @@ struct WorkoutTrackingView: View {
                 .padding()
                 .frame(width: 200)
                 .background(Color.indigo)
-                .foregroundColor(.white)
+                .foregroundColor(.offwhite)
                 .cornerRadius(10)
             }
             .padding(.top, 10)
@@ -302,7 +302,7 @@ struct WorkoutTrackingView: View {
             .multilineTextAlignment(.center)
             .frame(width: 60)
             .padding(.vertical, 5)
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(6)
             
             TextField("0", text: Binding(
@@ -317,7 +317,7 @@ struct WorkoutTrackingView: View {
             .multilineTextAlignment(.center)
             .frame(width: 60)
             .padding(.vertical, 5)
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(6)
             
             Button(action: {

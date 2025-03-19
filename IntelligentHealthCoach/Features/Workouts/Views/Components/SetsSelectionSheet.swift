@@ -52,7 +52,7 @@ struct SetsSelectionSheet: View {
                 }) {
                     Text("Save sets")
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
                         .background(Color("indigo600"))

@@ -13,13 +13,21 @@ struct CategorySelectionView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 CategoryButton(
                     icon: "arrow.up.arrow.down",
                     label: "A-Z",
                     isSelected: selectedCategory == "A-Z"
                 ) {
                     selectedCategory = "A-Z"
+                }
+                
+                CategoryButton(
+                    icon: "magnifyingglass",
+                    label: "Search",
+                    isSelected: selectedCategory == "Search"
+                ) {
+                    selectedCategory = "Search"
                 }
                 
                 CategoryButton(
@@ -39,16 +47,15 @@ struct CategorySelectionView: View {
                 }
                 
                 CategoryButton(
-                    icon: "magnifyingglass",
-                    label: "Search",
-                    isSelected: selectedCategory == "Search"
+                    icon: "clipboard",
+                    label: "My exercises",
+                    isSelected: selectedCategory == "My exercises"
                 ) {
-                    selectedCategory = "Search"
+                    selectedCategory = "My exercises"
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 16)
         }
-        .padding(.bottom, 10)
     }
 }
 

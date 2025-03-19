@@ -22,7 +22,7 @@ struct LoadingView: View {
                 .foregroundColor(.gray)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white.opacity(0.9))
+        .background(Color.offwhite.opacity(0.9))
     }
 }
 

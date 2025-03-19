@@ -51,11 +51,11 @@ struct AuthView: View {
                     if showingSignIn {
                         Text("Sign in")
                             .font(.system(size: 28, weight: .bold))
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray900)
                     } else {
                         Text("Create your account")
                             .font(.system(size: 28, weight: .bold))
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray900)
                         
                         Text("and unlock your true potential with")
                             .font(.system(size: 16))
@@ -113,9 +113,9 @@ struct AuthView: View {
                             .keyboardType(.emailAddress)
                             .disableAutocorrection(true)
                             .padding()
-                            .background(Color.white)
+                            .background(Color.offwhite)
                             .cornerRadius(8)
-                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                            .shadow(color: Color.gray900.opacity(0.05), radius: 2, x: 0, y: 1)
                         
                         // Password field
                         HStack {
@@ -138,9 +138,9 @@ struct AuthView: View {
                             }
                         }
                         .padding()
-                        .background(Color.white)
+                        .background(Color.offwhite)
                         .cornerRadius(8)
-                        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                        .shadow(color: Color.gray900.opacity(0.05), radius: 2, x: 0, y: 1)
                     }
                     .padding(.horizontal, 16)
                     
@@ -155,7 +155,7 @@ struct AuthView: View {
                     }) {
                         Text(showingSignIn ? "Sign in" : "Continue with email")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.offwhite)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
                             .background(Color(UIColor.systemGray5))
@@ -172,18 +172,18 @@ struct AuthView: View {
                             .autocapitalization(.words)
                             .disableAutocorrection(true)
                             .padding()
-                            .background(Color.white)
+                            .background(Color.offwhite)
                             .cornerRadius(8)
-                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                            .shadow(color: Color.gray900.opacity(0.05), radius: 2, x: 0, y: 1)
                         
                         // Last Name field
                         TextField("Last Name", text: $lastName)
                             .autocapitalization(.words)
                             .disableAutocorrection(true)
                             .padding()
-                            .background(Color.white)
+                            .background(Color.offwhite)
                             .cornerRadius(8)
-                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                            .shadow(color: Color.gray900.opacity(0.05), radius: 2, x: 0, y: 1)
                     }
                     .padding(.horizontal, 16)
                     
@@ -193,7 +193,7 @@ struct AuthView: View {
                     }) {
                         Text("Create Account")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.offwhite)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
                             .background(Color(UIColor.systemGray5))
@@ -256,7 +256,7 @@ struct AuthView: View {
                     Spacer()
                     Text(errorMessage)
                         .font(.subheadline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                         .padding()
                         .background(Color.red.opacity(0.8))
                         .cornerRadius(10)
@@ -280,7 +280,7 @@ struct AuthView: View {
     // Password reset confirmation view
     var passwordResetConfirmationView: some View {
         ZStack {
-            Color.black.opacity(0.4)
+            Color.gray900.opacity(0.4)
                 .ignoresSafeArea()
             
             VStack(spacing: 20) {
@@ -300,14 +300,14 @@ struct AuthView: View {
                     showingPasswordResetConfirmation = false
                 }
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(.offwhite)
                 .padding(.horizontal, 50)
                 .padding(.vertical, 12)
                 .background(Color.mint)
                 .cornerRadius(10)
             }
             .padding(30)
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(20)
             .shadow(radius: 10)
             .padding(40)
@@ -336,15 +336,15 @@ struct AuthView: View {
                 
                 Text(text)
                     .font(.system(size: 16))
-                    .foregroundColor(.black)
+                    .foregroundColor(.gray900)
                 
                 Spacer()
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 16)
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(8)
-            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+            .shadow(color: Color.gray900.opacity(0.05), radius: 2, x: 0, y: 1)
         }
     }
     
@@ -497,7 +497,7 @@ struct AuthView: View {
                 // Continue Button
                 Button(action: {}) {
                     Text("Continue with email")
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(email.isEmpty || password.isEmpty ? Color(.systemGray4) : Color.indigo)

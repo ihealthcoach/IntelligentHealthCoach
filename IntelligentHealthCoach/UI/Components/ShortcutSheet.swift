@@ -179,7 +179,7 @@ struct ShortcutItem: View {
 struct ShortcutSheet_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color("white").edgesIgnoringSafeArea(.all)
+            Color("offwhite").edgesIgnoringSafeArea(.all)
             
             VStack {
                 Spacer()

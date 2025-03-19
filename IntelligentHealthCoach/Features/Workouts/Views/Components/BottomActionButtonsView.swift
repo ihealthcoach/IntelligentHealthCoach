@@ -21,7 +21,7 @@ struct BottomActionButtonsView: View {
                 Button(action: onAddExercises) {
                     Text("Add \(selectedCount > 1 ? "\(selectedCount) exercises" : "exercise")")
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
+                        .foregroundColor(.offwhite)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 18)
                         .padding(.horizontal, 24)
@@ -38,7 +38,7 @@ struct BottomActionButtonsView: View {
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 18)
                             .padding(.horizontal, 24)
-                            .background(Color.white)
+                            .background(Color.offwhite)
                             .cornerRadius(30)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)
@@ -50,34 +50,9 @@ struct BottomActionButtonsView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
             .padding(.top, 12)
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(24, corners: [.topLeft, .topRight])
-            .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: -3)
+            .shadow(color: Color.gray900.opacity(0.08), radius: 6, x: 0, y: -3)
         }
-    }
-}
-
-struct BottomActionButtonsView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            // Preview with single exercise
-            BottomActionButtonsView(
-                selectedCount: 1,
-                onAddExercises: {},
-                onBuildSuperSet: {}
-            )
-            .previewDisplayName("Single Exercise")
-            
-            // Preview with multiple exercises
-            BottomActionButtonsView(
-                selectedCount: 3,
-                onAddExercises: {},
-                onBuildSuperSet: {}
-            )
-            .previewDisplayName("Multiple Exercises")
-        }
-        .previewLayout(.sizeThatFits)
-        .padding()
-        .background(Color("gray100"))
     }
 }

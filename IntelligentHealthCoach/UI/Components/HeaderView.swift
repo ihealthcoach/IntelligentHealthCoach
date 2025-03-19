@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 // Header View Component
 struct HeaderView: View {
     var onBack: () -> Void
+    @Binding var showWorkoutSheet: Bool  // This needs to be defined if you want to pass it as a binding
     
     var body: some View {
         HStack {
@@ -18,13 +18,13 @@ struct HeaderView: View {
             Button(action: onBack) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 20))
-                    .foregroundColor(.black)
+                    .foregroundColor(.gray900)
             }
             
             Spacer()
             
             // View workout button
-            Button(action: {}) {
+            Button(action: { showWorkoutSheet = true }) {
                 HStack(spacing: 2) {
                     Text("View workout")
                         .font(.system(size: 14))
@@ -39,9 +39,9 @@ struct HeaderView: View {
             Button(action: {}) {
                 Image(systemName: "plus")
                     .font(.system(size: 18))
-                    .foregroundColor(.black)
+                    .foregroundColor(.gray900)
                     .padding(8)
-                    .background(Color.white)
+                    .background(Color.offwhite)
                     .clipShape(Circle())
             }
             
@@ -54,7 +54,7 @@ struct HeaderView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .background(Color("gray900"))
-                .foregroundColor(.white)
+                .foregroundColor(.offwhite)
                 .cornerRadius(20)
             }
         }
@@ -62,7 +62,7 @@ struct HeaderView: View {
         .padding(.bottom, 8)
     }
 }
-
+/*
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
         HeaderView(onBack: {})
@@ -71,3 +71,4 @@ struct HeaderView_Previews: PreviewProvider {
             .background(Color("gray100"))
     }
 }
+*/

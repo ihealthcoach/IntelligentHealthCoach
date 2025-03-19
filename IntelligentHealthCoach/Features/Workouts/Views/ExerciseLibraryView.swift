@@ -12,6 +12,7 @@ import Kingfisher
 struct ExerciseLibraryView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = ExerciseViewModel()
+    @StateObject var workoutBuilder = WorkoutBuilderViewModel()
     @State private var selectedCategory = "A-Z"
     @State private var selectedExerciseIds: Set<String> = []
     @State private var showingSetsSheet = false
@@ -20,6 +21,7 @@ struct ExerciseLibraryView: View {
     @State private var selectedExercises: [Exercise] = [] // Track selected exercise
     @State private var showingWorkoutExercisesView = false // For navigation
     @State private var showFilterSheet = false // For filter functionality
+    @State private var showingWorkoutExercisesSheet = false // Add a state variable to track if the workout exercise view is shown as a sheet
     
     var selectionMode: Bool = true
     var onExerciseSelected: ((Exercise) -> Void)? = nil
@@ -29,7 +31,8 @@ struct ExerciseLibraryView: View {
             // Main content
             VStack(spacing: 0) {
                 HeaderView(
-                    onBack: { presentationMode.wrappedValue.dismiss() }
+                    onBack: { presentationMode.wrappedValue.dismiss() },
+                    showWorkoutSheet: $showingWorkoutExercisesSheet  // Pass the binding here
                 )
                 
                 TitleView(
@@ -44,7 +47,7 @@ struct ExerciseLibraryView: View {
                 // Exercise list with alphabet index
                 ExerciseListView(
                     viewModel: viewModel,
-                    selectedExerciseIds: $selectedExerciseIds,
+                    workoutBuilder: workoutBuilder,
                     scrollToLetter: $scrollToLetter,
                     onToggleSelection: toggleExerciseSelection
                 )
@@ -98,20 +101,34 @@ struct ExerciseLibraryView: View {
             WorkoutExercisesView()
                 .navigationBarBackButtonHidden(true)
         }
+        
+        // Add sheet presentation for current workout
+        .sheet(isPresented: $showingWorkoutExercisesSheet) {
+            NavigationView {
+                WorkoutPreviewView(
+                    selectedExercises: $selectedExercises,      // Pass binding
+                    selectedSetsCount: $selectedSetsCount,      // Pass binding
+                    onDismiss: { showingWorkoutExercisesSheet = false }
+                )
+                .navigationTitle("Current Workout")
+                .navigationBarItems(
+                    trailing: Button("Done") {
+                        showingWorkoutExercisesSheet = false
+                    }
+                )
+            }
+        }
     }
     
     // Private function to toggle exercise selection
     private func toggleExerciseSelection(_ exercise: Exercise) {
-        // Add haptic feedback for selection
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
         
-        if selectedExerciseIds.contains(exercise.id) {
-            selectedExerciseIds.remove(exercise.id)
-            selectedExercises.removeAll(where: { $0.id == exercise.id })
+        if workoutBuilder.containsExercise(id: exercise.id) {
+            workoutBuilder.removeExercise(exercise)
         } else {
-            selectedExerciseIds.insert(exercise.id)
-            selectedExercises.append(exercise)
+            workoutBuilder.addExercise(exercise)
         }
     }
     

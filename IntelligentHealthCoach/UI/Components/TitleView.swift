@@ -6,25 +6,24 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct TitleView: View {
     var title: String
     var subtitle: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(title)
                 .font(.system(size: 36, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundColor(Color(red: 0.067, green: 0.094, blue: 0.153))
             
             Text(subtitle)
                 .font(.system(size: 14))
-                .foregroundColor(.gray)
+                .foregroundColor(Color(red: 0.612, green: 0.639, blue: 0.686))
+                .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal)
-        .padding(.bottom, 16)
+        .padding(.horizontal, 16)
     }
 }
 

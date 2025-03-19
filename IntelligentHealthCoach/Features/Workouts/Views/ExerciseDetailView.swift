@@ -33,7 +33,7 @@ struct ExerciseDetailView: View {
                             .foregroundColor(.gray)
                             + Text(showFullDescription ? " Read less" : " Read more")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.black))
+                            .foregroundColor(.gray900))
                             .lineLimit(showFullDescription ? nil : 2)
                     }
                 }
@@ -88,9 +88,9 @@ struct ExerciseDetailView: View {
                     .frame(maxWidth: .infinity)
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color.offwhite)
                 .cornerRadius(12)
-                .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                .shadow(color: Color.gray900.opacity(0.05), radius: 5, x: 0, y: 2)
                 .padding(.horizontal)
                 
                 // Exercise demonstration
@@ -120,9 +120,9 @@ struct ExerciseDetailView: View {
                     }
                 }
                 .frame(height: 180)
-                .background(Color.white)
+                .background(Color.offwhite)
                 .cornerRadius(12)
-                .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                .shadow(color: Color.gray900.opacity(0.05), radius: 5, x: 0, y: 2)
                 .padding(.horizontal)
                 
                 // How to section with step navigation
@@ -414,7 +414,7 @@ struct AddToWorkoutSheet: View {
                             
                             if isLoading {
                                 ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .offwhite))
                                     .padding(.leading, 5)
                             }
                         }

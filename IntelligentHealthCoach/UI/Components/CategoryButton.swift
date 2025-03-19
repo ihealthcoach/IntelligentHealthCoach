@@ -23,7 +23,7 @@ struct CategoryButton: View {
                 Text(label)
                     .font(.system(size: 14, weight: .medium)) // Size 14, medium weight
             }
-            .foregroundColor(isSelected ? .white : Color("gray500")) // White when selected, gray500 otherwise
+            .foregroundColor(isSelected ? .offoffwhite : Color("gray500")) // offoffwhite when selected, gray500 otherwise
             .padding(.vertical, 10) // 10px vertical padding
             .padding(.horizontal, 14) // 14px horizontal padding
             .background(isSelected ? Color("gray900") : Color("gray50")) // gray900 when selected, gray50 otherwise
@@ -140,6 +140,6 @@ struct CategoryButton_Previews: PreviewProvider {
         }
         .padding()
         .previewLayout(.sizeThatFits)
-        .background(Color.white)
+        .background(Color.offoffwhite)
     }
 }

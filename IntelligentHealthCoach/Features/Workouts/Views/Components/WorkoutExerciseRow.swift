@@ -54,9 +54,9 @@ struct WorkoutExerciseRow: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(Color.offwhite)
         .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+        .shadow(color: Color.gray900.opacity(0.05), radius: 2, x: 0, y: 1)
     }
 }
 

@@ -10,64 +10,95 @@ import Kingfisher
 
 struct ExerciseListView: View {
     @ObservedObject var viewModel: ExerciseViewModel
-    @Binding var selectedExerciseIds: Set<String>
+    @ObservedObject var workoutBuilder: WorkoutBuilderViewModel
     @Binding var scrollToLetter: String?
     var onToggleSelection: (Exercise) -> Void
     
     var body: some View {
         ZStack(alignment: .trailing) {
             if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                loadingView
             } else {
-                // Using List instead of ScrollView for better performance
-                ScrollViewReader { scrollProxy in
-                    List {
-                        ForEach(Array(viewModel.exerciseGroups.keys.sorted()), id: \.self) { key in
-                            if let exercises = viewModel.exerciseGroups[key], !exercises.isEmpty {
-                                Section(header: Text(key)
-                                    .font(.system(size: 36, weight: .semibold))
-                                    .foregroundColor(Color("gray900"))
-                                    .padding()
-                                    .id(key)
-                                    .listRowInsets(EdgeInsets())
-                                    .background(Color("gray100"))
-                                ) {
-                                    ForEach(exercises) { exercise in
-                                        ExerciseRow(
-                                            exercise: exercise,
-                                            isSelected: selectedExerciseIds.contains(exercise.id),
-                                            onToggle: { onToggleSelection(exercise) }
-                                        )
-                                        .listRowSeparator(.hidden)
-                                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .listStyle(.plain)
-                    .padding(.bottom, selectedExerciseIds.isEmpty ? 0 : 120)
-                    .onChange(of: scrollToLetter) { oldValue, newValue in
-                        if let letter = newValue {
-                            withAnimation {
-                                scrollProxy.scrollTo(letter, anchor: .top)
-                            }
-                            // Reset after scrolling
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                scrollToLetter = nil
-                            }
-                        }
-                    }
-                }
+                exerciseListContent
                 
-                // Enhanced Alphabet selector
-                EnhancedAlphabetSelector(
-                    availableLetters: Set(viewModel.exerciseGroups.keys),
-                    onLetterSelected: { letter in
-                        scrollToLetter = letter
-                    }
+                // Alphabet selector
+                alphabetSelector
+            }
+        }
+    }
+    
+    // MARK: - Subviews
+    
+    private var loadingView: some View {
+        ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    private var exerciseListContent: some View {
+        ScrollViewReader { scrollProxy in
+            exerciseList(scrollProxy: scrollProxy)
+                .onChange(of: scrollToLetter) { oldValue, newValue in
+                    handleLetterChange(scrollProxy: scrollProxy, oldValue: oldValue, newValue: newValue)
+                }
+        }
+    }
+    
+    private func exerciseList(scrollProxy: ScrollViewProxy) -> some View {
+        List {
+            ForEach(Array(viewModel.exerciseGroups.keys.sorted()), id: \.self) { key in
+                if let exercises = viewModel.exerciseGroups[key], !exercises.isEmpty {
+                    exerciseSection(for: key, exercises: exercises)
+                }
+            }
+        }
+        .listStyle(.plain)
+        .padding(.bottom, workoutBuilder.selectedExercises.isEmpty ? 0 : 120)
+    }
+    
+    private func exerciseSection(for key: String, exercises: [Exercise]) -> some View {
+        Section(header: sectionHeader(for: key)) {
+            ForEach(exercises) { exercise in
+                ExerciseRow(
+                    exercise: exercise,
+                    workoutBuilder: workoutBuilder,
+                    onToggle: { onToggleSelection(exercise) }
                 )
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+            }
+        }
+    }
+    
+    private func sectionHeader(for key: String) -> some View {
+        Text(key)
+            .font(.system(size: 36, weight: .semibold))
+            .foregroundColor(Color("gray900"))
+            .padding()
+            .id(key)
+            .listRowInsets(EdgeInsets())
+            .background(Color("gray100"))
+    }
+    
+    private var alphabetSelector: some View {
+        EnhancedAlphabetSelector(
+            availableLetters: Set(viewModel.exerciseGroups.keys),
+            onLetterSelected: { letter in
+                scrollToLetter = letter
+            }
+        )
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func handleLetterChange(scrollProxy: ScrollViewProxy, oldValue: String?, newValue: String?) {
+        if let letter = newValue {
+            withAnimation {
+                scrollProxy.scrollTo(letter, anchor: .top)
+            }
+            
+            // Reset after scrolling
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                scrollToLetter = nil
             }
         }
     }
@@ -77,10 +108,11 @@ struct ExerciseListView_Previews: PreviewProvider {
     static var previews: some View {
         // Create a mock viewModel for preview
         let mockViewModel = createMockViewModel()
+        let workoutBuilder = WorkoutBuilderViewModel()
         
         ExerciseListView(
             viewModel: mockViewModel,
-            selectedExerciseIds: .constant(Set<String>(["1"])), // Select one exercise as example
+            workoutBuilder: workoutBuilder,
             scrollToLetter: .constant(nil),
             onToggleSelection: { _ in }
         )

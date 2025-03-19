@@ -197,7 +197,7 @@ struct ProfileView: View {
                     }
                 }
             }
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(12)
             .padding(.horizontal)
         }

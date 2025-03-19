@@ -96,6 +96,6 @@ struct AlphabetSelector_Previews: PreviewProvider {
         }
         .padding()
         .previewLayout(.sizeThatFits)
-        .background(Color.white)
+        .background(Color.offwhite)
     }
 }

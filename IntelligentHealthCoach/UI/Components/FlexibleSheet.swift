@@ -73,12 +73,12 @@ struct FlexibleSheet<Content: View>: View {
             // Bottom drag indicator
             if showBottomDragIndicator {
                 RoundedRectangle(cornerRadius: 2.5)
-                    .fill(Color("black"))
+                    .fill(Color("gray900"))
                     .frame(width: 134, height: 5)
                     .padding(.vertical, 16)
             }
         }
-        .background(Color("White"))
+        .background(Color("offwhite"))
         .cornerRadius(20, corners: [.topLeft, .topRight])
     }
 }
@@ -157,7 +157,7 @@ struct SheetOptionButton: View {
             .padding(.horizontal, 24)
         }
         .buttonStyle(PlainButtonStyle())
-        .background(isSelected ? Color.white : Color.clear)
+        .background(isSelected ? Color.offwhite : Color.clear)
     }
 }
 
@@ -294,7 +294,7 @@ struct FlexibleSheet_Previews: PreviewProvider {
         Group {
             // Preview for Workout Sheet (Image 1)
             ZStack {
-                Color("white").edgesIgnoringSafeArea(.all)
+                Color("offwhite").edgesIgnoringSafeArea(.all)
                 
                 VStack {
                     Spacer()

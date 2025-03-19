@@ -166,9 +166,9 @@ struct WorkoutsView: View {
                     .foregroundColor(.primary)
             }
             .frame(width: 100, height: 80)
-            .background(Color.white)
+            .background(Color.offwhite)
             .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+            .shadow(color: Color.gray900.opacity(0.05), radius: 5, x: 0, y: 2)
         }
     }
 }
