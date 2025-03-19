@@ -18,7 +18,7 @@ struct WorkoutExerciseRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Exercise GIF
-            KFImage(URL(string: exercise.gifUrl))
+            KFImage(URL(string: exercise.gifUrl ?? ""))
                 .placeholder {
                     Rectangle()
                         .foregroundColor(.gray.opacity(0.2))

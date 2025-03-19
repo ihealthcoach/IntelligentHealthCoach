@@ -171,7 +171,7 @@ struct WorkoutTrackingView: View {
         VStack(alignment: .leading, spacing: 10) {
             // Exercise header
             HStack {
-                KFImage(URL(string: exercise.gifUrl))
+                KFImage(URL(string: exercise.gifUrl ?? ""))
                     .placeholder {
                         Rectangle().foregroundColor(.gray.opacity(0.2))
                     }
@@ -569,11 +569,14 @@ class WorkoutTrackingViewModel: ObservableObject {
         mechanics: "Compound",
         bodyPart: "Chest",
         target: "Pecs",
-        experience: "Intermediate"
+        experience: "Intermediate",
+        gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
     )
     
     // Add the exercise to the view model
     viewModel.exercises = [exercise]
     
-    return WorkoutTrackingView(viewModel: viewModel)
+    Group {
+        WorkoutTrackingView(viewModel: viewModel)
+    }
 }
