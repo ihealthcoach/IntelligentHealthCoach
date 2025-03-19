@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 import Supabase
+import Kingfisher
 
 // ExerciseViewModel.swift
 class ExerciseViewModel: ObservableObject {
@@ -40,11 +41,20 @@ class ExerciseViewModel: ObservableObject {
                 print("✅ Successfully fetched \(fetchedExercises.count) exercises")
                 
                 // Debug: Print a sample to check if gif_url is being properly decoded
+                print("Sample exercise data:")
                 if let firstExercise = fetchedExercises.first {
-                    print("Sample exercise data:")
                     print("ID: \(firstExercise.id)")
                     print("Name: \(firstExercise.name ?? "nil")")
                     print("GIF URL: \(firstExercise.gifUrl ?? "nil")")
+                }
+                
+                // Add this to check how many exercises actually have GIF URLs
+                let exercisesWithGifs = fetchedExercises.filter { $0.gifUrl != nil && !($0.gifUrl?.isEmpty ?? true) }
+                print("Number of exercises with valid GIF URLs: \(exercisesWithGifs.count) out of \(fetchedExercises.count)")
+
+                // Print a few examples of exercises with GIFs
+                for (index, exercise) in exercisesWithGifs.prefix(3).enumerated() {
+                    print("Example \(index + 1) with GIF URL: \(exercise.name ?? "Unnamed") - \(exercise.gifUrl ?? "nil")")
                 }
                 
                 await MainActor.run {

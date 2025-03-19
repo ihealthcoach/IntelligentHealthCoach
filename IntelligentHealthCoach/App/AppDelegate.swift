@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import Kingfisher
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -47,6 +48,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        KingfisherManager.shared.downloader.downloadTimeout = 15.0 // 15 seconds timeout
+        ImageCache.default.diskStorage.config.expiration = .days(7) // Cache images for 7 days
         
         // Tab bar appearance
         let tabBarAppearance = UITabBarAppearance()
