@@ -7,6 +7,8 @@
 
 // IntelligentHealthCoach/Core/Extensions/JSONDecoders.swift
 import Foundation
+import SwiftUI
+import Supabase
 
 extension JSONDecoder {
     /// Standard decoder for app models

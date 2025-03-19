@@ -95,18 +95,37 @@ struct ExerciseDetailView: View {
                 
                 // Exercise demonstration
                 HStack(spacing: 0) {
-                    KFImage(URL(string: exercise.gifUrl))
-                        .placeholder {
+                    if let gifUrlString = exercise.gifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
+                        KFImage(gifUrl)
+                            .placeholder {
+                                Rectangle()
+                                    .foregroundColor(.gray.opacity(0.2))
+                                    .overlay(
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle())
+                                    )
+                            }
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: UIScreen.main.bounds.width / 2)
+                    } else {
+                        // Fallback when no GIF is available
+                        ZStack {
                             Rectangle()
                                 .foregroundColor(.gray.opacity(0.2))
-                                .overlay(
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle())
-                                )
+                                .frame(width: UIScreen.main.bounds.width / 2)
+                            
+                            VStack(spacing: 8) {
+                                Image(systemName: "photo")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(.gray)
+                                
+                                Text("No animation available")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
                         }
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: UIScreen.main.bounds.width / 2)
+                    }
                     
                     // Muscle diagram placeholder
                     ZStack {
@@ -305,15 +324,27 @@ struct AddToWorkoutSheet: View {
             VStack(spacing: 20) {
                 // Header with exercise info
                 HStack {
-                    KFImage(URL(string: exercise.gifUrl))
-                        .placeholder {
-                            Rectangle()
-                                .foregroundColor(.gray.opacity(0.2))
-                        }
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(6)
+                    if let gifUrlString = exercise.gifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
+                        KFImage(gifUrl)
+                            .placeholder {
+                                Rectangle()
+                                    .foregroundColor(.gray.opacity(0.2))
+                            }
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(6)
+                    } else {
+                        // Fallback icon when no GIF is available
+                        Image(systemName: "figure.run")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(12)
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.gray)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(6)
+                    }
                     
                     VStack(alignment: .leading, spacing: 2) {
                         Text(exercise.name ?? "Unnamed Exercise")
@@ -452,6 +483,7 @@ struct AddToWorkoutSheet: View {
         mechanics: "Compound",
         bodyPart: "Chest",
         target: "Pecs",
-        experience: "Intermediate"
+        experience: "Intermediate",
+        gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
     ))
 }

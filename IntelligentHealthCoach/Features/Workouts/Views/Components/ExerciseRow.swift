@@ -17,16 +17,28 @@ struct ExerciseRow: View {
         Button(action: onToggle) {
             HStack(spacing: 12) {
                 // Exercise image/GIF
-                KFImage(URL(string: exercise.gifUrl))
-                    .placeholder {
-                        Rectangle()
-                            .foregroundColor(.gray.opacity(0.2))
-                            .frame(width: 60, height: 60)
-                    }
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 60, height: 60)
-                    .cornerRadius(4)
+                if let gifUrlString = exercise.gifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
+                    KFImage(gifUrl)
+                        .placeholder {
+                            Rectangle()
+                                .foregroundColor(.gray.opacity(0.2))
+                                .frame(width: 60, height: 60)
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(4)
+                } else {
+                    // Fallback icon when no GIF is available
+                    Image(systemName: "figure.run")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(12)
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.gray)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(4)
+                }
                 
                 // Exercise details
                 VStack(alignment: .leading, spacing: 4) {
@@ -36,12 +48,12 @@ struct ExerciseRow: View {
                     
                     // Muscle groups and equipment
                     HStack {
-                        Text(exercise.primaryMuscles ?? "")
+                        Text(exercise.muscleGroup ?? "")
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
                         
                         if let equipment = exercise.equipment, !equipment.isEmpty {
-                            Text(equipment)
+                            Text("• \(equipment)")
                                 .font(.system(size: 12))
                                 .foregroundColor(.gray)
                         }
@@ -99,7 +111,8 @@ struct ExerciseRow_Previews: PreviewProvider {
             mechanics: "Compound",
             bodyPart: "Chest",
             target: "Pecs",
-            experience: "Intermediate"
+            experience: "Intermediate",
+            gifUrl: "https://example.com/bench-press.gif"
         )
         
         Group {
@@ -122,6 +135,32 @@ struct ExerciseRow_Previews: PreviewProvider {
                 onToggle: {}
             )
             .previewDisplayName("Selected")
+            
+            // Preview with no GIF
+            ExerciseRow(
+                exercise: Exercise(
+                    id: "2",
+                    name: "Squat",
+                    exerciseType: "Strength",
+                    primaryMuscles: "Quadriceps, Glutes",
+                    secondaryMuscles: "Hamstrings",
+                    instructions: "Stand with feet...",
+                    experienceLevel: "Intermediate",
+                    muscleGroup: "Legs",
+                    description: "The squat is a compound exercise...",
+                    benefits: "Builds leg strength",
+                    equipment: "Barbell",
+                    forceType: "Push",
+                    mechanics: "Compound",
+                    bodyPart: "Legs",
+                    target: "Quads",
+                    experience: "Intermediate",
+                    gifUrl: nil
+                ),
+                workoutBuilder: workoutBuilder,
+                onToggle: {}
+            )
+            .previewDisplayName("No GIF")
         }
         .previewLayout(.sizeThatFits)
         .padding()

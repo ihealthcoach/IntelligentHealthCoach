@@ -39,6 +39,14 @@ class ExerciseViewModel: ObservableObject {
                 let fetchedExercises = try await supabaseService.fetchExercises()
                 print("✅ Successfully fetched \(fetchedExercises.count) exercises")
                 
+                // Debug: Print a sample to check if gif_url is being properly decoded
+                if let firstExercise = fetchedExercises.first {
+                    print("Sample exercise data:")
+                    print("ID: \(firstExercise.id)")
+                    print("Name: \(firstExercise.name ?? "nil")")
+                    print("GIF URL: \(firstExercise.gifUrl ?? "nil")")
+                }
+                
                 await MainActor.run {
                     self.exercises = fetchedExercises
                     self.filteredExercises = fetchedExercises

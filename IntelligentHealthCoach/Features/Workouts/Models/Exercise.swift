@@ -6,7 +6,8 @@
 //
 
 
-// Exercise.swift
+import Foundation
+
 struct Exercise: Codable, Identifiable {
     let id: String
     let name: String?
@@ -24,6 +25,7 @@ struct Exercise: Codable, Identifiable {
     let bodyPart: String?
     let target: String?
     let experience: String?
+    let gifUrl: String?
     
     // Using this for compatibility with any code that might expect these as arrays
     var primaryMusclesArray: [String] {
@@ -64,11 +66,7 @@ struct Exercise: Codable, Identifiable {
         case bodyPart = "body_part"
         case target
         case experience
-    }
-    
-    // Add a computed property for gifUrl since it doesn't exist in your schema
-    var gifUrl: String {
-        return "https://example.com/exercises/\(id).gif" // Provide a default or placeholder
+        case gifUrl = "gif_url"
     }
     
     // Add hash and equality implementations for Hashable conformance
