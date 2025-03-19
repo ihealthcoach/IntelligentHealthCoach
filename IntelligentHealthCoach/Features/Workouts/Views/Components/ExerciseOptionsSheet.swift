@@ -95,7 +95,8 @@ enum ExerciseOption: String, CaseIterable, Identifiable {
             mechanics: "Compound",
             bodyPart: "Chest",
             target: "Pecs",
-            experience: "Intermediate"
+            experience: "Intermediate",
+            gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
         ),
         onOptionSelected: { _ in }
     )

@@ -539,44 +539,41 @@ class WorkoutTrackingViewModel: ObservableObject {
     }
 }
 
-#Preview {
-    let mockWorkout = Workout(
-        id: "preview-workout-id",
-        userId: "preview-user-id",
-        title: "Upper Body Workout",
-        exercises: [],
-        createdAt: Date(),
-        updatedAt: Date(),
-        status: "active"
-    )
-    
-    let viewModel = WorkoutTrackingViewModel(workout: mockWorkout)
-    
-    // Add a mock exercise
-    let exercise = Exercise(
-        id: "ex1",
-        name: "Bench Press",
-        exerciseType: "Strength",
-        primaryMuscles: "Chest,Triceps",
-        secondaryMuscles: "Shoulders",
-        instructions: "Lie on a flat bench...",
-        experienceLevel: "Intermediate",
-        muscleGroup: "Chest",
-        description: "The bench press is a compound exercise...",
-        benefits: "Builds chest strength,Improves upper body power",
-        equipment: "Barbell,Bench",
-        forceType: "Push",
-        mechanics: "Compound",
-        bodyPart: "Chest",
-        target: "Pecs",
-        experience: "Intermediate",
-        gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
-    )
-    
-    // Add the exercise to the view model
-    viewModel.exercises = [exercise]
-    
-    Group {
-        WorkoutTrackingView(viewModel: viewModel)
+struct WorkoutTrackingView_Previews: PreviewProvider {
+    static var previews: some View {
+        let mockWorkout = Workout(
+            id: "preview-workout-id",
+            userId: "preview-user-id",
+            title: "Upper Body Workout",
+            exercises: [],
+            createdAt: Date(),
+            updatedAt: Date(),
+            status: "active"
+        )
+        
+        let mockViewModel = WorkoutTrackingViewModel(workout: mockWorkout)
+        mockViewModel.exercises = [
+            Exercise(
+                id: "ex1",
+                name: "Bench Press",
+                exerciseType: "Strength",
+                primaryMuscles: "Chest,Triceps",
+                secondaryMuscles: "Shoulders",
+                instructions: "Lie on a flat bench...",
+                experienceLevel: "Intermediate",
+                muscleGroup: "Chest",
+                description: "The bench press is a compound exercise...",
+                benefits: "Builds chest strength,Improves upper body power",
+                equipment: "Barbell,Bench",
+                forceType: "Push",
+                mechanics: "Compound",
+                bodyPart: "Chest",
+                target: "Pecs",
+                experience: "Intermediate",
+                gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
+            )
+        ]
+        
+        return WorkoutTrackingView(viewModel: mockViewModel)
     }
 }

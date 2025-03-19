@@ -96,7 +96,8 @@ struct SetsSelectionSheet_Previews: PreviewProvider {
                     mechanics: "Compound",
                     bodyPart: "Chest",
                     target: "Pecs",
-                    experience: "Intermediate"
+                    experience: "Intermediate",
+                    gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
                 ),
                 Exercise(
                     id: "2",
@@ -114,7 +115,8 @@ struct SetsSelectionSheet_Previews: PreviewProvider {
                     mechanics: "Compound",
                     bodyPart: "Legs",
                     target: "Quadriceps",
-                    experience: "Intermediate"
+                    experience: "Intermediate",
+                    gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/s3/exercises/decline_bench_press.gif"
                 )
             ]
             
