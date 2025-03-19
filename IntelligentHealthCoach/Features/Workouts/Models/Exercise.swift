@@ -7,6 +7,8 @@
 
 
 import Foundation
+import Supabase
+import Storage
 
 struct Exercise: Codable, Identifiable {
     let id: String
