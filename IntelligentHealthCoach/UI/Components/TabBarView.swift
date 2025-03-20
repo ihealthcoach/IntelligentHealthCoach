@@ -115,10 +115,9 @@ struct TabBarView: View {
     }
 
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     TabBarView(
         selectedTab: .constant(0),
         onShowChooseWorkout: { /* Do nothing in preview */ }
     )
-    .previewLayout(.sizeThatFits)
 }

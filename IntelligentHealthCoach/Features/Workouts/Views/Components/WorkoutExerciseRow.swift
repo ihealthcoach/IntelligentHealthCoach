@@ -62,7 +62,7 @@ struct WorkoutExerciseRow: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     WorkoutExerciseRow(
         exercise: Exercise(
             id: "1",
@@ -89,5 +89,4 @@ struct WorkoutExerciseRow: View {
         onMoreTapped: {}
     )
     .padding()
-    .previewLayout(.sizeThatFits)
 }
