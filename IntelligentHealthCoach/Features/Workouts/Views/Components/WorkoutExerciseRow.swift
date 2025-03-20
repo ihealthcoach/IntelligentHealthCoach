@@ -25,7 +25,9 @@ struct WorkoutExerciseRow: View {
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 50, height: 50)
+                .frame(width: 68, height: 68)
+                .blendMode(.multiply)
+                .background(Color("gray50"))
                 .clipShape(RoundedRectangle(cornerRadius: 6))
             
             // Exercise info
@@ -79,7 +81,7 @@ struct WorkoutExerciseRow: View {
             bodyPart: "Chest",
             target: "Pecs",
             experience: "Intermediate",
-            gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/decline_bench_press.gif"
+            gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/3_4_sit_up.gif"
         ),
         isCompleted: false,
         setsCompleted: 2,

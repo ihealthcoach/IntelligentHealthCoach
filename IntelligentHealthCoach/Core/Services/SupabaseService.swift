@@ -21,7 +21,6 @@ class SupabaseService: SupabaseServiceProtocol {
     // Make this a regular stored property
     private(set) var client: SupabaseClient
     
-    /* Debug start */
     private init() {
         print("🔍 Beginning Supabase initialization...")
         
@@ -91,7 +90,16 @@ class SupabaseService: SupabaseServiceProtocol {
         
         print("✅ Supabase client initialized successfully")
     }
-    /* Debug end */
+    
+    func getStorageUrl(path: String) -> URL? {
+        if path.starts(with: "https://") {
+            return URL(string: path)
+        } else {
+            // Construct the full URL using base storage URL
+            let baseStorageUrl = "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/"
+            return URL(string: baseStorageUrl + path)
+        }
+    }
     
     /*
     private init() {

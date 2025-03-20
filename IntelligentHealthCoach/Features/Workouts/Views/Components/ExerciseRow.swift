@@ -22,11 +22,13 @@ struct ExerciseRow: View {
                         .placeholder {
                             Rectangle()
                                 .foregroundColor(.gray.opacity(0.2))
-                                .frame(width: 60, height: 60)
+                                .frame(width: 68, height: 68)
                         }
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 60, height: 60)
+                        .frame(width: 68, height: 68)
+                        .blendMode(.multiply)
+                        .background(Color("gray50"))
                         .cornerRadius(4)
                 } else {
                     // Fallback icon when no GIF is available
@@ -112,7 +114,7 @@ struct ExerciseRow_Previews: PreviewProvider {
             bodyPart: "Chest",
             target: "Pecs",
             experience: "Intermediate",
-            gifUrl: "https://example.com/bench-press.gif"
+            gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/3_4_sit_up.gif"
         )
         
         Group {
@@ -164,6 +166,6 @@ struct ExerciseRow_Previews: PreviewProvider {
         }
         .previewLayout(.sizeThatFits)
         .padding()
-        .background(Color("gray100"))
+        .background(Color("gray50"))
     }
 }

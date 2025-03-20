@@ -96,7 +96,7 @@ enum ExerciseOption: String, CaseIterable, Identifiable {
             bodyPart: "Chest",
             target: "Pecs",
             experience: "Intermediate",
-            gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/decline_bench_press.gif"
+            gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/3_4_sit_up.gif"
         ),
         onOptionSelected: { _ in }
     )
