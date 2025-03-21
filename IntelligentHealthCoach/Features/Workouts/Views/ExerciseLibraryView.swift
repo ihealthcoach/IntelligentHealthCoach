@@ -40,26 +40,34 @@ struct ExerciseLibraryView: View {
                         if workoutBuilder.selectedExercises.count > 0 {
                             return AnyView(
                                 Button(action: {
-                                    // We need to ensure the selected exercises are transferred to workoutExercisesViewModel
-                                    workoutExercisesViewModel = WorkoutExercisesViewModel()
+                                    // Instead of creating a new view model, get any existing exercises
+                                    let existingExercises = workoutExercisesViewModel.exercises
                                     
-                                    // Add all exercises from workoutBuilder to the view model
-                                    for exercise in workoutBuilder.selectedExercises {
-                                        workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
+                                    // Create a new model only if we don't have one yet
+                                    if existingExercises.isEmpty {
+                                        workoutExercisesViewModel = WorkoutExercisesViewModel()
                                     }
                                     
-                                    // Trigger navigation to the workout exercises view
+                                    // Add each newly selected exercise to the existing model
+                                    for exercise in workoutBuilder.selectedExercises {
+                                        // Only add if it doesn't already exist in the workout
+                                        if !workoutExercisesViewModel.exercises.contains(where: { $0.id == exercise.id }) {
+                                            workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
+                                        }
+                                    }
+                                    
+                                    // Navigate to workout exercises view
                                     showingWorkoutExercisesView = true
+                                    
+                                    // Clear the selection in the library view
+                                    selectedExercises.removeAll()
+                                    selectedExerciseIds.removeAll()
                                 }) {
                                     Text("Done")
                                         .font(.system(size: 16, weight: .semibold))
                                         .foregroundColor(.indigo)
                                 }
-                            )
-                        }
-                        return AnyView(EmptyView())
-                    }
-                )
+                                )
                 
                 TitleView(
                     title: "Library",
@@ -128,9 +136,11 @@ struct ExerciseLibraryView: View {
             viewModel.fetchExercises()
         }
         .navigationDestination(isPresented: $showingWorkoutExercisesView) {
-            // Pass the prepared view model to WorkoutExercisesView
             WorkoutExercisesView(viewModel: workoutExercisesViewModel)
                 .navigationBarBackButtonHidden(true)
+                .onAppear {
+                    print("WorkoutExercisesView appeared with \(workoutExercisesViewModel.exercises.count) exercises")
+                }
         }
         
         // Add sheet presentation for current workout

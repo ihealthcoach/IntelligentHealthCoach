@@ -16,6 +16,7 @@ struct WorkoutExercisesView: View {
     @State private var showingExerciseLibrary = false
     
     init(viewModel: WorkoutExercisesViewModel = WorkoutExercisesViewModel()) {
+        print("WorkoutExercisesView init with \(viewModel.exercises.count) exercises")
         self.viewModel = viewModel
     }
     

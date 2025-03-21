@@ -17,6 +17,7 @@ class WorkoutBuilderViewModel: ObservableObject {
         // Don't add if already exists
         if !selectedExercises.contains(where: { $0.id == exercise.id }) {
             selectedExercises.append(exercise)
+            print("Added exercise: \(exercise.name ?? "Unnamed") to workoutBuilder")
         }
     }
     
