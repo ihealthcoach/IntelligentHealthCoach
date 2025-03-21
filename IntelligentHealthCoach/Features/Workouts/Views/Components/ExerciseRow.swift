@@ -17,29 +17,10 @@ struct ExerciseRow: View {
         Button(action: onToggle) {
             HStack(spacing: 12) {
                 // Exercise image/GIF
-                if let gifUrlString = exercise.gifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
-                    KFImage(gifUrl)
-                        .placeholder {
-                            Rectangle()
-                                .foregroundColor(.gray.opacity(0.2))
-                                .frame(width: 68, height: 68)
-                        }
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 68, height: 68)
-                        .blendMode(.multiply)
-                        .background(Color("gray50"))
-                        .cornerRadius(4)
-                } else {
-                    // Fallback icon when no GIF is available
-                    Image(systemName: "figure.run")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(12)
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.gray)
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(4)
+                ExerciseGIF(
+                    gifUrl: exercise.gifUrl,
+                    size: CGSize(width: 68, height: 68)
+                )
                 }
                 
                 // Exercise details
@@ -89,7 +70,6 @@ struct ExerciseRow: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-}
 
 struct ExerciseRow_Previews: PreviewProvider {
     static var previews: some View {

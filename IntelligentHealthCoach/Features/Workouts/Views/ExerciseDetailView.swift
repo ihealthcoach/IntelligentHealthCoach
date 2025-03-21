@@ -324,26 +324,11 @@ struct AddToWorkoutSheet: View {
             VStack(spacing: 20) {
                 // Header with exercise info
                 HStack {
-                    if let gifUrlString = exercise.gifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
-                        KFImage(gifUrl)
-                            .placeholder {
-                                Rectangle()
-                                    .foregroundColor(.gray.opacity(0.2))
-                            }
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(6)
-                    } else {
-                        // Fallback icon when no GIF is available
-                        Image(systemName: "figure.run")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding(12)
-                            .frame(width: 60, height: 60)
-                            .foregroundColor(.gray)
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(6)
+                    ExerciseGIF(
+                        gifUrl: exercise.gifUrl,
+                        size: CGSize(width: 60, height: 60),
+                        cornerRadius: 6
+                    )
                     }
                     
                     VStack(alignment: .leading, spacing: 2) {
@@ -464,7 +449,6 @@ struct AddToWorkoutSheet: View {
             )
         }
     }
-}
 
 #Preview {
     ExerciseDetailView(exercise: Exercise(
