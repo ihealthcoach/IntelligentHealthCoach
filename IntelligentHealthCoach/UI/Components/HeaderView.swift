@@ -10,7 +10,8 @@ import SwiftUI
 // Header View Component
 struct HeaderView: View {
     var onBack: () -> Void
-    @Binding var showWorkoutSheet: Bool  // This needs to be defined if you want to pass it as a binding
+    @Binding var showWorkoutSheet: Bool
+    var trailingButton: (() -> AnyView)? = nil
     
     var body: some View {
         HStack {
@@ -35,27 +36,9 @@ struct HeaderView: View {
                 .foregroundColor(.gray)
             }
             
-            // Add exercise button
-            Button(action: {}) {
-                Image(systemName: "plus")
-                    .font(.system(size: 18))
-                    .foregroundColor(.gray900)
-                    .padding(8)
-                    .background(Color.offwhite)
-                    .clipShape(Circle())
-            }
-            
-            // Done button
-            Button(action: {}) {
-                HStack {
-                    Text("Done")
-                    Image(systemName: "checkmark")
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(Color("gray900"))
-                .foregroundColor(.offwhite)
-                .cornerRadius(20)
+            // Custom trailing button if provided
+            if let trailingButton = trailingButton {
+                trailingButton()
             }
         }
         .padding(.horizontal)

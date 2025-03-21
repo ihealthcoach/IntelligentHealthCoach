@@ -23,6 +23,7 @@ struct ExerciseLibraryView: View {
     @State private var showingWorkoutExercisesView = false // For navigation
     @State private var showFilterSheet = false // For filter functionality
     @State private var showingWorkoutExercisesSheet = false // Add a state variable to track if the workout exercise view is shown as a sheet
+    @State private var workoutExercisesViewModel = WorkoutExercisesViewModel()
     
     var selectionMode: Bool = true
     var onExerciseSelected: ((Exercise) -> Void)? = nil
@@ -33,7 +34,31 @@ struct ExerciseLibraryView: View {
             VStack(spacing: 0) {
                 HeaderView(
                     onBack: { presentationMode.wrappedValue.dismiss() },
-                    showWorkoutSheet: $showingWorkoutExercisesSheet  // Pass the binding here
+                    showWorkoutSheet: $showingWorkoutExercisesSheet,
+                    trailingButton: {
+                        // Only show when exercises are selected
+                        if workoutBuilder.selectedExercises.count > 0 {
+                            return AnyView(
+                                Button(action: {
+                                    // We need to ensure the selected exercises are transferred to workoutExercisesViewModel
+                                    workoutExercisesViewModel = WorkoutExercisesViewModel()
+                                    
+                                    // Add all exercises from workoutBuilder to the view model
+                                    for exercise in workoutBuilder.selectedExercises {
+                                        workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
+                                    }
+                                    
+                                    // Trigger navigation to the workout exercises view
+                                    showingWorkoutExercisesView = true
+                                }) {
+                                    Text("Done")
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundColor(.indigo)
+                                }
+                            )
+                        }
+                        return AnyView(EmptyView())
+                    }
                 )
                 
                 TitleView(
@@ -99,8 +124,12 @@ struct ExerciseLibraryView: View {
         .sheet(isPresented: $showFilterSheet) {
             FilterSheetView(onClose: { showFilterSheet = false })
         }
+        .onAppear {
+            viewModel.fetchExercises()
+        }
         .navigationDestination(isPresented: $showingWorkoutExercisesView) {
-            WorkoutExercisesView()
+            // Pass the prepared view model to WorkoutExercisesView
+            WorkoutExercisesView(viewModel: workoutExercisesViewModel)
                 .navigationBarBackButtonHidden(true)
         }
         
@@ -118,6 +147,18 @@ struct ExerciseLibraryView: View {
                         showingWorkoutExercisesSheet = false
                     }
                 )
+            }
+        }
+    }
+    
+    private func prepareWorkoutViewModel() {
+        if showingWorkoutExercisesView {
+            // Create a new instance for a fresh view model
+            workoutExercisesViewModel = WorkoutExercisesViewModel()
+            
+            // Add each selected exercise with the specified number of sets
+            for exercise in selectedExercises {
+                workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
             }
         }
     }
@@ -140,12 +181,12 @@ struct ExerciseLibraryView: View {
     
     // Helper function to add exercises to workout
     private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
-        // Create a WorkoutExercisesViewModel and add the exercises
-        let workoutVM = WorkoutExercisesViewModel()
+        // Prepare the view model before navigation
+        workoutExercisesViewModel = WorkoutExercisesViewModel()
         
         // Add each exercise with the specified number of sets
         for exercise in exercises {
-            workoutVM.addExercise(exercise, setsCount: setsCount)
+            workoutExercisesViewModel.addExercise(exercise, setsCount: setsCount)
         }
         
         // Navigate to the WorkoutExercisesView
