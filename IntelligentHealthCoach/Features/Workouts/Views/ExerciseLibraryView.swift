@@ -87,6 +87,12 @@ struct ExerciseLibraryView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
+                        Button("Save as template") {
+                            // Mark workout as complete and navigate back
+                            // Logic to save workout as completed would go here
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        
                         Button("Finish later") {
                             // Save workout state for later and navigate back
                             // Logic to save workout state would go here
