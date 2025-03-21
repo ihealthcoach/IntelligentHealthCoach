@@ -62,13 +62,12 @@ struct HeaderView: View {
         .padding(.bottom, 8)
     }
 }
-/*
-struct HeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeaderView(onBack: {})
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .background(Color("gray100"))
-    }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    HeaderView(
+        onBack: { },
+        showWorkoutSheet: .constant(false)
+    )
+    .padding()
+    .background(Color("gray50"))
 }
-*/

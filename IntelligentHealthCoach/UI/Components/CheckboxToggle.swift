@@ -32,3 +32,11 @@ struct CheckboxToggle: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
+
+#Preview {
+    VStack(spacing: 20) {
+        CheckboxToggle(isChecked: .constant(true), label: "Selected Option")
+        CheckboxToggle(isChecked: .constant(false), label: "Unselected Option")
+    }
+    .padding()
+}

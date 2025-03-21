@@ -41,3 +41,11 @@ struct RadioButton: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
+
+#Preview {
+    VStack(spacing: 20) {
+        RadioButton(selectedOption: .constant("option1"), option: "option1", label: "Option 1")
+        RadioButton(selectedOption: .constant("option1"), option: "option2", label: "Option 2")
+    }
+    .padding()
+}

@@ -76,7 +76,7 @@ struct ExerciseListView: View {
             .padding()
             .id(key)
             .listRowInsets(EdgeInsets())
-            .background(Color("gray100"))
+            /*.background(Color("gray100"))*/
     }
     
     private var alphabetSelector: some View {

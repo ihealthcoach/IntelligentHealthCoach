@@ -128,3 +128,22 @@ struct ChooseWorkoutButton: View {
         .frame(maxWidth: .infinity)
     }
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    VStack(spacing: 20) {
+        Button("Primary Button") {}
+            .buttonStyle(PrimaryButtonStyle())
+        
+        Button("Secondary Button") {}
+            .buttonStyle(SecondaryButtonStyle())
+        
+        Button("Tertiary Button") {}
+            .tertiaryStyle()
+        
+        ChooseWorkoutButton(
+            title: "Without a template",
+            description: "Add exercises as you go"
+        ) {}
+    }
+    .padding()
+}

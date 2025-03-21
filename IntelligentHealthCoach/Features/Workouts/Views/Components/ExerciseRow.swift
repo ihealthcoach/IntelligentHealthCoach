@@ -21,7 +21,6 @@ struct ExerciseRow: View {
                     gifUrl: exercise.gifUrl,
                     size: CGSize(width: 68, height: 68)
                 )
-                }
                 
                 // Exercise details
                 VStack(alignment: .leading, spacing: 4) {
@@ -70,6 +69,7 @@ struct ExerciseRow: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
+}
 
 struct ExerciseRow_Previews: PreviewProvider {
     static var previews: some View {

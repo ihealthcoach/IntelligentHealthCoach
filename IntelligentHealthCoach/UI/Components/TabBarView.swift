@@ -25,36 +25,69 @@ struct TabBarView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            tabButton(title: "Home", icon: "house.fill", isSelected: selectedTab == 0) {
-                selectedTab = 0
-            }
+            tabButton(
+                title: "Home",
+                icon: AnyView(
+                    Image("home-outline")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(selectedTab == 0 ? Color("indigo600") : Color("gray900"))
+                ),
+                isSelected: selectedTab == 0
+            ) { selectedTab = 0 }
             
-            tabButton(title: "Activity", icon: "chart.bar.fill", isSelected: selectedTab == 1) {
-                selectedTab = 1
-            }
+            tabButton(
+                title: "Activity",
+                icon: AnyView(
+                    Image("chart-bar-outline")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(selectedTab == 1 ? Color("indigo600") : Color("gray900"))
+                ),
+                isSelected: selectedTab == 1
+            ) { selectedTab = 1 }
             
             // Center add button
             ZStack {
                 Circle()
-                    .fill(Color.indigo)
-                    .frame(width: 60, height: 60)
+                    .fill(Color.indigo600)
+                    .frame(width: 52, height: 52)
                     .shadow(color: .gray900.opacity(0.2), radius: 4, x: 0, y: 2)
                 
                 Button(action: {
                     showingShortcutsSheet = true
                 }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.offwhite)
+                    Image("plus-mini")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color("offwhite"))
                 }
             }
-            .offset(y: -20)
             
-            tabButton(title: "Food", icon: "fork.knife", isSelected: selectedTab == 2) {
+            tabButton(
+                title: "Food",
+                icon: AnyView(
+                    Image("chefs-hat")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(selectedTab == 2 ? Color("indigo600") : Color("gray900"))
+                ), isSelected: selectedTab == 2) {
                 selectedTab = 2
             }
             
-            tabButton(title: "Workouts", icon: "dumbbell.fill", isSelected: selectedTab == 3) {
+            tabButton(
+                title: "Workouts",
+                icon: AnyView(
+                    Image("dumbbell")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(selectedTab == 3 ? Color("indigo600") : Color("gray900"))
+                ), isSelected: selectedTab == 3) {
                 selectedTab = 3
             }
         }
@@ -99,20 +132,19 @@ struct TabBarView: View {
 }
     
     // Individual tab button
-    private func tabButton(title: String, icon: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 4) {
-                Image(systemName: icon)
-                    .font(.system(size: 20))
-                    .foregroundColor(isSelected ? .indigo : .gray)
-                
-                Text(title)
-                    .font(.system(size: 12))
-                    .foregroundColor(isSelected ? .indigo : .gray)
-            }
-            .frame(maxWidth: .infinity)
+private func tabButton<V: View>(title: String, icon: V, isSelected: Bool, action: @escaping () -> Void) -> some View {
+    Button(action: action) {
+        VStack(spacing: 4) {
+            icon
+                .frame(width: 24, height: 24)
+            
+            Text(title)
+                .font(.system(size: 11))
+                .foregroundColor(isSelected ? Color("indigo600") : Color("gray900"))
         }
+        .frame(maxWidth: .infinity)
     }
+}
 
 
 #Preview(traits: .sizeThatFitsLayout) {

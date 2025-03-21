@@ -70,6 +70,7 @@ struct ChooseWorkoutView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .withSafeAreaSpacer()
         .appBackground()
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $showingExerciseLibrary) {

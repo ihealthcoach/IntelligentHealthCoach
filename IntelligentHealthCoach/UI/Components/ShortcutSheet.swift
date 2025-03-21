@@ -21,31 +21,26 @@ struct ShortcutSheet: View {
                     ShortcutSectionHeader(title: "Workout")
                     
                     VStack(spacing: 0) {
-                        ShortcutItem(icon: "dumbbell.fill", title: "Start a workout", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "dumbbell", title: "Start a workout", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 onStartWorkout?()
                             }
                         }
                         
-                        ShortcutItem(icon: "figure.arms.open", title: "Add body metrics", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "ruler-outline", title: "Add body metrics", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
-                        ShortcutItem(icon: "ruler", title: "Preferred units", value: "Metric/kg", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "calculator-outline", title: "Preferred units", value: "Metric/kg", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
-                        ShortcutItem(icon: "timer", title: "Rest timer", value: "45 sec", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "clock-outline", title: "Rest timer", value: "45 sec", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
-                        ShortcutItem(icon: "plus.circle", title: "Add exercise", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "plus-circle-outline", title: "Add exercise", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
@@ -61,18 +56,15 @@ struct ShortcutSheet: View {
                     ShortcutSectionHeader(title: "Food")
                     
                     VStack(spacing: 0) {
-                        ShortcutItem(icon: "book.closed", title: "Browse recipes", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "chefs-hat", title: "Browse recipes", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
-                        ShortcutItem(icon: "doc.plaintext", title: "Add recipe", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "note-add-outline", title: "Add recipe", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
-                        ShortcutItem(icon: "barcode.viewfinder", title: "Scan barcode", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "barcode-outline", title: "Scan barcode", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
@@ -88,12 +80,16 @@ struct ShortcutSheet: View {
                     ShortcutSectionHeader(title: "More")
                     
                     VStack(spacing: 0) {
-                        ShortcutItem(icon: "arrow.left.arrow.right", title: "Connect apps", showChevron: true) {
-                            // Handle action
+                        ShortcutItem(iconName: "arrows-right-left-outline", title: "Connect apps", showChevron: true) {
                             presentationMode.wrappedValue.dismiss()
                         }
                         
-                        ShortcutItem(icon: "moon", title: "Dark mode", hasToggle: true, isToggled: $isDarkModeEnabled) {
+                        ShortcutItem(
+                            iconName: isDarkModeEnabled ? "sun-outline" : "moon-outline",
+                            title: isDarkModeEnabled ? "Light mode" : "Dark mode",
+                            hasToggle: true,
+                            isToggled: $isDarkModeEnabled
+                        ) {
                             // Toggle is handled by the binding
                         }
                     }
@@ -119,15 +115,15 @@ struct ShortcutSectionHeader: View {
     
     var body: some View {
         Text(title)
-            .font(.system(size: 20, weight: .bold))
+            .font(.system(size: 24, weight: .bold))
             .foregroundColor(Color("gray900"))
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 16)
     }
 }
 
 // Shortcut item component
 struct ShortcutItem: View {
-    var icon: String
+    var iconName: String
     var title: String
     var value: String? = nil
     var showChevron: Bool = false
@@ -139,14 +135,15 @@ struct ShortcutItem: View {
         Button(action: action) {
             HStack(spacing: 16) {
                 // Icon
-                Image(systemName: icon)
-                    .font(.system(size: 20))
-                    .foregroundColor(Color("gray900"))
+                Image(iconName)
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 24, height: 24)
+                    .foregroundColor(Color("gray900"))
                 
                 // Title
                 Text(title)
-                    .font(.system(size: 16))
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundColor(Color("gray900"))
                 
                 Spacer()
@@ -163,8 +160,10 @@ struct ShortcutItem: View {
                     Toggle("", isOn: isToggled)
                         .labelsHidden()
                 } else if showChevron {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 14))
+                    Image("chevron-right-mini")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
                         .foregroundColor(Color("gray400"))
                 }
             }

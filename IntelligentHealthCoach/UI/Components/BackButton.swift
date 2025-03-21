@@ -18,3 +18,8 @@ struct BackButton: View {
         }
     }
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    BackButton(action: {})
+        .padding()
+}

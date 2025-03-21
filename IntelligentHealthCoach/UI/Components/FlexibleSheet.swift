@@ -54,16 +54,18 @@ struct FlexibleSheet<Content: View>: View {
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .medium))
+                        Image("x-mark-mini")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
                             .foregroundColor(Color("gray900"))
-                            .padding(12)
+                            .padding(5)
                             .background(Color("gray100"))
                             .clipShape(Circle())
                     }
                 }
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 16)
             .padding(.bottom, 24)
             
             // Content

@@ -34,3 +34,18 @@ struct EnhancedAlphabetSelector: View {
         .cornerRadius(16)
     }
 }
+
+#Preview {
+    HStack {
+        Spacer()
+        EnhancedAlphabetSelector(
+            availableLetters: Set(["#", "A", "B", "C", "M", "Z"]),
+            onLetterSelected: { letter in
+                print("Selected letter: \(letter)")
+            }
+        )
+        .padding()
+    }
+    .frame(height: 500)
+    .background(Color("gray100"))
+}

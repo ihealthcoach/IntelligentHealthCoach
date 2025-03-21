@@ -13,7 +13,7 @@ struct TodayGoal: Identifiable {
     let currentValue: String
     let targetValue: String
     let unit: String
-    let icon: String
+    let icon: AnyView
     let color: Color
     
     var progress: Double {
@@ -29,7 +29,7 @@ struct TodayGoal: Identifiable {
 struct Activity: Identifiable {
     let id = UUID()
     let type: String
-    let stats: [(String, String)] // (value, icon)
+    let stats: [(String, AnyView)]  // Now uses AnyView instead of String for icons
     let timestamp: Date
     
     var formattedTime: String {

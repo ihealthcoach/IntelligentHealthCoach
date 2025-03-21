@@ -57,32 +57,56 @@ class DashboardViewModel: ObservableObject {
                 currentValue: "1,500",
                 targetValue: "2,500",
                 unit: "kcal",
-                icon: "flame.fill",
-                color: .gray900
+                icon: AnyView(
+                    Image("fire-mini")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color("gray500"))
+                ),
+                color: .gray500
             ),
             TodayGoal(
                 title: "Active time",
                 currentValue: "60",
                 targetValue: "120",
                 unit: "min",
-                icon: "clock.fill",
-                color: .gray900
+                icon: AnyView(
+                    Image("clock-outline")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color("gray500"))
+                ),
+                color: .gray500
             ),
             TodayGoal(
                 title: "Steps",
                 currentValue: "3,500",
                 targetValue: "10,000",
                 unit: "steps",
-                icon: "figure.walk",
-                color: .gray900
+                icon: AnyView(
+                    Image("steps")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color("gray500"))
+                ),
+                color: .gray500
             ),
             TodayGoal(
                 title: "Distance",
                 currentValue: "9.4",
                 targetValue: "10.00",
                 unit: "km",
-                icon: "mappin",
-                color: .gray900
+                icon: AnyView(
+                    Image("map-pin-outline")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color("gray500"))
+                ),
+                color: .gray500
             )
         ]
         
@@ -91,18 +115,54 @@ class DashboardViewModel: ObservableObject {
             Activity(
                 type: "Running",
                 stats: [
-                    ("40 min 17 sec", "clock"),
-                    ("140 kcal", "flame.fill"),
-                    ("4.2 km", "mappin")
+                    ("40 min 17 sec", AnyView(
+                        Image("clock-outline")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color("gray900"))
+                    )),
+                    ("140 kcal", AnyView(
+                        Image("fire-mini")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color("gray900"))
+                    )),
+                    ("4.2 km", AnyView(
+                        Image("map-pin-outline")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color("gray900"))
+                    ))
                 ],
                 timestamp: Date().addingTimeInterval(-3600)
             ),
             Activity(
                 type: "Gym",
                 stats: [
-                    ("1 hour 15 min", "clock"),
-                    ("812 kcal", "flame.fill"),
-                    ("8 exercises", "dumbbell.fill")
+                    ("1 hour 15 min", AnyView(
+                        Image("clock-outline")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color("gray900"))
+                    )),
+                    ("812 kcal", AnyView(
+                        Image("fire-mini")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color("gray900"))
+                    )),
+                    ("8 exercises", AnyView(
+                        Image("dumbbell")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color("gray900"))
+                    ))
                 ],
                 timestamp: Date().addingTimeInterval(-7200)
             )

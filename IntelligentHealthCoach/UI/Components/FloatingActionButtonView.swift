@@ -46,3 +46,23 @@ struct FloatingActionButtonView: View {
         }
     }
 }
+
+#Preview {
+    ZStack {
+        Color("gray100").edgesIgnoringSafeArea(.all)
+        
+        VStack {
+            Text("With count: 3")
+                .padding(.bottom, 300)
+            
+            FloatingActionButtonView(selectedCount: 3, onTap: {})
+        }
+        
+        VStack {
+            Text("Empty state (filter)")
+                .padding(.top, 300)
+            
+            FloatingActionButtonView(selectedCount: 0, onTap: {})
+        }
+    }
+}

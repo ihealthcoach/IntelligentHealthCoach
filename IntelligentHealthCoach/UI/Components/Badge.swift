@@ -35,3 +35,18 @@ struct Badge: View {
         )
     }
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    VStack(spacing: 20) {
+        Badge(text: "Beginner", hasBorder: false, isDark: false)
+        Badge(text: "Intermediate", hasBorder: true, isDark: false)
+        Badge(text: "Advanced", hasBorder: false, isDark: true)
+        Badge(
+            text: "With Icon",
+            icon: AnyView(Image(systemName: "star.fill").foregroundColor(.yellow)),
+            hasBorder: true,
+            isDark: false
+        )
+    }
+    .padding()
+}

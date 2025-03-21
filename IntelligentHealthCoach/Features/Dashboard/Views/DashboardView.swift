@@ -50,7 +50,10 @@ struct DashboardView: View {
                                 Button(action: {
                                     showGoalDetails.toggle()
                                 }) {
-                                    Image(systemName: showGoalDetails ? "chevron.down" : "chevron.right")
+                                    Image( showGoalDetails ? "chevron-down-mini" : "chevron-right-mini")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
                                         .foregroundColor(Color("gray900"))
                                 }
                                 
@@ -60,8 +63,11 @@ struct DashboardView: View {
                                     HStack(spacing: 4) {
                                         Text("Edit goals")
                                             .font(.system(size: 14))
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 12))
+                                        Image("arrow-right-mini")
+                                                                .resizable()
+                                                                .scaledToFit()
+                                                                .frame(width: 14, height: 14)
+                                                                .foregroundColor(Color("gray900"))
                                     }
                                     .foregroundColor(.gray900)
                                 }
@@ -118,10 +124,13 @@ struct DashboardView: View {
                                     HStack(spacing: 4) {
                                         Text("Show history")
                                             .font(.system(size: 14))
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 12))
+                                        Image("arrow-right-mini")
+                                                                .resizable()
+                                                                .scaledToFit()
+                                                                .frame(width: 14, height: 14)
+                                                                .foregroundColor(Color("gray900"))
                                     }
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.gray900)
                                 }
                             }
                             .padding(.horizontal)
@@ -147,13 +156,15 @@ struct DashboardView: View {
                             // Add widget action
                         }) {
                             VStack(spacing: 8) {
-                                Image(systemName: "plus")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.gray)
+                                Image("plus-mini")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color("gray400"))
                                 
                                 Text("add widget")
                                     .font(.system(size: 14))
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Color("gray400"))
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 120)
@@ -172,6 +183,7 @@ struct DashboardView: View {
                     .padding(.top)
                     .padding(.bottom, 80) // Add padding for tab bar
                 }
+                .withSafeAreaSpacer()
                 .appBackground()
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
@@ -236,8 +248,10 @@ struct DashboardView: View {
                 Button(action: {
                     // Menu action
                 }) {
-                    Image(systemName: "line.horizontal.3")
-                        .font(.system(size: 22))
+                    Image("bars-3-bottom-left-mini")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
                         .foregroundColor(Color("gray900"))
                 }
                 
@@ -248,8 +262,10 @@ struct DashboardView: View {
                     Button(action: {
                         // Notification action
                     }) {
-                        Image(systemName: "bell")
-                            .font(.system(size: 20))
+                        Image("bell-outline")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
                             .foregroundColor(Color("gray900"))
                             .overlay(
                                 viewModel.hasNotifications ?
@@ -263,8 +279,10 @@ struct DashboardView: View {
                     Button(action: {
                         // Messages action
                     }) {
-                        Image(systemName: "message")
-                            .font(.system(size: 20))
+                        Image("chat-bubble-oval-left-ellipsis-outline")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
                             .foregroundColor(Color("gray900"))
                     }
                     
@@ -277,12 +295,14 @@ struct DashboardView: View {
                                 }
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 36, height: 36)
+                                .frame(width: 48, height: 48)
                                 .clipShape(Circle())
                         } else {
-                            Image(systemName: "person.circle.fill")
-                                .font(.system(size: 36))
-                                .foregroundColor(.gray)
+                            Image("avatar-broe")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 48, height: 48)
+                                                    .foregroundColor(Color("gray900"))
                         }
                     }
                 }
@@ -321,8 +341,7 @@ struct DashboardView: View {
     func goalCard(goal: TodayGoal) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 4) {
-                Image(systemName: goal.icon)
-                    .foregroundColor(goal.color)
+                goal.icon
                 
                 Text(goal.title)
                     .font(.system(size: 16, weight: .medium))
@@ -388,9 +407,11 @@ struct DashboardView: View {
             }
             
             if showArrow {
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color("gray400"))
+                Image("chevron-right-mini")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(Color("gray400"))
             }
         }
     }
@@ -408,16 +429,17 @@ struct DashboardView: View {
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
                 
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
+                Image("arrow-right-mini")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(Color("gray900"))
             }
             
             HStack(spacing: 0) {
                 ForEach(activity.stats.indices, id: \.self) { index in
                     VStack(spacing: 4) {
-                        Image(systemName: activity.stats[index].1)
-                            .font(.system(size: 18))
-                            .foregroundColor(.secondary)
+                        activity.stats[index].1  // Render the icon directly (it's already an AnyView)
                         
                         Text(activity.stats[index].0)
                             .font(.system(size: 14, weight: .medium))

@@ -29,3 +29,17 @@ struct ProgressBar: View {
         }
     }
 }
+
+#Preview {
+    VStack(spacing: 30) {
+        ProgressBar(progress: 0.25)
+            .frame(height: 8)
+        ProgressBar(progress: 0.5)
+            .frame(height: 8)
+        ProgressBar(progress: 0.75)
+            .frame(height: 8)
+        ProgressBar(progress: 1.0)
+            .frame(height: 8)
+    }
+    .padding()
+}

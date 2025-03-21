@@ -24,3 +24,16 @@ struct CardView<Content: View>: View {
             .shadow(color: Color.gray900.opacity(0.05), radius: 5, x: 0, y: 2)
     }
 }
+
+#Preview {
+    CardView {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Card Title")
+                .font(.headline)
+            Text("This is the content of the card view. It can contain any SwiftUI views.")
+                .font(.body)
+        }
+        .padding()
+    }
+    .padding()
+}

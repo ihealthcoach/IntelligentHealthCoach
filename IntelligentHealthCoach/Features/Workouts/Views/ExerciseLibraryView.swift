@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Kingfisher
+import UIKit
 
 struct ExerciseLibraryView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -78,6 +79,7 @@ struct ExerciseLibraryView: View {
             )
             .zIndex(2)
         }
+        .withSafeAreaSpacer()
         .appBackground()
         .navigationBarHidden(true)
         .onAppear {
@@ -127,8 +129,12 @@ struct ExerciseLibraryView: View {
         
         if workoutBuilder.containsExercise(id: exercise.id) {
             workoutBuilder.removeExercise(exercise)
+            selectedExerciseIds.remove(exercise.id)
+            selectedExercises.removeAll(where: { $0.id == exercise.id })
         } else {
             workoutBuilder.addExercise(exercise)
+            selectedExerciseIds.insert(exercise.id)
+            selectedExercises.append(exercise)
         }
     }
     
