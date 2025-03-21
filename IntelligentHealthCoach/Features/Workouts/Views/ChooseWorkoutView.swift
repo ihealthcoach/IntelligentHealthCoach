@@ -11,6 +11,7 @@ struct ChooseWorkoutView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedTab = 3
     @State private var showingExerciseLibrary = false
+    @State private var showChooseWorkoutView = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -79,6 +80,10 @@ struct ChooseWorkoutView: View {
                 showingExerciseLibrary = false // Navigate back when done
             })
             .navigationBarBackButtonHidden(true) // Hide default back button on the library view
+        }
+        // Add the new navigationDestination here, at the same level as the one above
+        .navigationDestination(isPresented: $showChooseWorkoutView) {
+            ChooseWorkoutView()
         }
         
         VStack {

@@ -24,6 +24,14 @@ struct ExerciseLibraryView: View {
     @State private var showFilterSheet = false // For filter functionality
     @State private var showingWorkoutExercisesSheet = false // Add a state variable to track if the workout exercise view is shown as a sheet
     @State private var workoutExercisesViewModel = WorkoutExercisesViewModel()
+    @State private var showingWorkoutActionSheet = false
+    @State private var navigationDestination: NavigationDestination?
+    @State private var showChooseWorkoutView = false
+
+    // Define an enum for navigation destinations
+    enum NavigationDestination {
+        case back, workoutExercises
+    }
     
     var selectionMode: Bool = true
     var onExerciseSelected: ((Exercise) -> Void)? = nil
@@ -33,7 +41,14 @@ struct ExerciseLibraryView: View {
             // Main content
             VStack(spacing: 0) {
                 HeaderView(
-                    onBack: { presentationMode.wrappedValue.dismiss() },
+                    onBack: {
+                        if !workoutExercisesViewModel.exercises.isEmpty {
+                            navigationDestination = .back
+                            showingWorkoutActionSheet = true
+                        } else {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    },
                     showWorkoutSheet: $showingWorkoutExercisesSheet,
                     trailingButton: { getDoneButton() }
                 )
@@ -56,6 +71,41 @@ struct ExerciseLibraryView: View {
                 )
                 
                 Spacer(minLength: 0)
+                
+                    .confirmationDialog(
+                        "What would you like to do with your workout?",
+                        isPresented: $showingWorkoutActionSheet,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Continue tracking") {
+                            // Just dismiss the dialog and stay on the current screen
+                        }
+                        
+                        Button("Mark as completed") {
+                            // Mark workout as complete and navigate back
+                            // Logic to save workout as completed would go here
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        
+                        Button("Finish later") {
+                            // Save workout state for later and navigate back
+                            // Logic to save workout state would go here
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        
+                        Button("Discard workout", role: .destructive) {
+                            // Reset workout and navigate to ChooseWorkoutView
+                            workoutExercisesViewModel = WorkoutExercisesViewModel()
+                            selectedExercises.removeAll()
+                            selectedExerciseIds.removeAll()
+                            
+                            // Navigate to ChooseWorkoutView
+                            showChooseWorkoutView = true
+                            
+                            // Dismiss the current view
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
             }
             
             // Bottom action buttons (conditionally shown)
@@ -83,7 +133,7 @@ struct ExerciseLibraryView: View {
         }
         .withSafeAreaSpacer()
         .appBackground()
-        .navigationBarHidden(true)
+        /*.navigationBarHidden(true)*/
         .onAppear {
             viewModel.fetchExercises()
         }
@@ -93,7 +143,15 @@ struct ExerciseLibraryView: View {
                 exercises: selectedExercises,
                 onConfirm: { setsCount in
                     // Handle the selected sets count
-                    addExercisesToWorkout(exercises: selectedExercises, setsCount: setsCount)
+                    addExercisesToWorkout()
+                    
+                    // Navigate to the WorkoutExercisesView
+                    navigationDestination = .workoutExercises
+                    showingWorkoutExercisesView = true
+                    
+                    // Clear selection after adding
+                    selectedExercises.removeAll()
+                    selectedExerciseIds.removeAll()
                 }
             )
             .presentationDetents([.medium])
@@ -159,19 +217,21 @@ struct ExerciseLibraryView: View {
     }
     
     // Helper function to add exercises to workout
-    private func addExercisesToWorkout(exercises: [Exercise], setsCount: Int) {
-        // Prepare the view model before navigation
-        workoutExercisesViewModel = WorkoutExercisesViewModel()
-        
-        // Add each exercise with the specified number of sets
-        for exercise in exercises {
-            workoutExercisesViewModel.addExercise(exercise, setsCount: setsCount)
+    private func addExercisesToWorkout() {
+        // Create a new model only if we don't have one yet
+        if workoutExercisesViewModel.exercises.isEmpty {
+            workoutExercisesViewModel = WorkoutExercisesViewModel()
         }
         
-        // Navigate to the WorkoutExercisesView
-        showingWorkoutExercisesView = true
+        // Add each newly selected exercise to the existing model
+        for exercise in selectedExercises {
+            // Only add if it doesn't already exist in the workout
+            if !workoutExercisesViewModel.exercises.contains(where: { $0.id == exercise.id }) {
+                workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
+            }
+        }
         
-        // Clear selections after adding
+        // Clear the selection in the library view
         selectedExercises.removeAll()
         selectedExerciseIds.removeAll()
     }
