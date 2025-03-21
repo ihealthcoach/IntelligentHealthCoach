@@ -105,7 +105,11 @@ struct DashboardView: View {
                         }) {
                             HStack(spacing: 12) {
                                 Text("Track a workout")
-                                Image(systemName: "arrow.right")
+                                Image("arrow-right-mini")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(Color("offwhite"))
                             }
                         }
                         .buttonStyle(SecondaryButtonStyle())
@@ -125,10 +129,10 @@ struct DashboardView: View {
                                         Text("Show history")
                                             .font(.system(size: 14))
                                         Image("arrow-right-mini")
-                                                                .resizable()
-                                                                .scaledToFit()
-                                                                .frame(width: 14, height: 14)
-                                                                .foregroundColor(Color("gray900"))
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 14, height: 14)
+                                            .foregroundColor(Color("gray900"))
                                     }
                                     .foregroundColor(.gray900)
                                 }
@@ -299,10 +303,10 @@ struct DashboardView: View {
                                 .clipShape(Circle())
                         } else {
                             Image("avatar-broe")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 48, height: 48)
-                                                    .foregroundColor(Color("gray900"))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48, height: 48)
+                                .foregroundColor(Color("gray900"))
                         }
                     }
                 }
@@ -408,10 +412,10 @@ struct DashboardView: View {
             
             if showArrow {
                 Image("chevron-right-mini")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 20, height: 20)
-                                        .foregroundColor(Color("gray400"))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Color("gray400"))
             }
         }
     }
@@ -430,10 +434,10 @@ struct DashboardView: View {
                     .foregroundColor(.secondary)
                 
                 Image("arrow-right-mini")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 20, height: 20)
-                                        .foregroundColor(Color("gray900"))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Color("gray900"))
             }
             
             HStack(spacing: 0) {

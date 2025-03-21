@@ -35,39 +35,8 @@ struct ExerciseLibraryView: View {
                 HeaderView(
                     onBack: { presentationMode.wrappedValue.dismiss() },
                     showWorkoutSheet: $showingWorkoutExercisesSheet,
-                    trailingButton: {
-                        // Only show when exercises are selected
-                        if workoutBuilder.selectedExercises.count > 0 {
-                            return AnyView(
-                                Button(action: {
-                                    // Instead of creating a new view model, get any existing exercises
-                                    let existingExercises = workoutExercisesViewModel.exercises
-                                    
-                                    // Create a new model only if we don't have one yet
-                                    if existingExercises.isEmpty {
-                                        workoutExercisesViewModel = WorkoutExercisesViewModel()
-                                    }
-                                    
-                                    // Add each newly selected exercise to the existing model
-                                    for exercise in workoutBuilder.selectedExercises {
-                                        // Only add if it doesn't already exist in the workout
-                                        if !workoutExercisesViewModel.exercises.contains(where: { $0.id == exercise.id }) {
-                                            workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
-                                        }
-                                    }
-                                    
-                                    // Navigate to workout exercises view
-                                    showingWorkoutExercisesView = true
-                                    
-                                    // Clear the selection in the library view
-                                    selectedExercises.removeAll()
-                                    selectedExerciseIds.removeAll()
-                                }) {
-                                    Text("Done")
-                                        .font(.system(size: 16, weight: .semibold))
-                                        .foregroundColor(.indigo)
-                                }
-                                )
+                    trailingButton: { getDoneButton() }
+                )
                 
                 TitleView(
                     title: "Library",
@@ -203,6 +172,45 @@ struct ExerciseLibraryView: View {
         showingWorkoutExercisesView = true
         
         // Clear selections after adding
+        selectedExercises.removeAll()
+        selectedExerciseIds.removeAll()
+    }
+    
+    private func getDoneButton() -> AnyView {
+        if workoutBuilder.selectedExercises.count > 0 {
+            return AnyView(
+                Button(action: {
+                    addSelectedExercisesToWorkout()
+                    showingWorkoutExercisesView = true
+                }) {
+                    Text("Done")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.indigo)
+                }
+            )
+        } else {
+            return AnyView(EmptyView())
+        }
+    }
+    
+    private func addSelectedExercisesToWorkout() {
+        // Get any existing exercises
+        let existingExercises = workoutExercisesViewModel.exercises
+        
+        // Create a new model only if we don't have one yet
+        if existingExercises.isEmpty {
+            workoutExercisesViewModel = WorkoutExercisesViewModel()
+        }
+        
+        // Add each newly selected exercise to the existing model
+        for exercise in workoutBuilder.selectedExercises {
+            // Only add if it doesn't already exist in the workout
+            if !workoutExercisesViewModel.exercises.contains(where: { $0.id == exercise.id }) {
+                workoutExercisesViewModel.addExercise(exercise, setsCount: selectedSetsCount)
+            }
+        }
+        
+        // Clear the selection in the library view
         selectedExercises.removeAll()
         selectedExerciseIds.removeAll()
     }

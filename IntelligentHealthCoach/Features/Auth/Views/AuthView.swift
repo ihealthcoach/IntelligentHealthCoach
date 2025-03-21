@@ -419,25 +419,26 @@ struct AuthView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
+            VStack(spacing: 24) {
                 Spacer()
 
                 // Logo Placeholder
-                Image(systemName: "person.circle")
+                Image("logo-ihealth")
                     .resizable()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.indigo)
+                    .scaledToFit()
+                    .frame(width: 96, height: 96)
 
                 // Heading Text
                 Text("Create your account")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundColor(.gray900)
 
                 // Subheading Text
                 Text("and unlock your true potential with Intelligent Health Coach")
-                    .font(.system(size: 16))
+                    .font(.system(size: 20))
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 32)
+                    .foregroundColor(.gray400)
+                    .padding(.horizontal, 16)
 
                 Spacer()
 
@@ -445,53 +446,88 @@ struct AuthView: View {
                 VStack(spacing: 12) {
                     Button(action: {}) {
                         HStack {
-                            Image(systemName: "globe") // Placeholder for Google logo
+                            Image("logo-google")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
                             Text("Sign up with Google")
+                                .foregroundColor(.gray900)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+                        .background(Color("offwhite")) // Background color
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10) // Stroke layer
+                                .stroke(Color("gray200"), lineWidth: 1)
+                        )
+                        .cornerRadius(5)
                     }
 
                     Button(action: {}) {
                         HStack {
-                            Image(systemName: "f.circle") // Placeholder for Facebook logo
+                            Image("logo-facebook")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
                             Text("Sign up with Facebook")
+                                .foregroundColor(.gray900)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+                        .background(Color("offwhite")) // Background color
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10) // Stroke layer
+                                .stroke(Color("gray200"), lineWidth: 1)
+                        )
+                        .cornerRadius(5)
                     }
 
                     Button(action: {}) {
                         HStack {
-                            Image(systemName: "applelogo")
+                            Image("logo-apple")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(Color("gray900"))
                             Text("Sign up with Apple")
+                                .foregroundColor(.gray900)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+                        .background(Color("offwhite")) // Background color
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10) // Stroke layer
+                                .stroke(Color("gray200"), lineWidth: 1)
+                        )
+                        .cornerRadius(5)
                     }
                 }
 
                 Text("or sign up with your email")
-                    .foregroundColor(.gray)
-                    .padding(.vertical, 8)
+                    .foregroundColor(.gray400)
+                    .padding(.vertical, 0)
 
                 // Email & Password Fields
-                VStack(spacing: 12) {
+                VStack(spacing: 8) {
                     TextField("Email", text: $email)
                         .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color("offwhite")) // Background color
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5) // Stroke layer
+                                .stroke(Color("gray200"), lineWidth: 1)
+                        )
+                        .cornerRadius(5)
 
                     SecureField("Password", text: $password)
                         .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color("offwhite")) // Background color
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5) // Stroke layer
+                                .stroke(Color("gray200"), lineWidth: 1)
+                        )
+                        .cornerRadius(5)
                 }
 
                 // Continue Button
@@ -500,8 +536,8 @@ struct AuthView: View {
                         .foregroundColor(.offwhite)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(email.isEmpty || password.isEmpty ? Color(.systemGray4) : Color.indigo)
-                        .cornerRadius(10)
+                        .background(email.isEmpty || password.isEmpty ? Color(.gray200) : Color.indigo600)
+                        .cornerRadius(5)
                 }
                 .disabled(email.isEmpty || password.isEmpty)
 
@@ -510,15 +546,18 @@ struct AuthView: View {
                 // Already have an account?
                 HStack {
                     Text("Already have an account?")
+                        .foregroundColor(.gray400)
                     NavigationLink(destination: Text("Sign In View")) {
                         Text("Sign in")
                             .fontWeight(.bold)
-                            .foregroundColor(.indigo)
+                            .foregroundColor(.gray400)
                     }
                 }
                 .padding(.bottom, 20)
             }
             .padding()
+            .withSafeAreaSpacer()
+            .appBackground()
         }
     }
 }

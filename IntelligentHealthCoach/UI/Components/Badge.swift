@@ -43,7 +43,13 @@ struct Badge: View {
         Badge(text: "Advanced", hasBorder: false, isDark: true)
         Badge(
             text: "With Icon",
-            icon: AnyView(Image(systemName: "star.fill").foregroundColor(.yellow)),
+            icon: AnyView(
+                Image("fire-mini")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(Color("gray900"))
+            ),
             hasBorder: true,
             isDark: false
         )

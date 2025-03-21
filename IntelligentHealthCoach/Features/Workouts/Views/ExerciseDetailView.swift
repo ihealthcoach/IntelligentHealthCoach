@@ -251,12 +251,15 @@ struct ExerciseDetailView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             ForEach(benefitsArray, id: \.self) { benefit in
                                 HStack(alignment: .top, spacing: 10) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundColor(.green)
+                                    Image("check-mini")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color("indigo600"))
                                     
                                     Text(benefit)
                                         .font(.system(size: 16))
-                                        .foregroundColor(.primary)
+                                        .foregroundColor(.gray600)
                                 }
                             }
                         }

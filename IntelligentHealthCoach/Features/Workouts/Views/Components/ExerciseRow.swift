@@ -48,17 +48,19 @@ struct ExerciseRow: View {
                 if workoutBuilder.containsExercise(id: exercise.id) {
                     ZStack {
                         Circle()
-                            .fill(Color.blue)
+                            .fill(Color.indigo600)
                             .frame(width: 24, height: 24)
                         
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundColor(.offwhite)
+                        Image("check-mini")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 12, height: 12)
+                            .foregroundColor(Color("offwhite"))
                     }
                     
                     Text("Added")
                         .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.blue)
+                        .foregroundColor(.indigo600)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                 }

@@ -50,8 +50,11 @@ struct WorkoutExerciseRow: View {
             }
             
             Button(action: onMoreTapped) {
-                Image(systemName: "ellipsis")
-                    .foregroundColor(.gray)
+                Image("ellipsis-horizontal")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
+                .foregroundColor(Color("gray400"))
                     .padding(8)
             }
         }

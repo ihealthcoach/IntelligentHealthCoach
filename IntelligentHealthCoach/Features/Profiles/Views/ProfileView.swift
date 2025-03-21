@@ -181,12 +181,15 @@ struct ProfileView: View {
                                 ))
                                 .labelsHidden()
                             } else {
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                                Image("chevron-right-mini")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color("gray400"))
                             }
                         }
                         .padding(.horizontal)
-                        .padding(.vertical, 12)
+                        .padding(.vertical, 16)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -200,6 +203,10 @@ struct ProfileView: View {
             .background(Color.offwhite)
             .cornerRadius(12)
             .padding(.horizontal)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8) // Stroke layer
+                    .stroke(Color(.gray200), lineWidth: 1)
+            )
         }
     }
     
