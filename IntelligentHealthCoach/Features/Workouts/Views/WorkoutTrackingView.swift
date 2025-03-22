@@ -25,16 +25,34 @@ class WorkoutTrackingViewModel: ObservableObject {
         // Use provided exercises if available, otherwise extract from workout
         if !exercises.isEmpty {
             self.exercises = exercises
-            // Create exercise details for each exercise
-            self.exerciseDetails = exercises.map { exercise in
-                return WorkoutExerciseDetails(
-                    id: UUID().uuidString,
-                    workoutId: workout.id,
-                    exerciseId: exercise.id,
-                    createdAt: Date(),
-                    updatedAt: Date()
-                )
+            
+            // Instead of directly creating WorkoutExerciseDetails objects, we'll use a simpler approach
+            // to track which exercises are in the workout
+            self.exerciseDetails = []  // Start with empty array
+            
+            // Add default sets for each exercise
+            for exercise in exercises {
+                let exerciseId = exercise.id
+                let workoutExerciseDetailId = UUID().uuidString
+                
+                // Create sets for the exercise
+                let newSets = (0..<3).map { _ in  // Default 3 sets per exercise
+                    WorkoutSet(
+                        id: UUID().uuidString,
+                        workoutExerciseDetailsId: workoutExerciseDetailId,
+                        weight: 0,
+                        type: "normal",
+                        reps: 0,
+                        completed: false,
+                        createdAt: Date(),
+                        updatedAt: Date()
+                    )
+                }
+                
+                // Add to the sets collection
+                self.sets.append(contentsOf: newSets)
             }
+            
             isLoading = false
         } else {
             loadWorkoutData()
@@ -780,27 +798,9 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
         
         viewModel.exercises = [exercise]
         
-        // Create a preview-specific exercise details struct
-        struct PreviewExerciseDetails {
-            let id: String
-            let workoutId: String
-            let exerciseId: String
-            let createdAt: Date
-            let updatedAt: Date
-        }
+        // Remove the dummyDetails variable and PreviewExerciseDetails struct
         
-        // Add a simplified exercise details object
-        let dummyDetails = PreviewExerciseDetails(
-            id: "dummy-id",
-            workoutId: mockWorkout.id,
-            exerciseId: exercise.id,
-            createdAt: Date(),
-            updatedAt: Date()
-        )
-        
-        // Since we can't directly cast the preview struct to WorkoutExerciseDetails,
-        // we'll need to modify the view model's implementation for previews
-        // Instead, just add the sets directly
+        // Add mock sets for preview
         viewModel.sets = [
             WorkoutSet(
                 id: "set1",
@@ -854,31 +854,7 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             )
         ]
         
-        // Create a preview-compatible WorkoutExerciseDetails
-        // For this to work, we need to use JSON decoding with the proper keys
-        let jsonData = """
-        {
-            "id": "dummy-id",
-            "workout_id": "\(mockWorkout.id)",
-            "exercise_id": "\(exercise.id)",
-            "created_at": "\(ISO8601DateFormatter().string(from: Date()))",
-            "updated_at": "\(ISO8601DateFormatter().string(from: Date()))"
-        }
-        """.data(using: .utf8)!
-        
-        // Create a simple decoder that properly handles snake_case keys
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        do {
-            let details = try decoder.decode(WorkoutExerciseDetails.self, from: jsonData)
-            viewModel.exerciseDetails = [details]
-        } catch {
-            print("Preview error: \(error)")
-            // For preview, we can proceed without the exercise details
-            // Just set an empty array
-            viewModel.exerciseDetails = []
-        }
+        // Remove the JSON decoding part for WorkoutExerciseDetails
         
         return WorkoutTrackingView(viewModel: viewModel)
     }
