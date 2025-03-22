@@ -184,12 +184,18 @@ class WorkoutExercisesViewModel: ObservableObject {
                 await MainActor.run {
                     self.createdWorkout = savedWorkout
                     self.isLoading = false
-                    self.showingWorkoutTracking = true
+                    self.showingWorkoutTracking = true  // Make sure this is set to true
+                    
+                    // Debug print to verify this is being set
+                    print("Set showingWorkoutTracking to true, createdWorkout: \(savedWorkout.id)")
                 }
             } catch {
                 await MainActor.run {
                     self.errorMessage = "Failed to start workout: \(error.localizedDescription)"
                     self.isLoading = false
+                    
+                    // Debug print to help troubleshoot
+                    print("Error starting workout: \(error)")
                 }
             }
         }

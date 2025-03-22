@@ -247,7 +247,7 @@ struct ExerciseLibraryView: View {
             return AnyView(
                 Button(action: {
                     addSelectedExercisesToWorkout()
-                    showingWorkoutExercisesView = true
+                    showingWorkoutExercisesView = true  // This is where navigation should happen
                 }) {
                     Text("Done")
                         .font(.system(size: 16, weight: .semibold))
