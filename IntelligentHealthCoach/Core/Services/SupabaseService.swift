@@ -91,7 +91,8 @@ class SupabaseService: SupabaseServiceProtocol {
         print("✅ Supabase client initialized successfully")
     }
     
-    func getStorageUrl(path: String) -> URL? {
+    /*
+     func getStorageUrl(path: String) -> URL? {
         if path.starts(with: "https://") {
             return URL(string: path)
         } else {
@@ -100,6 +101,22 @@ class SupabaseService: SupabaseServiceProtocol {
             return URL(string: baseStorageUrl + path)
         }
     }
+     */
+      
+      func getStorageUrl(path: String) -> URL? {
+          print("DEBUG: getStorageUrl called with path: \(path)")
+          
+          if path.starts(with: "https://") {
+              print("DEBUG: URL is already complete: \(path)")
+              return URL(string: path)
+          } else {
+              // Construct the full URL using base storage URL
+              let baseStorageUrl = "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/"
+              let fullUrl = baseStorageUrl + path
+              print("DEBUG: Constructed URL: \(fullUrl)")
+              return URL(string: fullUrl)
+          }
+      }
     
     
     // MARK: - Authentication

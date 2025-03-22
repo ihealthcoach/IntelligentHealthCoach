@@ -28,6 +28,8 @@ class WorkoutExercisesViewModel: ObservableObject {
     // MARK: - Public Methods
     
     func addExercise(_ exercise: Exercise, setsCount: Int = 3) {
+        print("DEBUG: Adding exercise to workout: \(exercise.name ?? "unnamed"), GIF URL: \(exercise.gifUrl ?? "nil")")
+            // Rest of the code...
         // Add the exercise if it's not already in the list
         if !exercises.contains(where: { $0.id == exercise.id }) {
             exercises.append(exercise)

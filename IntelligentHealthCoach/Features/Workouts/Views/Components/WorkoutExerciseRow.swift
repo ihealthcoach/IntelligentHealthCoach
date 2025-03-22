@@ -18,7 +18,7 @@ struct WorkoutExerciseRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Exercise GIF
-            KFImage(URL(string: exercise.gifUrl ?? ""))
+            /*KFImage(URL(string: exercise.gifUrl ?? ""))
                 .placeholder {
                     /*Rectangle()
                         .foregroundColor(.gray.opacity(0.2))*/
@@ -28,7 +28,19 @@ struct WorkoutExerciseRow: View {
                 .frame(width: 68, height: 68)
                 .blendMode(.multiply)
                 .background(Color("gray50"))
-                .clipShape(RoundedRectangle(cornerRadius: 0))
+                .clipShape(RoundedRectangle(cornerRadius: 0))*/
+            
+            ExerciseGIF(
+                gifUrl: exercise.gifUrl,
+                size: CGSize(width: 68, height: 68),
+                cornerRadius: 0
+            )
+            
+            .onAppear {
+                let gifUrl = URL(string: exercise.gifUrl ?? "")
+                print("DEBUG: Attempting to load GIF from URL: \(gifUrl?.absoluteString ?? "nil")")
+                print("DEBUG: WorkoutExerciseRow - Exercise: \(exercise.name ?? "unnamed"), GIF URL: \(exercise.gifUrl ?? "nil")")
+            }
             
             // Exercise info
             VStack(alignment: .leading, spacing: 0) {

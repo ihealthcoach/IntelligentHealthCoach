@@ -21,6 +21,10 @@ struct ExerciseRow: View {
                     gifUrl: exercise.gifUrl,
                     size: CGSize(width: 68, height: 68)
                 )
+            
+                .onAppear {
+                    print("DEBUG: ExerciseRow - Exercise: \(exercise.name ?? "unnamed"), GIF URL: \(exercise.gifUrl ?? "nil")")
+                }
                 
                 // Exercise details
                 VStack(alignment: .leading, spacing: 4) {
