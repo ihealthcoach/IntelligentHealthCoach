@@ -57,6 +57,9 @@ class WorkoutTrackingViewModel: ObservableObject {
         } else {
             loadWorkoutData()
         }
+        
+        // Ensure the first exercise is selected by default
+        // selectedExerciseIndex is already 0 by default, so we don't need to set it explicitly
     }
     
     func loadWorkoutData() {

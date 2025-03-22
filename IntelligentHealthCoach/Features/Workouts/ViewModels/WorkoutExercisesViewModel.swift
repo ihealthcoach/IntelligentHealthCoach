@@ -139,7 +139,7 @@ class WorkoutExercisesViewModel: ObservableObject {
         // In a real implementation, this would generate a shareable link or text
         print("Share workout")
     }
-    
+
     func startWorkout() {
         isLoading = true
         
@@ -176,7 +176,6 @@ class WorkoutExercisesViewModel: ObservableObject {
                         for set in sets {
                             // In a real implementation, you would save each set to the database
                             // and update the local collection with the returned data
-                            // For now, we'll simulate this
                         }
                     }
                 }
@@ -184,7 +183,7 @@ class WorkoutExercisesViewModel: ObservableObject {
                 await MainActor.run {
                     self.createdWorkout = savedWorkout
                     self.isLoading = false
-                    self.showingWorkoutTracking = true  // Make sure this is set to true
+                    self.showingWorkoutTracking = true  // This immediately triggers navigation
                     
                     // Debug print to verify this is being set
                     print("Set showingWorkoutTracking to true, createdWorkout: \(savedWorkout.id)")

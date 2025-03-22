@@ -151,9 +151,8 @@ struct ExerciseLibraryView: View {
                     // Handle the selected sets count
                     addExercisesToWorkout()
                     
-                    // Navigate to the WorkoutExercisesView
-                    navigationDestination = .workoutExercises
-                    showingWorkoutExercisesView = true
+                    // Do NOT navigate here - just dismiss the sheet
+                    // showingWorkoutExercisesView = true  <- Remove this line
                     
                     // Clear selection after adding
                     selectedExercises.removeAll()
@@ -237,7 +236,7 @@ struct ExerciseLibraryView: View {
             }
         }
         
-        // Clear the selection in the library view
+        // Clear the selection in the library view without navigating
         selectedExercises.removeAll()
         selectedExerciseIds.removeAll()
     }
