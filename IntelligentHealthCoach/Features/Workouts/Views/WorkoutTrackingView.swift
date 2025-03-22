@@ -29,19 +29,14 @@ class WorkoutTrackingViewModel: ObservableObject {
         isLoading = true
         
         Task {
-            do {
-                // Add a potential throwing operation or remove the try
-                // For example:
-                if let exercises = workout.exercises {
-                    self.exercises = exercises
-                }
-                
+            // Extract exercises from the workout if available
+            if let exercises = workout.exercises {
                 await MainActor.run {
+                    self.exercises = exercises
                     self.isLoading = false
                 }
-            } catch {
+            } else {
                 await MainActor.run {
-                    self.errorMessage = error.localizedDescription
                     self.isLoading = false
                 }
             }
@@ -530,7 +525,7 @@ struct WorkoutTrackingView: View {
                 }
                 .padding(.horizontal)
                 .disabled(currentWeight.isEmpty || currentReps.isEmpty)
-                .opacity(currentWeight.isEmpty || currentReps.isEmpty ? 0.5 : 1)
+                .opacity((currentWeight.isEmpty || currentReps.isEmpty) ? 0.5 : 1)
             }
             .padding(.vertical, 20)
             .background(Color.offwhite)
@@ -724,126 +719,11 @@ struct WorkoutTrackingView: View {
     }
 }
 
-// MARK: - Supporting Views
-
-struct WorkoutSetRow: View {
-    let setNumber: String
-    let weight: String
-    let reps: String
-    let isCompleted: Bool
-    var isActive: Bool = false
-    var isPR: Bool = false
-    var showRPE: Bool = false
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 0) {
-                Text(setNumber)
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(Color("gray900"))
-                    .frame(height: 23)
-                
-                Text("Standard set")
-                    .font(.system(size: 11))
-                    .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
-                    .frame(height: 14)
-            }
-            .frame(width: 142, height: 37)
-            
-            Spacer()
-            
-            HStack(spacing: 8) {
-                VStack(spacing: 0) {
-                    Text(weight)
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : isCompleted ? Color("gray900") : Color("gray400"))
-                        .frame(height: 23)
-                    
-                    Text("kg")
-                        .font(.system(size: 11))
-                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
-                        .frame(height: 14)
-                }
-                .frame(width: 50, height: 37)
-                
-                Text("x")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
-                    .padding(.top, 2)
-                
-                VStack(spacing: 0) {
-                    Text(reps)
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : isCompleted ? Color("gray900") : Color("gray400"))
-                        .frame(height: 23)
-                    
-                    Text("reps")
-                        .font(.system(size: 11))
-                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
-                        .frame(height: 14)
-                }
-                .frame(width: 50, height: 37)
-            }
-            
-            Spacer()
-            
-            if isPR {
-                HStack(spacing: 4) {
-                    Text("PR")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color("gray500"))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .stroke(Color("gray200"), lineWidth: 1)
-                        )
-                    
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 14, weight: .bold))
-                        .foregroundColor(Color("indigo600"))
-                }
-            } else if showRPE {
-                Text("RPE")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(Color("gray500"))
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(Color("gray200"), lineWidth: 1)
-                    )
-            } else if isCompleted {
-                Image(systemName: "checkmark")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(Color("indigo600"))
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .frame(height: 57)
-        .background(isActive ? Color("offwhite") : Color.clear)
-        .overlay(
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(Color("gray200")),
-            alignment: .bottom
-        )
-    }
-}
-
-// MARK: - Model extensions
-
-extension WorkoutTrackingViewModel {
-    func isSuperset(_ exercise: Exercise) -> Bool {
-        // Placeholder for superset functionality - will be implemented later
-        return false
-    }
-}
 
 // Preview
 struct WorkoutTrackingView_Previews: PreviewProvider {
     static var previews: some View {
+        // Create a mock workout
         let mockWorkout = Workout(
             id: "preview-workout-id",
             userId: "preview-user-id",
@@ -879,21 +759,31 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
         
         viewModel.exercises = [exercise]
         
-        // Create exercise details
-        let exerciseDetails = WorkoutExerciseDetails(
-            id: "details1",
+        // Create a preview-specific exercise details struct
+        struct PreviewExerciseDetails {
+            let id: String
+            let workoutId: String
+            let exerciseId: String
+            let createdAt: Date
+            let updatedAt: Date
+        }
+        
+        // Add a simplified exercise details object
+        let dummyDetails = PreviewExerciseDetails(
+            id: "dummy-id",
             workoutId: mockWorkout.id,
             exerciseId: exercise.id,
             createdAt: Date(),
             updatedAt: Date()
         )
-        viewModel.exerciseDetails = [exerciseDetails]
         
-        // Create some sets
-        let sets = [
+        // Since we can't directly cast the preview struct to WorkoutExerciseDetails,
+        // we'll need to modify the view model's implementation for previews
+        // Instead, just add the sets directly
+        viewModel.sets = [
             WorkoutSet(
                 id: "set1",
-                workoutExerciseDetailsId: exerciseDetails.id,
+                workoutExerciseDetailsId: "dummy-id",
                 weight: 41.3,
                 type: "normal",
                 reps: 20,
@@ -903,7 +793,7 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             ),
             WorkoutSet(
                 id: "set2",
-                workoutExerciseDetailsId: exerciseDetails.id,
+                workoutExerciseDetailsId: "dummy-id",
                 weight: 61.3,
                 type: "normal",
                 reps: 12,
@@ -913,7 +803,7 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             ),
             WorkoutSet(
                 id: "set3",
-                workoutExerciseDetailsId: exerciseDetails.id,
+                workoutExerciseDetailsId: "dummy-id",
                 weight: 76.3,
                 type: "normal",
                 reps: 8,
@@ -923,7 +813,7 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             ),
             WorkoutSet(
                 id: "set4",
-                workoutExerciseDetailsId: exerciseDetails.id,
+                workoutExerciseDetailsId: "dummy-id",
                 weight: 0,
                 type: "normal",
                 reps: 0,
@@ -933,7 +823,7 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             ),
             WorkoutSet(
                 id: "set5",
-                workoutExerciseDetailsId: exerciseDetails.id,
+                workoutExerciseDetailsId: "dummy-id",
                 weight: 0,
                 type: "normal",
                 reps: 0,
@@ -942,7 +832,32 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
                 updatedAt: Date()
             )
         ]
-        viewModel.sets = sets
+        
+        // Create a preview-compatible WorkoutExerciseDetails
+        // For this to work, we need to use JSON decoding with the proper keys
+        let jsonData = """
+        {
+            "id": "dummy-id",
+            "workout_id": "\(mockWorkout.id)",
+            "exercise_id": "\(exercise.id)",
+            "created_at": "\(ISO8601DateFormatter().string(from: Date()))",
+            "updated_at": "\(ISO8601DateFormatter().string(from: Date()))"
+        }
+        """.data(using: .utf8)!
+        
+        // Create a simple decoder that properly handles snake_case keys
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        do {
+            let details = try decoder.decode(WorkoutExerciseDetails.self, from: jsonData)
+            viewModel.exerciseDetails = [details]
+        } catch {
+            print("Preview error: \(error)")
+            // For preview, we can proceed without the exercise details
+            // Just set an empty array
+            viewModel.exerciseDetails = []
+        }
         
         return WorkoutTrackingView(viewModel: viewModel)
     }
