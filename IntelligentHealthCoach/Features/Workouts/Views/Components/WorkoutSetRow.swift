@@ -6,110 +6,143 @@
 //
 
 
-// WorkoutSetRow.swift
 import SwiftUI
 
 struct WorkoutSetRow: View {
-    @ObservedObject var viewModel: WorkoutSetViewModel
-    var onTap: () -> Void
+    let setNumber: String
+    let weight: String
+    let reps: String
+    let isCompleted: Bool
+    var isActive: Bool = false
+    var isPR: Bool = false
+    var showRPE: Bool = false
     
     var body: some View {
-        Button(action: onTap) {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(String(format: "%02d", viewModel.setNumber))
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.primary)
-                    
-                    Text(viewModel.type)
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundColor(.gray)
-                }
+        HStack {
+            VStack(alignment: .leading, spacing: 0) {
+                Text(setNumber)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(Color("gray900"))
+                    .frame(height: 23)
                 
-                Spacer()
-                
-                HStack(spacing: 16) {
-                    VStack(alignment: .center, spacing: 0) {
-                        Text("\(viewModel.weight, specifier: "%.1f")")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.primary)
-                        
-                        Text("kg")
-                            .font(.system(size: 12, weight: .regular))
-                            .foregroundColor(.gray)
-                    }
-                    
-                    Text("×")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.gray)
-                    
-                    VStack(alignment: .center, spacing: 0) {
-                        Text("\(viewModel.reps)")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.primary)
-                        
-                        Text("reps")
-                            .font(.system(size: 12, weight: .regular))
-                            .foregroundColor(.gray)
-                    }
-                }
-                
-                Spacer()
-                
-                if viewModel.completed {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.green)
-                } else {
-                    Text("RPE")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.gray)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
-                }
+                Text("Standard set")
+                    .font(.system(size: 11))
+                    .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
+                    .frame(height: 14)
             }
-            .padding()
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(8)
+            .frame(width: 142, height: 37)
+            
+            Spacer()
+            
+            HStack(spacing: 8) {
+                VStack(spacing: 0) {
+                    Text(weight)
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : isCompleted ? Color("gray900") : Color("gray400"))
+                        .frame(height: 23)
+                    
+                    Text("kg")
+                        .font(.system(size: 11))
+                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
+                        .frame(height: 14)
+                }
+                .frame(width: 50, height: 37)
+                
+                Text("x")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
+                    .padding(.top, 2)
+                
+                VStack(spacing: 0) {
+                    Text(reps)
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : isCompleted ? Color("gray900") : Color("gray400"))
+                        .frame(height: 23)
+                    
+                    Text("reps")
+                        .font(.system(size: 11))
+                        .foregroundColor(isActive && !isCompleted ? Color("gray200") : Color("gray400"))
+                        .frame(height: 14)
+                }
+                .frame(width: 50, height: 37)
+            }
+            
+            Spacer()
+            
+            if isPR {
+                HStack(spacing: 4) {
+                    Text("PR")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(Color("gray500"))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(Color("gray200"), lineWidth: 1)
+                        )
+                    
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(Color("indigo600"))
+                }
+            } else if showRPE {
+                Text("RPE")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(Color("gray500"))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color("gray200"), lineWidth: 1)
+                    )
+            } else if isCompleted {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(Color("indigo600"))
+            }
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .frame(height: 57)
+        .background(isActive ? Color("offwhite") : Color.clear)
+        .overlay(
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(Color("gray200")),
+            alignment: .bottom
+        )
     }
 }
 
-class WorkoutSetViewModel: ObservableObject {
-    var id: String
-    @Published var setNumber: Int
-    @Published var type: String
-    @Published var weight: Double
-    @Published var reps: Int
-    @Published var completed: Bool
-    
-    private let supabaseService: SupabaseServiceProtocol
-    
-    init(set: WorkoutSet, supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
-        self.id = set.id
-        self.setNumber = set.id.hashValue % 100 // Placeholder for demo
-        self.type = set.type
-        self.weight = set.weight
-        self.reps = set.reps
-        self.completed = set.completed
-        self.supabaseService = supabaseService
+#Preview {
+    VStack {
+        // Completed set
+        WorkoutSetRow(
+            setNumber: "01",
+            weight: "41.3",
+            reps: "20",
+            isCompleted: true
+        )
+        
+        // Active set
+        WorkoutSetRow(
+            setNumber: "02",
+            weight: "-",
+            reps: "-",
+            isCompleted: false,
+            isActive: true,
+            showRPE: true
+        )
+        
+        // Set with PR
+        WorkoutSetRow(
+            setNumber: "03",
+            weight: "76.3",
+            reps: "8",
+            isCompleted: true,
+            isPR: true
+        )
     }
-    
-    // Add methods for updating set data as needed
-    func updateCompletion(isCompleted: Bool) {
-        Task {
-            do {
-                try await supabaseService.updateSet(id: id, data: ["completed": isCompleted])
-                await MainActor.run {
-                    self.completed = isCompleted
-                }
-            } catch {
-                print("Error updating set: \(error)")
-            }
-        }
-    }
+    .padding()
+    .background(Color("gray50"))
 }

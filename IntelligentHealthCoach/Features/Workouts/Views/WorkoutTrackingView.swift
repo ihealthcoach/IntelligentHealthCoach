@@ -30,9 +30,11 @@ class WorkoutTrackingViewModel: ObservableObject {
         
         Task {
             do {
-                // Fetch exercise details for the workout
-                // In a real implementation, you would fetch this from the backend
-                // For now, we'll use the preview data set in previews
+                // Add a potential throwing operation or remove the try
+                // For example:
+                if let exercises = workout.exercises {
+                    self.exercises = exercises
+                }
                 
                 await MainActor.run {
                     self.isLoading = false
