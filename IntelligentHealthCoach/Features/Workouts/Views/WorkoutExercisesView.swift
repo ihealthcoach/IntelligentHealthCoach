@@ -208,7 +208,10 @@ struct WorkoutExercisesView: View {
         }
         .navigationDestination(isPresented: $viewModel.showingWorkoutTracking) {
             if let workout = viewModel.createdWorkout {
-                WorkoutTrackingView(viewModel: WorkoutTrackingViewModel(workout: workout))
+                WorkoutTrackingView(viewModel: WorkoutTrackingViewModel(
+                    workout: workout,
+                    exercises: viewModel.exercises
+                ))
             } else {
                 // Fallback view when workout is nil
                 Text("No workout data available")

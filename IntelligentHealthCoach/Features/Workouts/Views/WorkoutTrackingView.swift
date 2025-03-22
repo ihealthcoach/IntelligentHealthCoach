@@ -18,11 +18,27 @@ class WorkoutTrackingViewModel: ObservableObject {
     
     private let supabaseService: SupabaseServiceProtocol
     
-    init(workout: Workout, supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
+    init(workout: Workout, exercises: [Exercise] = [], supabaseService: SupabaseServiceProtocol = SupabaseService.shared) {
         self.workout = workout
         self.supabaseService = supabaseService
         
-        loadWorkoutData()
+        // Use provided exercises if available, otherwise extract from workout
+        if !exercises.isEmpty {
+            self.exercises = exercises
+            // Create exercise details for each exercise
+            self.exerciseDetails = exercises.map { exercise in
+                return WorkoutExerciseDetails(
+                    id: UUID().uuidString,
+                    workoutId: workout.id,
+                    exerciseId: exercise.id,
+                    createdAt: Date(),
+                    updatedAt: Date()
+                )
+            }
+            isLoading = false
+        } else {
+            loadWorkoutData()
+        }
     }
     
     func loadWorkoutData() {
@@ -151,6 +167,7 @@ struct WorkoutTrackingView: View {
     @State private var showingOneRepMax = false
     @State private var showingNotes = false
     @State private var dragOffset = CGSize.zero
+    @State private var showingWorkoutOptions = false
     
     var body: some View {
         ZStack {
@@ -212,6 +229,13 @@ struct WorkoutTrackingView: View {
                         Text("No exercises in this workout")
                             .font(.headline)
                             .foregroundColor(.gray)
+                            
+                        Button("Return to Exercise Library") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .padding()
+                        
                         Spacer()
                     }
                 }
@@ -289,6 +313,7 @@ struct WorkoutTrackingView: View {
                 
                 Button(action: {
                     // Show workout options
+                    showingWorkoutOptions = true
                 }) {
                     Image(systemName: "ellipsis")
                         .font(.system(size: 20))
@@ -297,7 +322,7 @@ struct WorkoutTrackingView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
-            .frame(height: 40)
+            .frame(height: 48)
             
             // Timer display
             HStack {
@@ -328,45 +353,40 @@ struct WorkoutTrackingView: View {
     
     var exerciseContent: some View {
         let exercise = viewModel.exercises[selectedExerciseIndex]
-        let sets = viewModel.sets.filter { $0.workoutExerciseDetailsId == viewModel.exerciseDetails[selectedExerciseIndex].id }
+        let exerciseDetail = viewModel.exerciseDetails.first(where: { $0.exerciseId == exercise.id }) ?? viewModel.exerciseDetails[selectedExerciseIndex]
+        let sets = viewModel.sets.filter { $0.workoutExerciseDetailsId == exerciseDetail.id }
         let completedSets = sets.filter { $0.completed }.count
         
         return ScrollView {
             VStack(spacing: 16) {
                 // Exercise header with title and progress
                 VStack(spacing: 8) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(exercise.name ?? "Unnamed Exercise")
-                            .font(.system(size: 36, weight: .bold))
-                            .foregroundColor(Color("gray900"))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        HStack(spacing: 6) {
-                            Text("\(completedSets) of \(sets.count) sets completed")
-                                .font(.system(size: 14))
-                                .foregroundColor(Color("gray400"))
+                    TitleView(
+                        title: exercise.name ?? "Unnamed Exercise",
+                        subtitle: "\(completedSets) of \(sets.count) sets completed"
+                    )
+                    
+                    if viewModel.isSuperset(exercise) {
+                        HStack {
+                            Spacer()
                             
-                            // Superset badge (if applicable)
-                            if viewModel.isSuperset(exercise) {
-                                Text("Superset")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.offwhite)
-                                    .padding(.horizontal, 14)
-                                    .padding(.vertical, 4)
-                                    .background(Color("gray900"))
-                                    .cornerRadius(20)
-                            }
+                            Text("Superset")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.offwhite)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 4)
+                                .background(Color("gray900"))
+                                .cornerRadius(20)
                         }
-                        .frame(height: 26)
+                        .padding(.horizontal, 16)
                     }
                     
                     Text("Exercise note...")
                         .font(.system(size: 11))
                         .foregroundColor(Color("gray400"))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 32)
+                        .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
                 
                 // Sets list
                 VStack(spacing: 0) {
@@ -376,8 +396,7 @@ struct WorkoutTrackingView: View {
                             weight: set.weight > 0 ? String(format: "%.1f", set.weight) : "-",
                             reps: set.reps > 0 ? "\(set.reps)" : "-",
                             isCompleted: set.completed,
-                            isActive: selectedSetIndex == index && !set.completed,
-                            showRPE: !set.completed
+                            isActive: selectedSetIndex == index && !set.completed
                         )
                         .onTapGesture {
                             if !set.completed {
@@ -385,6 +404,8 @@ struct WorkoutTrackingView: View {
                                 currentWeight = set.weight > 0 ? String(format: "%.1f", set.weight) : ""
                                 currentReps = set.reps > 0 ? "\(set.reps)" : ""
                                 showingSetInput = true
+                            } else {
+                                // Maybe allow editing completed sets with a confirmation?
                             }
                         }
                     }
@@ -392,7 +413,7 @@ struct WorkoutTrackingView: View {
                 
                 // Add set button
                 Button(action: {
-                    viewModel.addSet(for: viewModel.exerciseDetails[selectedExerciseIndex])
+                    viewModel.addSet(for: exerciseDetail)
                 }) {
                     HStack {
                         Spacer()
