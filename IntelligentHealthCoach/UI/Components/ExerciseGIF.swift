@@ -27,6 +27,9 @@ struct ExerciseGIF: View {
                 .blendMode(.multiply)
                 .background(Color("gray50"))
                 .cornerRadius(cornerRadius)
+                .onAppear {
+                    print("DEBUG: Loading GIF from URL: \(gifUrl.absoluteString)")
+                }
         } else {
             // Fallback icon when no GIF is available
             Image(systemName: "figure.run")

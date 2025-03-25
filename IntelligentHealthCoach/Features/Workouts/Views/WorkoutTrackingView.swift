@@ -761,24 +761,35 @@ struct WorkoutTrackingView: View {
     }
 }
 
-
 // Preview
 struct WorkoutTrackingView_Previews: PreviewProvider {
     static var previews: some View {
-        // Create a mock workout
+        Group {
+            // With Exercises Preview
+            WorkoutTrackingView(viewModel: createViewModelWithExercises())
+                .previewDisplayName("With Exercises")
+            
+            // Empty State Preview
+            WorkoutTrackingView(viewModel: createEmptyViewModel())
+                .previewDisplayName("Empty State")
+        }
+    }
+    
+    // Helper to create a view model with exercises
+    static func createViewModelWithExercises() -> WorkoutTrackingViewModel {
         let mockWorkout = Workout(
             id: "preview-workout-id",
             userId: "preview-user-id",
             title: "Upper Body Workout",
-            exercises: [],
+            exercises: [],  // Empty initially
             createdAt: Date(),
             updatedAt: Date(),
             status: "active"
         )
         
         let viewModel = WorkoutTrackingViewModel(workout: mockWorkout)
-        
-        // Add sample exercise
+
+        // Ensure we are adding an actual exercise
         let exercise = Exercise(
             id: "1",
             name: "Arnold Press",
@@ -789,7 +800,7 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             experienceLevel: "Intermediate",
             muscleGroup: "Shoulders",
             description: "The Arnold Press is a variation of the shoulder press that rotates the wrists during the movement.",
-            benefits: "Improved shoulder development,Better range of motion",
+            benefits: "Improved shoulder development, Better range of motion",
             equipment: "Dumbbells",
             forceType: "Push",
             mechanics: "Compound",
@@ -798,67 +809,25 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
             experience: "Intermediate",
             gifUrl: "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/3_4_sit_up.gif"
         )
-        
+
+        // **Ensure the exercise is added to the model properly**
         viewModel.exercises = [exercise]
+
+        return viewModel
+    }
+    
+    // Helper to create an empty view model
+    static func createEmptyViewModel() -> WorkoutTrackingViewModel {
+        let emptyWorkout = Workout(
+            id: "empty-workout-id",
+            userId: "preview-user-id",
+            title: "New Workout",
+            exercises: [],  // No exercises
+            createdAt: Date(),
+            updatedAt: Date(),
+            status: "active"
+        )
         
-        // Remove the dummyDetails variable and PreviewExerciseDetails struct
-        
-        // Add mock sets for preview
-        viewModel.sets = [
-            WorkoutSet(
-                id: "set1",
-                workoutExerciseDetailsId: "dummy-id",
-                weight: 41.3,
-                type: "normal",
-                reps: 20,
-                completed: true,
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            WorkoutSet(
-                id: "set2",
-                workoutExerciseDetailsId: "dummy-id",
-                weight: 61.3,
-                type: "normal",
-                reps: 12,
-                completed: true,
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            WorkoutSet(
-                id: "set3",
-                workoutExerciseDetailsId: "dummy-id",
-                weight: 76.3,
-                type: "normal",
-                reps: 8,
-                completed: true,
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            WorkoutSet(
-                id: "set4",
-                workoutExerciseDetailsId: "dummy-id",
-                weight: 0,
-                type: "normal",
-                reps: 0,
-                completed: false,
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            WorkoutSet(
-                id: "set5",
-                workoutExerciseDetailsId: "dummy-id",
-                weight: 0,
-                type: "normal",
-                reps: 0,
-                completed: false,
-                createdAt: Date(),
-                updatedAt: Date()
-            )
-        ]
-        
-        // Remove the JSON decoding part for WorkoutExerciseDetails
-        
-        return WorkoutTrackingView(viewModel: viewModel)
+        return WorkoutTrackingViewModel(workout: emptyWorkout)
     }
 }

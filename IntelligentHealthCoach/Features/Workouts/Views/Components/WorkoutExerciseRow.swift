@@ -31,15 +31,12 @@ struct WorkoutExerciseRow: View {
                 .clipShape(RoundedRectangle(cornerRadius: 0))*/
             
             ExerciseGIF(
-                gifUrl: exercise.gifUrl,
+                gifUrl: exercise.fullGifUrl,
                 size: CGSize(width: 68, height: 68),
                 cornerRadius: 0
             )
-            
             .onAppear {
-                let gifUrl = URL(string: exercise.gifUrl ?? "")
-                print("DEBUG: Attempting to load GIF from URL: \(gifUrl?.absoluteString ?? "nil")")
-                print("DEBUG: WorkoutExerciseRow - Exercise: \(exercise.name ?? "unnamed"), GIF URL: \(exercise.gifUrl ?? "nil")")
+                print("DEBUG: WorkoutExerciseRow - Exercise: \(exercise.name ?? "unnamed"), GIF URL: \(exercise.fullGifUrl ?? "nil")")
             }
             
             // Exercise info

@@ -12,7 +12,6 @@ import Combine
 import Supabase
 import Kingfisher
 
-// ExerciseViewModel.swift
 class ExerciseViewModel: ObservableObject {
     @Published var exercises: [Exercise] = []
     @Published var filteredExercises: [Exercise] = []
@@ -27,7 +26,6 @@ class ExerciseViewModel: ObservableObject {
         self.supabaseService = supabaseService
     }
     
-    // In ExerciseViewModel.swift
     func fetchExercises() {
         Task {
             await MainActor.run {
@@ -37,24 +35,39 @@ class ExerciseViewModel: ObservableObject {
             
             do {
                 print("⏳ Attempting to fetch exercises from Supabase...")
-                let fetchedExercises = try await supabaseService.fetchExercises()
+                let response = try await supabaseService.client
+                    .from("exercises")
+                    .select()
+                    .execute()
+                
+                // Print raw JSON response to debug
+                print("📊 Raw response data sample: \(String(data: response.data.prefix(500), encoding: .utf8) ?? "Unable to decode")")
+                
+                let decoder = JSONDecoder.supabaseDecoder()
+                let fetchedExercises = try decoder.decode([Exercise].self, from: response.data)
                 print("✅ Successfully fetched \(fetchedExercises.count) exercises")
                 
-                // Debug: Print a sample to check if gif_url is being properly decoded
+                // Debug: Print a sample and verify gif_url is being parsed
                 print("Sample exercise data:")
                 if let firstExercise = fetchedExercises.first {
                     print("ID: \(firstExercise.id)")
                     print("Name: \(firstExercise.name ?? "nil")")
                     print("GIF URL: \(firstExercise.gifUrl ?? "nil")")
+                    
+                    // Use a simpler debug approach without the extension
+                    if let jsonData = try? JSONEncoder().encode(firstExercise),
+                       let jsonString = String(data: jsonData, encoding: .utf8) {
+                        print("Raw data for this exercise: \(jsonString)")
+                    }
                 }
                 
-                // Add this to check how many exercises actually have GIF URLs
+                // Check how many exercises actually have GIF URLs
                 let exercisesWithGifs = fetchedExercises.filter { $0.gifUrl != nil && !($0.gifUrl?.isEmpty ?? true) }
                 print("Number of exercises with valid GIF URLs: \(exercisesWithGifs.count) out of \(fetchedExercises.count)")
 
-                // Print a few examples of exercises with GIFs
-                for (index, exercise) in exercisesWithGifs.prefix(3).enumerated() {
-                    print("Example \(index + 1) with GIF URL: \(exercise.name ?? "Unnamed") - \(exercise.gifUrl ?? "nil")")
+                // Print examples of exercises that should have GIFs
+                for (index, exercise) in fetchedExercises.prefix(10).enumerated() {
+                    print("Exercise \(index + 1): \(exercise.name ?? "Unnamed") - GIF URL: \(exercise.gifUrl ?? "nil")")
                 }
                 
                 await MainActor.run {
@@ -132,5 +145,15 @@ class ExerciseViewModel: ObservableObject {
         }
         
         organizeExercisesAlphabetically()
+    }
+}
+
+extension Data {
+    func prettyPrintedJSONString() -> String? {
+        guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+              let prettyPrintedString = String(data: data, encoding: .utf8) else { return nil }
+        
+        return prettyPrintedString
     }
 }

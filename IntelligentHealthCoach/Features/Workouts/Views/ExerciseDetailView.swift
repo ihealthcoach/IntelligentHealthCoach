@@ -95,7 +95,7 @@ struct ExerciseDetailView: View {
                 
                 // Exercise demonstration
                 HStack(spacing: 0) {
-                    if let gifUrlString = exercise.gifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
+                    if let gifUrlString = exercise.fullGifUrl, !gifUrlString.isEmpty, let gifUrl = URL(string: gifUrlString) {
                         KFImage(gifUrl)
                             .placeholder {
                                 Rectangle()
