@@ -41,6 +41,7 @@
 		E91BC43A2D8D48B700902061 /* ExerciseGIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91BC4392D8D48B700902061 /* ExerciseGIF.swift */; };
 		E91BC43C2D8D556B00902061 /* SafeAreaSpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91BC43B2D8D556B00902061 /* SafeAreaSpacerView.swift */; };
 		E91BC4402D9551E500902061 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91BC43F2D9551DA00902061 /* AppConstants.swift */; };
+		E91BC4422D955CF900902061 /* View+ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91BC4412D955CEE00902061 /* View+ScreenSize.swift */; };
 		E92A97B72D82026B0023F808 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A97B62D8202630023F808 /* LoadingView.swift */; };
 		E92A97B92D8203590023F808 /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A97B82D8203580023F808 /* ExerciseDetailView.swift */; };
 		E92A97BB2D8203DA0023F808 /* WorkoutTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A97BA2D8203D90023F808 /* WorkoutTrackingView.swift */; };
@@ -150,6 +151,7 @@
 		E91BC4392D8D48B700902061 /* ExerciseGIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGIF.swift; sourceTree = "<group>"; };
 		E91BC43B2D8D556B00902061 /* SafeAreaSpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaSpacerView.swift; sourceTree = "<group>"; };
 		E91BC43F2D9551DA00902061 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		E91BC4412D955CEE00902061 /* View+ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ScreenSize.swift"; sourceTree = "<group>"; };
 		E92A97B62D8202630023F808 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E92A97B82D8203580023F808 /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		E92A97BA2D8203D90023F808 /* WorkoutTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTrackingView.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		E940C2052D70C3F800C959C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E91BC4412D955CEE00902061 /* View+ScreenSize.swift */,
 				E90E043A2D868FE1003237CC /* Font+Extensions.swift */,
 				E9177D6F2D722BE6005FEE6A /* JSONDecoders.swift */,
 				E940C28D2D70D20500C959C4 /* URL+Extensions.swift */,
@@ -863,6 +866,7 @@
 				E940C2672D70C3F800C959C4 /* ProfileViewModel.swift in Sources */,
 				E940C28E2D70D20600C959C4 /* URL+Extensions.swift in Sources */,
 				E90E044F2D88ACB5003237CC /* WorkoutExercisesView.swift in Sources */,
+				E91BC4422D955CF900902061 /* View+ScreenSize.swift in Sources */,
 				E940C2682D70C3F800C959C4 /* Exercise.swift in Sources */,
 				E90E044D2D8875AB003237CC /* SetsSelectionSheet.swift in Sources */,
 				E90E04432D86EE1F003237CC /* BackButton.swift in Sources */,
