@@ -426,24 +426,24 @@ struct AuthView: View {
                 Image("logo-ihealth")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 96, height: 96)
-
-                // Heading Text
-                Text("Create your account")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundColor(.gray900)
-
-                // Subheading Text
-                Text("and unlock your true potential with Intelligent Health Coach")
-                    .font(.system(size: 20))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gray400)
-                    .padding(.horizontal, 16)
-
-                Spacer()
+                    .frame(width: 68, height: 68)
+                
+                VStack(spacing: 4) {
+                    // Heading Text
+                    Text("Create your account")
+                        .font(.system(size: 30, weight: .bold))
+                        .foregroundColor(.gray900)
+                    
+                    // Subheading Text
+                    Text("and unlock your true potential with Intelligent Health Coach")
+                        .font(.system(size: 20))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray400)
+                        .padding(.horizontal, 16)
+                }
 
                 // Social Sign-In Buttons
-                VStack(spacing: 12) {
+                VStack(spacing: 8) {
                     Button(action: {}) {
                         HStack {
                             Image("logo-google")
@@ -528,7 +528,6 @@ struct AuthView: View {
                                 .stroke(Color("gray200"), lineWidth: 1)
                         )
                         .cornerRadius(5)
-                }
 
                 // Continue Button
                 Button(action: {}) {
@@ -540,8 +539,7 @@ struct AuthView: View {
                         .cornerRadius(5)
                 }
                 .disabled(email.isEmpty || password.isEmpty)
-
-                Spacer()
+                }
 
                 // Already have an account?
                 HStack {
@@ -553,9 +551,9 @@ struct AuthView: View {
                             .foregroundColor(.gray400)
                     }
                 }
-                .padding(.bottom, 20)
             }
-            .padding()
+            .padding(.bottom, 48)
+            .padding(.horizontal, 16)
             .withSafeAreaSpacer()
             .appBackground()
         }

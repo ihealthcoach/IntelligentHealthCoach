@@ -91,32 +91,19 @@ class SupabaseService: SupabaseServiceProtocol {
         print("✅ Supabase client initialized successfully")
     }
     
-    /*
-     func getStorageUrl(path: String) -> URL? {
+    func getStorageUrl(path: String) -> URL? {
+        print("DEBUG: getStorageUrl called with path: \(path)")
+        
         if path.starts(with: "https://") {
+            print("DEBUG: URL is already complete: \(path)")
             return URL(string: path)
         } else {
             // Construct the full URL using base storage URL
-            let baseStorageUrl = "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/"
-            return URL(string: baseStorageUrl + path)
+            let fullUrl = AppConstants.API.storageBaseUrl + path
+            print("DEBUG: Constructed URL: \(fullUrl)")
+            return URL(string: fullUrl)
         }
     }
-     */
-      
-      func getStorageUrl(path: String) -> URL? {
-          print("DEBUG: getStorageUrl called with path: \(path)")
-          
-          if path.starts(with: "https://") {
-              print("DEBUG: URL is already complete: \(path)")
-              return URL(string: path)
-          } else {
-              // Construct the full URL using base storage URL
-              let baseStorageUrl = "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/"
-              let fullUrl = baseStorageUrl + path
-              print("DEBUG: Constructed URL: \(fullUrl)")
-              return URL(string: fullUrl)
-          }
-      }
     
     
     // MARK: - Authentication
@@ -204,13 +191,12 @@ class SupabaseService: SupabaseServiceProtocol {
     func fetchExercises() async throws -> [Exercise] {
         print("📊 Attempting Supabase query on 'exercises' table...")
         
-        // Explicitly select all fields including gif_url
         let response = try await client
             .from("exercises")
-            .select("id, name, exercise_type, primary_muscles, secondary_muscles, instructions, experience_level, muscle_group, description, benefits, equipment, force_type, mechanics, body_part, target, experience, gif_url")
+            .select()
             .execute()
         
-        print("📊 Raw response data: \(String(data: response.data.prefix(500), encoding: .utf8) ?? "Unable to decode")")
+        print("📊 Raw response data: \(String(data: response.data, encoding: .utf8) ?? "Unable to decode")")
         
         let decoder = JSONDecoder.supabaseDecoder()
         return try decoder.decode([Exercise].self, from: response.data)

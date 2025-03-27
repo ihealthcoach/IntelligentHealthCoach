@@ -50,6 +50,7 @@ struct Exercise: Codable, Identifiable {
     }
     
     // Add a computed property for the full GIF URL
+    // In Exercise.swift, modify fullGifUrl to:
     var fullGifUrl: String? {
         guard let gifUrl = gifUrl, !gifUrl.isEmpty else {
             return nil
@@ -61,7 +62,7 @@ struct Exercise: Codable, Identifiable {
         }
         
         // Otherwise, it's probably just a filename, so construct the full URL
-        return "https://fleiivpyjkvahakriuta.supabase.co/storage/v1/object/public/exercises/gifs/\(gifUrl)"
+        return AppConstants.API.exerciseGifsPath + gifUrl
     }
 
     // Memberwise initializer for creating instances directly

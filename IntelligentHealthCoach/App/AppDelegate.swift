@@ -67,7 +67,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Initialize any required background services
         
         // Initialize Supabase in a safer way
-        SupabaseManager.shared.initialize()
+        _ = SupabaseService.shared
         
         // Configure cache manager
         CacheManager.shared.configure()
