@@ -188,8 +188,21 @@ class AuthViewModel: ObservableObject {
                     self.isLoading = false
                 }
             } catch {
+                print("Google Sign-In Error: \(error.localizedDescription)")
+                
                 await MainActor.run {
-                    self.errorMessage = handleAuthError(error)
+                    // Provide user-friendly error messages
+                    if let nsError = error as NSError? {
+                        if nsError.domain == "GoogleSignIn" {
+                            self.errorMessage = "Google Sign-In failed. Please try again."
+                        } else if nsError.domain.contains("Supabase") {
+                            self.errorMessage = "Could not authenticate with the server. Please try again."
+                        } else {
+                            self.errorMessage = handleAuthError(error)
+                        }
+                    } else {
+                        self.errorMessage = handleAuthError(error)
+                    }
                     self.isLoading = false
                 }
             }

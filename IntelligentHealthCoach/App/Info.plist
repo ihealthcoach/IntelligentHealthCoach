@@ -11,6 +11,17 @@
 	<string>$(SUPABASE_ANON_KEY)</string>
 	<key>BUNDLE_ID</key>
 	<string>casperbroe.IntelligentHealthCoach</string>
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.googleusercontent.apps.536943105321-rsdiu0bqvc2sn4mh6e7tauiv5kl16hmk</string>
+        </array>
+    </dict>
+</array>
 	<key>SUPABASE_URL</key>
 	<string>$(SUPABASE_URL)</string>
 	<key>CLIENT_ID</key>

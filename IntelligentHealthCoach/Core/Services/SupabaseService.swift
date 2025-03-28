@@ -20,6 +20,14 @@ class SupabaseService: SupabaseServiceProtocol {
     
     // Make this a regular stored property
     private(set) var client: SupabaseClient
+
+    private struct NewProfileData: Encodable {
+        let user_id: String
+        let first_name: String
+        let last_name: String
+        let avatar_url: String
+        let created_at: String
+    }
     
     private init() {
         print("🔍 Beginning Supabase initialization...")
@@ -144,24 +152,112 @@ class SupabaseService: SupabaseServiceProtocol {
         )
     }
     
-    // Add this method to SupabaseService
     func signInWithGoogle(presenter: UIViewController) async throws -> User {
         let controller = GoogleSignInController(supabaseService: self)
         
         // These UIKit methods are not async, so no await needed
         presenter.addChild(controller)
         presenter.view.addSubview(controller.view)
+        controller.view.frame = presenter.view.bounds // Set frame to cover parent view
+        controller.view.backgroundColor = .clear // Make it transparent
         controller.didMove(toParent: presenter)
         
-        // This needs await because googleSignIn is async
-        let user = try await controller.googleSignIn()
-        
-        // These UIKit methods are not async, so no await needed
-        controller.willMove(toParent: nil)
-        controller.view.removeFromSuperview()
-        controller.removeFromParent()
-        
-        return user
+        do {
+            // This needs await because googleSignIn is async
+            let user = try await controller.googleSignIn()
+            
+            // These UIKit methods are not async, so no await needed
+            controller.willMove(toParent: nil)
+            controller.view.removeFromSuperview()
+            controller.removeFromParent()
+            
+            // Try to update profile with Google data if not already set
+            if let firstName = user.firstName, let lastName = user.lastName {
+                Task {
+                    do {
+                        try await ensureProfileExists(
+                            userId: user.id.uuidString,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            avatarUrl: user.avatarUrl
+                        )
+                    } catch {
+                        print("Could not create/update profile after Google login: \(error)")
+                    }
+                }
+            }
+            
+            return user
+        } catch {
+            // Clean up UI elements on error
+            controller.willMove(toParent: nil)
+            controller.view.removeFromSuperview()
+            controller.removeFromParent()
+            
+            // Re-throw the error
+            throw error
+        }
+    }
+    
+    private func ensureProfileExists(userId: String, firstName: String?, lastName: String?, avatarUrl: String?) async throws {
+        // Check if profile exists
+        do {
+            // Try to get the profile - if it doesn't exist, this will throw an error
+            let response = try await client
+                .from("profiles")
+                .select()
+                .eq("user_id", value: userId)
+                .single()
+                .execute()
+            
+            // If we get here, the profile exists
+            print("✅ Profile already exists for Google user")
+            
+            // Optionally update the profile with latest Google data
+            try await updateProfileIfNeeded(userId: userId, firstName: firstName, lastName: lastName, avatarUrl: avatarUrl)
+            
+        } catch {
+            // Profile doesn't exist, so create it
+            // Use a properly encodable struct rather than a dictionary
+            let profileData = NewProfileData(
+                user_id: userId,
+                first_name: firstName ?? "",
+                last_name: lastName ?? "",
+                avatar_url: avatarUrl ?? "",
+                created_at: ISO8601DateFormatter().string(from: Date())
+            )
+            
+            let _ = try await client
+                .from("profiles")
+                .insert(profileData)
+                .execute()
+            
+            print("✅ Created new profile for Google user")
+        }
+    }
+    
+    private func updateProfileIfNeeded(userId: String, firstName: String?, lastName: String?, avatarUrl: String?) async throws {
+        // Only update if we have actual data to update
+        if firstName != nil || lastName != nil || avatarUrl != nil {
+            var updateData: [String: Any] = [:]
+            
+            if let firstName = firstName, !firstName.isEmpty {
+                updateData["first_name"] = firstName
+            }
+            
+            if let lastName = lastName, !lastName.isEmpty {
+                updateData["last_name"] = lastName
+            }
+            
+            if let avatarUrl = avatarUrl, !avatarUrl.isEmpty {
+                updateData["avatar_url"] = avatarUrl
+            }
+            
+            // Only proceed with update if we have data to update
+            if !updateData.isEmpty {
+                try await updateProfile(userId: userId, data: updateData)
+            }
+        }
     }
     
     func resetPassword(email: String) async throws {
