@@ -10,6 +10,8 @@ import Foundation
 import SwiftUI
 import Combine
 import Supabase
+import UIKit
+import GoogleSignIn
 
 class AuthViewModel: ObservableObject {
     @Published var currentUser: User?
@@ -63,7 +65,15 @@ class AuthViewModel: ObservableObject {
                     print("⚡️ Final currentUser: \(self.currentUser?.firstName ?? "nil")")
                 }
             } catch {
-                // Error handling
+                // Add proper error handling here
+                print("❌ Session check error: \(error.localizedDescription)")
+                
+                await MainActor.run {
+                    self.currentUser = nil
+                    self.isAuthenticated = false  // Explicitly set to false
+                    self.isLoading = false
+                    self.errorMessage = nil  // Clear any previous error messages
+                }
             }
         }
     }
@@ -153,6 +163,34 @@ class AuthViewModel: ObservableObject {
                 await MainActor.run {
                     self.errorMessage = handleAuthError(error)
                     self.isLoading = false  // Set loading to false on error
+                }
+            }
+        }
+    }
+    
+    /* Google */
+    func signInWithGoogle(from viewController: UIViewController) {
+        isLoading = true
+        errorMessage = nil
+        
+        Task {
+            do {
+                let user = try await supabaseService.signInWithGoogle(presenter: viewController)
+                
+                // If user has a profile, fetch it
+                if let uuid = UUID(uuidString: user.id.uuidString) {
+                    await fetchUserProfile(userId: uuid)
+                }
+                
+                await MainActor.run {
+                    self.currentUser = user
+                    self.isAuthenticated = true
+                    self.isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = handleAuthError(error)
+                    self.isLoading = false
                 }
             }
         }

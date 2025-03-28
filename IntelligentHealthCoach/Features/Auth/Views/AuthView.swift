@@ -412,10 +412,14 @@ extension View {
 
 import SwiftUI
 import AuthenticationServices
+import GoogleSignIn
+import Supabase
+import UIKit
 
 struct AuthView: View {
     @State private var email = ""
     @State private var password = ""
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         NavigationStack {
@@ -445,7 +449,13 @@ struct AuthView: View {
 
                     // Social Sign-In Buttons
                     VStack(spacing: 8) {
-                        Button(action: {}) {
+                        Button(action: {
+                            // Get a reference to the current UIViewController
+                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                               let rootViewController = windowScene.windows.first?.rootViewController {
+                                authViewModel.signInWithGoogle(from: rootViewController)
+                            }
+                        }) {
                             HStack {
                                 Image("logo-google")
                                     .resizable()
@@ -531,7 +541,10 @@ struct AuthView: View {
                             .cornerRadius(5)
 
                         // Continue Button
-                        Button(action: {}) {
+                        Button(action: {
+                            // Call AuthViewModel's signIn method
+                            authViewModel.signIn(email: email, password: password)
+                        }) {
                             Text("Continue with email")
                                 .foregroundColor(.offwhite)
                                 .padding()
@@ -544,12 +557,13 @@ struct AuthView: View {
                     
                     /*Spacer().frame(height: 20)*/
 
-                    // Already have an account?
                     HStack {
                         Text("Already have an account?")
                             .foregroundColor(.gray400)
-                        NavigationLink(destination: Text("Sign In View")) {
-                            Text("Sign in")
+                        Button(action: {
+                            authViewModel.signUp(email: email, password: password)
+                        }) {
+                            Text("Sign up")
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray400)
                         }
@@ -558,14 +572,40 @@ struct AuthView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 48)
             }
+            .overlay(
+                Group {
+                    if authViewModel.isLoading {
+                        LoadingView(message: "Please wait...")
+                            .transition(.opacity)
+                            .animation(.easeInOut, value: authViewModel.isLoading)
+                    }
+                }
+            )
+            .overlay(
+                VStack {
+                    Spacer()
+                    if let errorMessage = authViewModel.errorMessage {
+                        Text(errorMessage)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.red.opacity(0.8))
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                            .padding(.bottom, 20)
+                            .transition(.move(edge: .bottom))
+                            .animation(.easeInOut, value: authViewModel.errorMessage != nil)
+                    }
+                },
+                alignment: .bottom
+            )
             .withSafeAreaSpacer(regions: [.top, .bottom])
             .appBackground()
         }
     }
 }
 
-struct AuthView_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthView()
-    }
+#Preview {
+    AuthView()
+        .environmentObject(AuthViewModel.unauthenticated)
 }

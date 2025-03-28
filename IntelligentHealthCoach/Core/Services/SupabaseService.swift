@@ -14,6 +14,8 @@ import PostgREST
 import Realtime
 import Storage
 import Functions
+import UIKit
+import GoogleSignIn
 
 class SupabaseService: SupabaseServiceProtocol {
     static let shared = SupabaseService()
@@ -142,6 +144,26 @@ class SupabaseService: SupabaseServiceProtocol {
             lastName: nil,
             avatarUrl: nil
         )
+    }
+    
+    // Add this method to SupabaseService
+    func signInWithGoogle(presenter: UIViewController) async throws -> User {
+        let controller = GoogleSignInController(supabaseService: self)
+        
+        // These UIKit methods are not async, so no await needed
+        presenter.addChild(controller)
+        presenter.view.addSubview(controller.view)
+        controller.didMove(toParent: presenter)
+        
+        // This needs await because googleSignIn is async
+        let user = try await controller.googleSignIn()
+        
+        // These UIKit methods are not async, so no await needed
+        controller.willMove(toParent: nil)
+        controller.view.removeFromSuperview()
+        controller.removeFromParent()
+        
+        return user
     }
     
     func resetPassword(email: String) async throws {

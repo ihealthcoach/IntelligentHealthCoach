@@ -9,7 +9,13 @@
 	</array>
 	<key>SUPABASE_ANON_KEY</key>
 	<string>$(SUPABASE_ANON_KEY)</string>
+	<key>BUNDLE_ID</key>
+	<string>casperbroe.IntelligentHealthCoach</string>
 	<key>SUPABASE_URL</key>
 	<string>$(SUPABASE_URL)</string>
+	<key>CLIENT_ID</key>
+	<string>536943105321-rsdiu0bqvc2sn4mh6e7tauiv5kl16hmk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.536943105321-rsdiu0bqvc2sn4mh6e7tauiv5kl16hmk</string>
 </dict>
 </plist>

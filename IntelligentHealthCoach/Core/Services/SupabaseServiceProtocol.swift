@@ -1,6 +1,8 @@
 // IntelligentHealthCoach/Core/Services/SupabaseServiceProtocol.swift
 import Foundation
 import Supabase
+import UIKit
+import GoogleSignIn
 
 protocol SupabaseServiceProtocol {
     var client: SupabaseClient { get }
@@ -17,4 +19,5 @@ protocol SupabaseServiceProtocol {
     func createWorkout(_ workout: Workout) async throws -> Workout
     func updateSet(id: String, data: [String: Any]) async throws
     func createWorkoutExerciseDetails(workoutId: String, exerciseId: String) async throws -> WorkoutExerciseDetails
+    func signInWithGoogle(presenter: UIViewController) async throws -> User
 }

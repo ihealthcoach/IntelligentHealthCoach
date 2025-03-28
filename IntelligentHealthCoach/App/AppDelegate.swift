@@ -8,6 +8,8 @@
 import UIKit
 import SwiftUI
 import Kingfisher
+import GoogleSignIn
+import Supabase
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -73,5 +75,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         CacheManager.shared.configure()
         
         print("Services initialized successfully")
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
     }
 }

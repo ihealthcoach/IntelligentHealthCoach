@@ -20,10 +20,22 @@ struct ProfileView: View {
                     settingsSection(title: "More", options: viewModel.moreOptions)
                     
                     // Sign out button
-                    Button("Sign Out") {
-                        showingSignOutConfirmation = true
+                    VStack(spacing: 12) {
+                        Button("Sign Out") {
+                            showingSignOutConfirmation = true
+                        }
+                        .buttonStyle(SecondaryButtonStyle())
+                        
+                        #if DEBUG
+                        Button("Debug: Force Sign Out") {
+                            // Skip confirmation and sign out immediately
+                            authViewModel.signOut()
+                        }
+                        .font(.footnote)
+                        .foregroundColor(.red)
+                        .padding(.top, 4)
+                        #endif
                     }
-                    .buttonStyle(SecondaryButtonStyle())
                     .padding(.horizontal)
                     .padding(.bottom, 50)
                 }
