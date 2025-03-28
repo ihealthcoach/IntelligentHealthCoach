@@ -1,4 +1,10 @@
-// IntelligentHealthCoach/Core/Services/SupabaseServiceProtocol.swift
+//
+//  SupabaseServiceProtocol.swift
+//  iHealthCoachApp
+//
+//  Created by Casper Broe on 26/02/2025.
+//
+
 import Foundation
 import Supabase
 import UIKit

@@ -5,8 +5,6 @@
 //  Created by Casper Broe on 26/02/2025.
 //
 
-
-// IntelligentHealthCoach/Core/Services/SupabaseService.swift
 import Foundation
 import Supabase
 import Auth
