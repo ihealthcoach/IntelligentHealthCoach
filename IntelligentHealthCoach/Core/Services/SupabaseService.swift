@@ -153,48 +153,47 @@ class SupabaseService: SupabaseServiceProtocol {
     }
     
     func signInWithGoogle(presenter: UIViewController) async throws -> User {
-        let controller = GoogleSignInController(supabaseService: self)
-        
-        // These UIKit methods are not async, so no await needed
-        presenter.addChild(controller)
-        presenter.view.addSubview(controller.view)
-        controller.view.frame = presenter.view.bounds // Set frame to cover parent view
-        controller.view.backgroundColor = .clear // Make it transparent
-        controller.didMove(toParent: presenter)
+        // Create the controller on the main thread
+        let controller = await MainActor.run {
+            let controller = GoogleSignInController(supabaseService: self)
+            presenter.addChild(controller)
+            presenter.view.addSubview(controller.view)
+            controller.view.frame = presenter.view.bounds
+            controller.view.backgroundColor = .clear
+            controller.didMove(toParent: presenter)
+            return controller
+        }
         
         do {
-            // This needs await because googleSignIn is async
+            // Perform the Google sign-in
             let user = try await controller.googleSignIn()
             
-            // These UIKit methods are not async, so no await needed
-            controller.willMove(toParent: nil)
-            controller.view.removeFromSuperview()
-            controller.removeFromParent()
+            // Clean up the controller on the main thread
+            await MainActor.run {
+                controller.willMove(toParent: nil)
+                controller.view.removeFromSuperview()
+                controller.removeFromParent()
+            }
             
-            // Try to update profile with Google data if not already set
+            // Update profile if needed
             if let firstName = user.firstName, let lastName = user.lastName {
-                Task {
-                    do {
-                        try await ensureProfileExists(
-                            userId: user.id.uuidString,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            avatarUrl: user.avatarUrl
-                        )
-                    } catch {
-                        print("Could not create/update profile after Google login: \(error)")
-                    }
-                }
+                try await ensureProfileExists(
+                    userId: user.id.uuidString,
+                    firstName: firstName,
+                    lastName: lastName,
+                    avatarUrl: user.avatarUrl
+                )
             }
             
             return user
         } catch {
-            // Clean up UI elements on error
-            controller.willMove(toParent: nil)
-            controller.view.removeFromSuperview()
-            controller.removeFromParent()
+            // Clean up on error
+            await MainActor.run {
+                controller.willMove(toParent: nil)
+                controller.view.removeFromSuperview()
+                controller.removeFromParent()
+            }
             
-            // Re-throw the error
             throw error
         }
     }

@@ -24,47 +24,39 @@ class GoogleSignInController: UIViewController {
     }
     
     func googleSignIn() async throws -> User {
-        // Start OAuth flow with Supabase
-        let oauthResponse = try await supabaseService.client.auth.signInWithOAuth(
-            provider: .google,
-            redirectTo: nil  // Use the default redirect URL configured in your Supabase project
-        )
+        // Get clientID from Info.plist
+        guard let clientID = Bundle.main.infoDictionary?["CLIENT_ID"] as? String,
+              !clientID.isEmpty else {
+            throw NSError(domain: "GoogleSignIn", code: 1, userInfo: [NSLocalizedDescriptionKey: "No Google client ID found in Info.plist"])
+        }
         
         // Configure GIDSignIn with clientID
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         
-        // Create a nonce for the OpenID Connect request
-        let nonce = UUID().uuidString
-        
-        // Present the sign-in UI with the nonce
+        // Present the sign-in UI
         let result = try await GIDSignIn.sharedInstance.signIn(
             withPresenting: self,
             hint: nil,
             additionalScopes: ["email", "profile"]
         )
         
-        guard let authURL = oauthResponse.url else {
-            throw NSError(domain: "GoogleSignIn", code: 1, userInfo: [NSLocalizedDescriptionKey: "No auth URL returned from Supabase"])
+        guard let idToken = result.user.idToken?.tokenString else {
+            print("❌ No idToken found in Google Sign-In result")
+            throw NSError(domain: "GoogleSignIn", code: 1, userInfo: [NSLocalizedDescriptionKey: "No ID token found"])
         }
         
         let accessToken = result.user.accessToken.tokenString
         
         print("✅ Successfully got Google ID token: \(idToken.prefix(10))...")
-        print("✅ Successfully got Google access token: \(accessToken.prefix(10))...")
         
-        // Sign in to Supabase with the Google credentials
-        // Note: When using signInWithIdToken, Supabase doesn't need a nonce
-        let response = try await supabaseService.client.auth.signInWithOAuth(
-            provider: .google,
-            redirectTo: nil
-        )
+        // Try a different approach: use SignInWithOAuth instead of ID token
+        let session = try await supabaseService.client.auth.session
+        let authUser = session.user
         
-        // Create a User model from the auth response
-        let authUser = response.user
-        
-        // Map Google profile information if available
+        // Map Google profile information
         var firstName: String? = nil
         var lastName: String? = nil
+        var avatarUrl: String? = nil
         
         if let givenName = result.user.profile?.givenName {
             firstName = givenName
@@ -74,15 +66,16 @@ class GoogleSignInController: UIViewController {
             lastName = familyName
         }
         
-        let session = try await supabaseService.client.auth.session
-        let supabaseUser = session.user  // Changed from authUser to supabaseUser
+        if let imageURL = result.user.profile?.imageURL(withDimension: 200) {
+            avatarUrl = imageURL.absoluteString
+        }
         
         let user = User(
-            id: supabaseUser.id,
-            email: supabaseUser.email,
-            firstName: nil,  // You would need to fetch profile data separately
-            lastName: nil,
-            avatarUrl: nil
+            id: authUser.id,
+            email: authUser.email,
+            firstName: firstName,
+            lastName: lastName,
+            avatarUrl: avatarUrl
         )
         
         return user
