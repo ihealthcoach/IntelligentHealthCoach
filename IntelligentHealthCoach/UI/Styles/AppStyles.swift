@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AppBackgroundModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    
     func body(content: Content) -> some View {
         content
-            .background(Color("gray100"))
+            .background(colorScheme == .light ? Color("gray100") : Color("gray900"))
             .edgesIgnoringSafeArea(.all)
     }
 }

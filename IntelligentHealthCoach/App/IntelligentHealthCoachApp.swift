@@ -19,6 +19,7 @@ struct IntelligentHealthCoachApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(authViewModel)
+                .preferredColorScheme(.light)
         }
     }
 }
