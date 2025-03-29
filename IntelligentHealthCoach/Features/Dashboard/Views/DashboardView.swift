@@ -329,9 +329,9 @@ struct DashboardView: View {
     // Goal pill badge - MOVED OUTSIDE BODY
     func goalPill(text: String) -> some View {
         Text(text)
-            .font(.system(size: 11,weight: .medium))
+            .font(.system(size: 11, weight: .medium))
             .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .padding(.vertical, 4) // Ensure enough vertical padding
             .background(Color.clear)
             .foregroundColor(Color("gray900"))
             .clipShape(Capsule())

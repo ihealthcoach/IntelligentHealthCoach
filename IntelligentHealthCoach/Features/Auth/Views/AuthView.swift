@@ -145,6 +145,8 @@ struct AuthView: View {
                                     .stroke(Color("gray200"), lineWidth: 1)
                             )
                             .cornerRadius(5)
+                            .autocapitalization(.none)
+                            .keyboardType(.emailAddress)
 
                         SecureField("Password", text: $password)
                             .padding()
