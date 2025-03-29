@@ -105,9 +105,15 @@ struct CreateUserView: View {
                                     checkExistingEmail(newValue)
                                 }
                             }
-                        
+
                         if !isEmailValid {
                             Text("Please enter a valid email address")
+                                .font(.system(size: 12))
+                                .foregroundColor(.red)
+                        }
+
+                        if emailExists {
+                            Text("Email is already registered. Try signing in instead.")
                                 .font(.system(size: 12))
                                 .foregroundColor(.red)
                         }
@@ -279,6 +285,22 @@ struct CreateUserView: View {
         return isEmailValid && isPasswordValid && passwordsMatch && !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty
     }
     
+    // MARK: - Email Existence Check
+    
+    private func checkExistingEmail(_ email: String) {
+        isCheckingEmail = true
+        
+        Task {
+            // Add the email: label to the parameter
+            let exists = await authViewModel.checkUserExists(email: email)
+            
+            await MainActor.run {
+                emailExists = exists
+                isCheckingEmail = false
+            }
+        }
+    }
+    
     // MARK: - Account Creation
     
     private func createAccount() {
@@ -289,26 +311,6 @@ struct CreateUserView: View {
             lastName: lastName
         )
     }
-}
-
-private func checkExistingEmail(_ email: String) {
-    isCheckingEmail = true
-    
-    Task {
-        let exists = await authViewModel.checkUserExists(email)
-        
-        await MainActor.run {
-            emailExists = exists
-            isCheckingEmail = false
-        }
-    }
-}
-
-// Show error if email exists
-if emailExists {
-    Text("Email is already registered. Try signing in instead.")
-        .font(.system(size: 12))
-        .foregroundColor(.red)
 }
 
 struct CreateUserView_Previews: PreviewProvider {
