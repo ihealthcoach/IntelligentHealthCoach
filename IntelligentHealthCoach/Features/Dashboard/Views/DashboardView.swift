@@ -238,8 +238,12 @@ struct DashboardView: View {
         
         .onAppear {
             viewModel.loadData()
-            print("🧪 DashboardView onAppear - authViewModel.currentUser?.firstName = \(authViewModel.currentUser?.firstName ?? "nil")")
-            print("🧪 DashboardView onAppear - authViewModel.isAuthenticated = \(authViewModel.isAuthenticated)")
+            authViewModel.refreshUserProfile()
+            
+            print("🔍 DashboardView - currentUser: \(String(describing: authViewModel.currentUser))")
+            print("🔍 DashboardView - firstName: \(authViewModel.currentUser?.firstName ?? "nil")")
+            print("🔍 DashboardView - lastName: \(authViewModel.currentUser?.lastName ?? "nil")")
+            print("🔍 DashboardView - email: \(authViewModel.currentUser?.email ?? "nil")")
         }
     }
     

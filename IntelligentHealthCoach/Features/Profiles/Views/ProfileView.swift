@@ -71,6 +71,10 @@ struct ProfileView: View {
             .onAppear {
                 Task {
                     await viewModel.loadUserProfile()
+                    authViewModel.refreshUserProfile()
+                    print("🔍 ProfileView - currentUser: \(String(describing: authViewModel.currentUser))")
+                    print("🔍 ProfileView - firstName: \(authViewModel.currentUser?.firstName ?? "nil")")
+                    print("🔍 ProfileView - fullName: \(authViewModel.currentUser?.fullName ?? "nil")")
                 }
             }
         }

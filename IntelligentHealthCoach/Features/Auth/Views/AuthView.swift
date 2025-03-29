@@ -130,60 +130,13 @@ struct AuthView: View {
                         }
                     }
 
-                    Text("or sign up with your email")
-                        .foregroundColor(.gray400)
-                        .padding(.vertical, 0)
-
-                    // Email & Password Fields
-                    VStack(spacing: 8) {
-                        TextField("Email", text: $email)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color("offwhite")) // Background color
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5) // Stroke layer
-                                    .stroke(Color("gray200"), lineWidth: 1)
-                            )
-                            .cornerRadius(5)
-                            .autocapitalization(.none)
-                            .keyboardType(.emailAddress)
-
-                        SecureField("Password", text: $password)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color("offwhite")) // Background color
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5) // Stroke layer
-                                    .stroke(Color("gray200"), lineWidth: 1)
-                            )
-                            .cornerRadius(5)
-
-                        // Continue Button
-                        Button(action: {
-                            // Call AuthViewModel's signIn method
-                            authViewModel.signIn(email: email, password: password)
-                        }) {
-                            Text("Continue with email")
-                                .foregroundColor(.offwhite)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(email.isEmpty || password.isEmpty ? Color(.gray200) : Color.indigo600)
-                                .cornerRadius(5)
-                        }
-                        .disabled(email.isEmpty || password.isEmpty)
-                    }
-                    
-                    /*Spacer().frame(height: 20)*/
-
-                    HStack {
-                        Text("Already have an account?")
-                            .foregroundColor(.gray400)
-                        Button(action: {
-                            authViewModel.signUp(email: email, password: password)
-                        }) {
-                            Text("Sign up")
-                                .fontWeight(.bold)
+                    NavigationLink(destination: SignInView()) {
+                        HStack {
+                            Text("Already have an account?")
                                 .foregroundColor(.gray400)
+                            Text("Sign in")
+                                .fontWeight(.bold)
+                                .foregroundColor(.indigo600)
                         }
                     }
                 }

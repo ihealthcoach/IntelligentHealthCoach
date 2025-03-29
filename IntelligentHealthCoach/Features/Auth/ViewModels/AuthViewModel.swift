@@ -54,37 +54,32 @@ class AuthViewModel: ObservableObject {
                 let appUser = User(
                     id: user.id,
                     email: user.email,
-                    firstName: nil,  // Initially nil, will be populated from profile
+                    firstName: nil,
                     lastName: nil,
                     avatarUrl: nil
                 )
                 
-                // Debug
-                print("⚡️ Initial appUser: \(appUser)")
+                // Set the initial user data
+                await MainActor.run {
+                    self.currentUser = appUser
+                }
                 
-                // Fetch user profile
+                // Fetch user profile - this will update firstName, lastName, etc.
                 await fetchUserProfile(userId: user.id)
                 
-                // Debug after profile fetch
-                print("⚡️ After profile fetch - appUser: \(self.currentUser?.firstName ?? "nil")")
-                
                 await MainActor.run {
-                    self.currentUser = appUser  // This might be overwriting the profile data!
+                    // Set authentication state but don't overwrite the user object again
                     self.isAuthenticated = true
                     self.isLoading = false
-                    
-                    // Debug
-                    print("⚡️ Final currentUser: \(self.currentUser?.firstName ?? "nil")")
                 }
             } catch {
-                // Add proper error handling here
                 print("❌ Session check error: \(error.localizedDescription)")
                 
                 await MainActor.run {
                     self.currentUser = nil
-                    self.isAuthenticated = false  // Explicitly set to false
+                    self.isAuthenticated = false
                     self.isLoading = false
-                    self.errorMessage = nil  // Clear any previous error messages
+                    self.errorMessage = nil
                 }
             }
         }
@@ -113,6 +108,32 @@ class AuthViewModel: ObservableObject {
             }
         } catch {
             print("Error fetching profile: \(error)")
+        }
+    }
+    
+    func refreshUserProfile() {
+        Task {
+            guard let userId = currentUser?.id else { return }
+            
+            do {
+                // Fetch the profile from Supabase
+                if let profile = try await supabaseService.fetchProfile(userId: userId.uuidString) {
+                    await MainActor.run {
+                        // Update the current user with profile data
+                        self.currentUser?.firstName = profile.firstName
+                        self.currentUser?.lastName = profile.lastName
+                        self.currentUser?.avatarUrl = profile.avatarUrl
+                        
+                        // Debug output
+                        print("✅ Profile refreshed - firstName: \(profile.firstName ?? "nil")")
+                        print("✅ Profile refreshed - lastName: \(profile.lastName ?? "nil")")
+                    }
+                } else {
+                    print("❌ No profile found for user ID: \(userId)")
+                }
+            } catch {
+                print("❌ Error refreshing profile: \(error.localizedDescription)")
+            }
         }
     }
     
