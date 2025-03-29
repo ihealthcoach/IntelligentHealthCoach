@@ -29,6 +29,18 @@ class AuthViewModel: ObservableObject {
         checkSession()
     }
     
+    func checkUserExists(email: String) async -> Bool {
+        do {
+            // This uses the built-in "recover" method which checks if an email exists
+            try await supabaseService.client.auth.resetPasswordForEmail(email)
+            // If we get here, the email exists
+            return true
+        } catch {
+            // Error means user doesn't exist
+            return false
+        }
+    }
+    
     func checkSession() {
         isLoading = true
         
