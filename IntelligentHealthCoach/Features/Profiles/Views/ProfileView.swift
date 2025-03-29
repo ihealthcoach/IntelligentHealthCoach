@@ -36,10 +36,8 @@ struct ProfileView: View {
                         .padding(.top, 4)
                         #endif
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 50)
+                    .standardScreen()
                 }
-                .padding(.top)
             }
             .navigationBarTitle("Profile", displayMode: .large)
             .toolbar {

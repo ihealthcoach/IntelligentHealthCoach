@@ -39,7 +39,6 @@ struct AuthView: View {
                             .font(.system(size: 20))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray400)
-                            .padding(.horizontal, 16)
                     }
 
                     // Social Sign-In Buttons
@@ -140,8 +139,6 @@ struct AuthView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 48)
             }
             .overlay(
                 Group {
@@ -170,8 +167,7 @@ struct AuthView: View {
                 },
                 alignment: .bottom
             )
-            .withSafeAreaSpacer(regions: [.top, .bottom])
-            .appBackground()
+            .standardScreen()
         }
     }
 }

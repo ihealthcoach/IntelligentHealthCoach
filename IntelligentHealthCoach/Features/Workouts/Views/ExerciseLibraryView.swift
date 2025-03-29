@@ -137,8 +137,7 @@ struct ExerciseLibraryView: View {
             )
             .zIndex(2)
         }
-        .withSafeAreaSpacer()
-        .appBackground()
+        .standardScreen()
         .navigationBarHidden(true)
         .onAppear {
             viewModel.fetchExercises()

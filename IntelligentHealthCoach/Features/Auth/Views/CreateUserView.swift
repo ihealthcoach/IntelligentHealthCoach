@@ -33,8 +33,13 @@ struct CreateUserView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                // Header
+            VStack(alignment: .leading, spacing: 16) {
+                // Back button (left-aligned)
+                BackButton {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .padding(.bottom, 8)
+                
                 VStack(spacing: 8) {
                     Text("Create your account")
                         .font(.system(size: 30, weight: .bold))
@@ -44,6 +49,7 @@ struct CreateUserView: View {
                         .font(.system(size: 16))
                         .foregroundColor(.gray400)
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.top, 12)
                 
                 // Form fields
@@ -200,7 +206,6 @@ struct CreateUserView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
                 
                 // Create Account Button
                 Button(action: {
@@ -222,21 +227,9 @@ struct CreateUserView: View {
                 
                 Spacer()
             }
-            .padding(.horizontal)
         }
-        .navigationTitle("Sign Up")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.gray900)
-                }
-            }
-        }
-        .appBackground()
+        .navigationBarBackButtonHidden(true)
+        .standardScreen()
         .loadingOverlay(isLoading: authViewModel.isLoading)
         .overlay(
             VStack {

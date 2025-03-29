@@ -101,7 +101,6 @@ struct WorkoutSetRow: View {
                     .foregroundColor(Color("indigo600"))
             }
         }
-        .padding(.horizontal, 16)
         .padding(.vertical, 10)
         .frame(height: 57)
         .background(isActive ? Color("offwhite") : Color.clear)

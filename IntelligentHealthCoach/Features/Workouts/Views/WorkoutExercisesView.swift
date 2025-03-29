@@ -56,7 +56,6 @@ struct WorkoutExercisesView: View {
                         .padding(8)
                 }
             }
-            .padding(.horizontal)
             .padding(.top, 8)
             
             // Title and description
@@ -70,8 +69,6 @@ struct WorkoutExercisesView: View {
                     .foregroundColor(.gray)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
-            .padding(.top, 16)
             
             // Exercises list
             if viewModel.exercises.isEmpty {
@@ -173,13 +170,9 @@ struct WorkoutExercisesView: View {
                         )
                     }
                 }
-                .padding()
-                /*.background(Color.offwhite)*/
-                /*.shadow(color: Color.gray900.opacity(0.1), radius: 5, x: 0, y: -3)*/
             }
         }
-        .withSafeAreaSpacer()
-        .appBackground()
+        .standardScreen()
         .navigationBarHidden(true)
         .sheet(isPresented: $showingMoreOptions) {
             if let exercise = selectedExercise {

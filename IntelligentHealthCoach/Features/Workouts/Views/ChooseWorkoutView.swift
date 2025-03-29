@@ -68,11 +68,7 @@ struct ChooseWorkoutView: View {
         }
         
 
-        .padding(.horizontal, 16)
-        .padding(.vertical, 16)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .withSafeAreaSpacer()
-        .appBackground()
+        .standardScreen()
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $showingExerciseLibrary) {
             ExerciseLibraryView(selectionMode: true, onExerciseSelected: { exercise in

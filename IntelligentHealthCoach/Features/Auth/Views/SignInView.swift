@@ -18,8 +18,13 @@ struct SignInView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                // Header
+            VStack(alignment: .leading, spacing: 16) {
+                // Back button (left-aligned)
+                BackButton {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .padding(.bottom, 8)
+            
                 VStack(spacing: 8) {
                     Text("Welcome back")
                         .font(.system(size: 30, weight: .bold))
@@ -29,6 +34,7 @@ struct SignInView: View {
                         .font(.system(size: 16))
                         .foregroundColor(.gray400)
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.top, 12)
                 
                 // Email & Password Fields
@@ -95,7 +101,6 @@ struct SignInView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
                 
                 // Sign In Button
                 Button(action: {
@@ -130,21 +135,9 @@ struct SignInView: View {
                 
                 Spacer()
             }
-            .padding(.horizontal)
         }
-        .navigationTitle("Sign In")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.gray900)
-                }
-            }
-        }
-        .appBackground()
+        .standardScreen()
+        .navigationBarBackButtonHidden(true)
         .loadingOverlay(isLoading: authViewModel.isLoading)
         .overlay(
             VStack {

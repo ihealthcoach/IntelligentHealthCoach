@@ -184,11 +184,8 @@ struct DashboardView: View {
                         
                         Spacer(minLength: 80)
                     }
-                    .padding(.top)
-                    .padding(.bottom, 80) // Add padding for tab bar
                 }
-                .withSafeAreaSpacer()
-                .appBackground()
+                .standardScreen()
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
                 .loadingOverlay(isLoading: viewModel.isLoading, message: "Loading your dashboard...")

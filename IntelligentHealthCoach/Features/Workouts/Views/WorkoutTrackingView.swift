@@ -365,11 +365,8 @@ struct WorkoutTrackingView: View {
                         .foregroundColor(timerActive ? .orange : .green)
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
+            .standardScreen()
         }
-        .background(Color("gray50"))
-        .background(.ultraThinMaterial)
     }
     
     var exerciseContent: some View {
@@ -399,14 +396,12 @@ struct WorkoutTrackingView: View {
                                 .background(Color("gray900"))
                                 .cornerRadius(20)
                         }
-                        .padding(.horizontal, 16)
                     }
                     
                     Text("Exercise note...")
                         .font(.system(size: 11))
                         .foregroundColor(Color("gray400"))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 16)
                 }
                 
                 // Sets list
@@ -456,7 +451,6 @@ struct WorkoutTrackingView: View {
                             .stroke(Color("gray200"), lineWidth: 1)
                     )
                 }
-                .padding(.horizontal, 16)
                 .padding(.top, 16)
             }
             .padding(.top, 16)

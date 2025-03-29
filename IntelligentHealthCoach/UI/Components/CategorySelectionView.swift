@@ -54,7 +54,6 @@ struct CategorySelectionView: View {
                     selectedCategory = "My exercises"
                 }
             }
-            .padding(.horizontal, 16)
         }
     }
 }
