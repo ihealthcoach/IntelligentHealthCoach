@@ -185,7 +185,7 @@ struct DashboardView: View {
                         Spacer(minLength: 80)
                     }
                 }
-                .standardScreen()
+                .standardScreen(horizontalPadding: 0, verticalPadding: 0)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
                 .loadingOverlay(isLoading: viewModel.isLoading, message: "Loading your dashboard...")

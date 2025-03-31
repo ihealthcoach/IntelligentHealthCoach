@@ -137,7 +137,7 @@ struct ExerciseLibraryView: View {
             )
             .zIndex(2)
         }
-        .standardScreen()
+        .standardScreen(horizontalPadding: 0)
         .navigationBarHidden(true)
         .onAppear {
             viewModel.fetchExercises()
@@ -159,6 +159,7 @@ struct ExerciseLibraryView: View {
                 }
             )
             .presentationDetents([.medium])
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showFilterSheet) {
             FilterSheetView(onClose: { showFilterSheet = false })

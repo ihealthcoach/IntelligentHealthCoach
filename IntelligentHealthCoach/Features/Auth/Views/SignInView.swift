@@ -55,6 +55,7 @@ struct SignInView: View {
                             )
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
+                            .disableAutocorrection(true)
                             .textContentType(.emailAddress)
                     }
                     
@@ -69,10 +70,12 @@ struct SignInView: View {
                                 TextField("Enter your password", text: $password)
                                     .padding()
                                     .autocapitalization(.none)
+                                    .textContentType(.password)
                             } else {
                                 SecureField("Enter your password", text: $password)
                                     .padding()
                                     .autocapitalization(.none)
+                                    .textContentType(.password)
                             }
                             
                             Button(action: { showPassword.toggle() }) {

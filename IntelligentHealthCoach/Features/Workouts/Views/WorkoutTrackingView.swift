@@ -283,6 +283,7 @@ struct WorkoutTrackingView: View {
         }
         .sheet(isPresented: $showingExerciseGuide) {
             exerciseGuideSheet
+                .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingPreviousStats) {
             previousStatsSheet

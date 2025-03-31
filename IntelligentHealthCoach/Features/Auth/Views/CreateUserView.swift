@@ -69,6 +69,8 @@ struct CreateUserView: View {
                                     .stroke(Color.gray200, lineWidth: 1)
                             )
                             .textContentType(.givenName)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.words)
                     }
                     
                     // Last Name field
@@ -86,6 +88,8 @@ struct CreateUserView: View {
                                     .stroke(Color.gray200, lineWidth: 1)
                             )
                             .textContentType(.familyName)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.words)
                     }
                     
                     // Email field
@@ -104,6 +108,7 @@ struct CreateUserView: View {
                             )
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
+                            .disableAutocorrection(true)
                             .textContentType(.emailAddress)
                             .onChange(of: email) { newValue in
                                 validateEmail()
@@ -136,10 +141,12 @@ struct CreateUserView: View {
                                 TextField("Create a password", text: $password)
                                     .padding()
                                     .autocapitalization(.none)
+                                    .textContentType(.newPassword)
                             } else {
                                 SecureField("Create a password", text: $password)
                                     .padding()
                                     .autocapitalization(.none)
+                                    .textContentType(.newPassword)
                             }
                             
                             Button(action: { showPassword.toggle() }) {
@@ -222,7 +229,7 @@ struct CreateUserView: View {
                         .cornerRadius(5)
                 }
                 .disabled(!formIsValid())
-                .padding(.horizontal)
+
                 .padding(.top, 16)
                 
                 Spacer()

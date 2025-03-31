@@ -14,7 +14,7 @@ struct FlexibleSheet<Content: View>: View {
     var title: String
     var showCloseButton: Bool = true
     var showTopDragIndicator: Bool = true
-    var showBottomDragIndicator: Bool = true
+    var showBottomDragIndicator: Bool = false
     var content: Content
     
     init(
@@ -32,16 +32,7 @@ struct FlexibleSheet<Content: View>: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Top drag indicator
-            if showTopDragIndicator {
-                RoundedRectangle(cornerRadius: 2.5)
-                    .fill(Color("gray300"))
-                    .frame(width: 48, height: 5)
-                    .padding(.top, 24)
-                    .padding(.bottom, 24)
-            }
-            
+        VStack(spacing: 0) {            
             // Header with title and close button
             HStack {
                 Text(title)
@@ -71,14 +62,6 @@ struct FlexibleSheet<Content: View>: View {
             // Content
             content
                 .frame(maxWidth: .infinity)
-            
-            // Bottom drag indicator
-            if showBottomDragIndicator {
-                RoundedRectangle(cornerRadius: 2.5)
-                    .fill(Color("gray900"))
-                    .frame(width: 134, height: 5)
-                    .padding(.vertical, 16)
-            }
         }
         .background(Color("offwhite"))
         .cornerRadius(20, corners: [.topLeft, .topRight])

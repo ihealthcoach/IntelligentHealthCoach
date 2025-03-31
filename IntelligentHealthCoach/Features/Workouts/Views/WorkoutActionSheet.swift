@@ -15,7 +15,7 @@ struct WorkoutActionSheet: View {
     var onFindWorkout: () -> Void
     
     var body: some View {
-        FlexibleSheet(title: "Workouts") {
+        FlexibleSheet(title: "Workouts", showBottomDragIndicator: false) {
             VStack(spacing: 0) {
                 SheetActionButton(title: "Track a workout") {
                     presentationMode.wrappedValue.dismiss()
