@@ -38,37 +38,12 @@ class ExerciseViewModel: ObservableObject {
                 let response = try await supabaseService.client
                     .from("exercises")
                     .select()
+                    .limit(2000) // Increased limit to get all records
                     .execute()
-                
-                // Print raw JSON response to debug
-                print("📊 Raw response data sample: \(String(data: response.data.prefix(500), encoding: .utf8) ?? "Unable to decode")")
                 
                 let decoder = JSONDecoder.supabaseDecoder()
                 let fetchedExercises = try decoder.decode([Exercise].self, from: response.data)
                 print("✅ Successfully fetched \(fetchedExercises.count) exercises")
-                
-                // Debug: Print a sample and verify gif_url is being parsed
-                print("Sample exercise data:")
-                if let firstExercise = fetchedExercises.first {
-                    print("ID: \(firstExercise.id)")
-                    print("Name: \(firstExercise.name ?? "nil")")
-                    print("GIF URL: \(firstExercise.gifUrl ?? "nil")")
-                    
-                    // Use a simpler debug approach without the extension
-                    if let jsonData = try? JSONEncoder().encode(firstExercise),
-                       let jsonString = String(data: jsonData, encoding: .utf8) {
-                        print("Raw data for this exercise: \(jsonString)")
-                    }
-                }
-                
-                // Check how many exercises actually have GIF URLs
-                let exercisesWithGifs = fetchedExercises.filter { $0.gifUrl != nil && !($0.gifUrl?.isEmpty ?? true) }
-                print("Number of exercises with valid GIF URLs: \(exercisesWithGifs.count) out of \(fetchedExercises.count)")
-
-                // Print examples of exercises that should have GIFs
-                for (index, exercise) in fetchedExercises.prefix(10).enumerated() {
-                    print("Exercise \(index + 1): \(exercise.name ?? "Unnamed") - GIF URL: \(exercise.gifUrl ?? "nil")")
-                }
                 
                 await MainActor.run {
                     self.exercises = fetchedExercises
@@ -83,6 +58,67 @@ class ExerciseViewModel: ObservableObject {
                     self.isLoading = false
                 }
             }
+        }
+    }
+    
+    // Add this function to ExerciseViewModel
+    func searchSpecificExercise(name: String) {
+        Task {
+            do {
+                print("🔍 Directly searching for exercise: \(name)")
+                let response = try await supabaseService.client
+                    .from("exercises")
+                    .select()
+                    .ilike("name", value: "%\(name)%")
+                    .execute()
+                
+                if let responseString = String(data: response.data, encoding: .utf8) {
+                    print("📊 Direct search response: \(responseString)")
+                }
+                
+                let decoder = JSONDecoder.supabaseDecoder()
+                let foundExercises = try decoder.decode([Exercise].self, from: response.data)
+                print("🏋️‍♂️ Direct search found \(foundExercises.count) exercises")
+                
+                for exercise in foundExercises {
+                    print("  - \(exercise.name ?? "Unnamed"): ID \(exercise.id)")
+                }
+                
+                if !foundExercises.isEmpty {
+                    await MainActor.run {
+                        // Add these to the existing list if not already present
+                        for exercise in foundExercises {
+                            if !self.exercises.contains(where: { $0.id == exercise.id }) {
+                                self.exercises.append(exercise)
+                                print("⚠️ Exercise was missing and has been added: \(exercise.name ?? "Unnamed")")
+                            }
+                        }
+                        // Re-filter and organize
+                        self.filterExercises()
+                    }
+                }
+            } catch {
+                print("❌ Error in direct search: \(error)")
+            }
+        }
+    }
+    
+    // Add this function to ExerciseViewModel
+    func clearCacheAndRefresh() {
+        Task {
+            await MainActor.run {
+                // Clear all existing data
+                self.exercises = []
+                self.filteredExercises = []
+                self.exerciseGroups = [:]
+                self.isLoading = true
+            }
+            
+            // Simulate a fresh app launch
+            try? await Task.sleep(nanoseconds: 500_000_000) // Half-second delay
+            
+            // Fetch from scratch
+            await fetchExercises()
         }
     }
     

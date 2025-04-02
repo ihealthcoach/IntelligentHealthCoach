@@ -9,6 +9,7 @@
 import SwiftUI
 import Kingfisher
 import UIKit
+import Combine
 
 struct ExerciseLibraryView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -27,6 +28,9 @@ struct ExerciseLibraryView: View {
     @State private var showingWorkoutActionSheet = false
     @State private var navigationDestination: NavigationDestination?
     @State private var showChooseWorkoutView = false
+    @State private var searchText = ""
+    @State private var exerciseCountText = "Add exercises to your workout"
+    private var cancellables = Set<AnyCancellable>()
 
     // Define an enum for navigation destinations
     enum NavigationDestination {
@@ -55,12 +59,15 @@ struct ExerciseLibraryView: View {
                 
                 TitleView(
                     title: "Library",
-                    subtitle: "Add exercises to your workout"
+                    subtitle: "Add exercises to your workout (\(viewModel.exercises.count))"
                 )
                 
                 CategorySelectionView(
                     selectedCategory: $selectedCategory
                 )
+                
+                searchBar()
+                    .padding(.vertical, 8)
                 
                 // Exercise list with alphabet index
                 ExerciseListView(
@@ -141,6 +148,14 @@ struct ExerciseLibraryView: View {
         .navigationBarHidden(true)
         .onAppear {
             viewModel.fetchExercises()
+            
+            // Update the count after exercises are loaded
+            viewModel.$exercises
+                .dropFirst() // Skip the initial empty state
+                .sink { exercises in
+                    self.exerciseCountText = "Add exercises to your workout (\(exercises.count))"
+                }
+                .store(in: &cancellables)
         }
         .sheet(isPresented: $showingSetsSheet) {
             SetsSelectionSheet(
@@ -191,6 +206,42 @@ struct ExerciseLibraryView: View {
                 )
             }
         }
+    }
+    
+    // Search
+    private func searchBar() -> some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(Color("gray400"))
+            
+            TextField("Search exercises", text: $searchText)
+                .foregroundColor(Color("gray900"))
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .onChange(of: searchText) { newValue in
+                    viewModel.searchQuery = newValue
+                    viewModel.filterExercises()
+                }
+            
+            if !searchText.isEmpty {
+                Button(action: {
+                    searchText = ""
+                    viewModel.searchQuery = ""
+                    viewModel.filterExercises()
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(Color("gray400"))
+                }
+            }
+        }
+        .padding(10)
+        .background(Color("gray50"))
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color("gray200"), lineWidth: 1)
+        )
+        .padding(.horizontal)
     }
     
     private func prepareWorkoutViewModel() {
