@@ -30,8 +30,13 @@ struct ExerciseListView: View {
     // MARK: - Subviews
     
     private var loadingView: some View {
-        ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            ProgressView()
+                .scaleEffect(1.5)
+            Text("Loading exercises...")
+                .padding(.top, 16)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private var exerciseListContent: some View {

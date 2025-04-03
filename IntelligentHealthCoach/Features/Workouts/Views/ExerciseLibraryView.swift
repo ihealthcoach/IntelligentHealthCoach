@@ -31,7 +31,7 @@ struct ExerciseLibraryView: View {
     @State private var searchText = ""
     @State private var exerciseCountText = "Add exercises to your workout"
     private var cancellables = Set<AnyCancellable>()
-
+    
     // Define an enum for navigation destinations
     enum NavigationDestination {
         case back, workoutExercises
@@ -68,15 +68,6 @@ struct ExerciseLibraryView: View {
                 
                 searchBar()
                     .padding(.vertical, 8)
-                
-                Button(action: {
-                    clearCachesAndRefresh()
-                }) {
-                    Image(systemName: "arrow.clockwise.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundColor(.indigo600)
-                }
-                .padding(.trailing)
                 
                 // Exercise list with alphabet index
                 ExerciseListView(
@@ -167,17 +158,6 @@ struct ExerciseLibraryView: View {
                 .store(in: &viewModel.cancellables) // Store in the viewModel instead
         }
         
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    clearCachesAndRefresh()
-                }) {
-                    Image(systemName: "arrow.clockwise.circle")
-                        .foregroundColor(.indigo600)
-                }
-            }
-        }
-        
         .sheet(isPresented: $showingSetsSheet) {
             SetsSelectionSheet(
                 selectedSetsCount: $selectedSetsCount,
@@ -201,7 +181,22 @@ struct ExerciseLibraryView: View {
             FilterSheetView(onClose: { showFilterSheet = false })
         }
         .onAppear {
-            viewModel.fetchExercises()
+            print("ExerciseLibraryView appeared")
+            if viewModel.exercises.isEmpty {
+                print("Exercises array is empty, fetching exercises...")
+                viewModel.fetchExercises()
+            } else {
+                print("Found \(viewModel.exercises.count) exercises already loaded")
+            }
+            
+            // Don't try to store the cancellable at all in onAppear
+            viewModel.$exercises
+                .dropFirst() // Skip the initial empty state
+                .sink { exercises in
+                    print("Exercises updated: now contains \(exercises.count) items")
+                    exerciseCountText = "Add exercises to your workout (\(exercises.count))"
+                }
+                .store(in: &viewModel.cancellables) // Store in the viewModel instead
         }
         .navigationDestination(isPresented: $showingWorkoutExercisesView) {
             WorkoutExercisesView(viewModel: workoutExercisesViewModel)
@@ -350,17 +345,6 @@ struct ExerciseLibraryView: View {
         // Clear the selection in the library view
         selectedExercises.removeAll()
         selectedExerciseIds.removeAll()
-    }
-    
-    private func clearCachesAndRefresh() {
-        // Show loading indicator
-        let loadingMessage = "Refreshing exercise data..."
-        
-        // Clear caches
-        CacheManager.shared.clearCache()
-        
-        // Refresh exercise data
-        viewModel.clearCacheAndRefresh()
     }
 }
 

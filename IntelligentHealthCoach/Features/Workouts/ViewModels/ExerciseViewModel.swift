@@ -28,12 +28,10 @@ class ExerciseViewModel: ObservableObject {
     }
     
     func fetchExercises() {
+        isLoading = true
+        errorMessage = nil
+        
         Task {
-            await MainActor.run {
-                self.isLoading = true
-                self.errorMessage = nil
-            }
-            
             do {
                 print("⏳ Attempting to fetch exercises from Supabase...")
                 
@@ -129,34 +127,11 @@ class ExerciseViewModel: ObservableObject {
         }
     }
     
-    func clearCacheAndRefresh() {
-        Task {
-            await MainActor.run {
-                // Clear all existing data
-                self.exercises = []
-                self.filteredExercises = []
-                self.exerciseGroups = [:]
-                self.isLoading = true
-                self.errorMessage = nil
-                
-                print("Exercise view model cache cleared")
-            }
-            
-            // Clear Kingfisher cache (properly await the completion)
-            await withCheckedContinuation { continuation in
-                ImageCache.default.clearMemoryCache()
-                ImageCache.default.clearDiskCache {
-                    continuation.resume()
-                }
-            }
-            
-            // Simply call the existing fetchExercises() method which already has pagination
-            await fetchExercises()
-        }
-    }
-    
     // Update the organizeExercisesAlphabetically method:
     func organizeExercisesAlphabetically() {
+        // Add this line at the beginning of the method
+        print("Organizing \(filteredExercises.count) filtered exercises into groups")
+        
         var groups: [String: [Exercise]] = [:]
         
         for exercise in filteredExercises {
@@ -197,6 +172,9 @@ class ExerciseViewModel: ObservableObject {
         }
         
         self.exerciseGroups = groups
+        
+        // Add this line at the end of the method
+        print("Created \(exerciseGroups.count) exercise groups")
     }
     
     func filterExercises() {

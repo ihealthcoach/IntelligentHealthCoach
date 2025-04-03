@@ -59,14 +59,15 @@ class CacheManager {
         imageCache.removeAllObjects()
         dataCache.removeAllObjects()
         
-        // Clear Kingfisher caches
+        // Clear Kingfisher caches - use completion handlers to ensure it's finished
         ImageCache.default.clearMemoryCache()
         ImageCache.default.clearDiskCache {
             print("Kingfisher disk cache cleared")
         }
         
-        // Clear any other caches if needed
+        // Ensure UserDefaults are synced after changes
         UserDefaults.standard.removeObject(forKey: "cached_workout_exercises")
+        UserDefaults.standard.synchronize()
         
         print("Cache clearing initiated")
     }
