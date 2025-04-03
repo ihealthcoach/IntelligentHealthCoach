@@ -48,58 +48,33 @@ class SupabaseService: SupabaseServiceProtocol {
             supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsZWlpdnB5amt2YWhha3JpdXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwODAzNzUsImV4cCI6MjAxNjY1NjM3NX0.lUbyfDlEANGoONW3mmtO-1JDvCsa1uy7EKKTs9yLYwE"
         )
         
-        // Create URL components programmatically to ensure proper structure
-        var components = URLComponents()
-        components.scheme = "https"
-        
-        // Extract the host without the protocol
-        var hostString = rawURL
-        if hostString.hasPrefix("https://") {
-            hostString = String(hostString.dropFirst(8))
-        } else if hostString.hasPrefix("http://") {
-            hostString = String(hostString.dropFirst(7))
+        // Create the URL directly instead of using URLComponents
+        if let url = URL(string: "https://fleiivpyjkvahakriuta.supabase.co") {
+            print("✅ Using direct URL: \(url.absoluteString)")
+            
+            // Initialize Supabase client with the hardcoded URL and key
+            self.client = SupabaseClient(
+                supabaseURL: url,
+                supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsZWlpdnB5amt2YWhha3JpdXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwODAzNzUsImV4cCI6MjAxNjY1NjM3NX0.lUbyfDlEANGoONW3mmtO-1JDvCsa1uy7EKKTs9yLYwE"
+            )
+            print("✅ Supabase client initialized successfully")
+        } else {
+            // This should never happen with a hardcoded URL
+            print("❌ Failed to create URL from hardcoded string - this should not happen")
+            
+            // Create a fallback client with the same URL
+            let fallbackURL = URL(string: "https://fleiivpyjkvahakriuta.supabase.co")!
+            self.client = SupabaseClient(
+                supabaseURL: fallbackURL,
+                supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsZWlpdnB5amt2YWhha3JpdXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwODAzNzUsImV4cCI6MjAxNjY1NjM3NX0.lUbyfDlEANGoONW3mmtO-1JDvCsa1uy7EKKTs9yLYwE"
+            )
+            print("✅ Supabase client initialized with fallback URL")
         }
-        
-        // Remove any trailing slashes
-        while hostString.hasSuffix("/") {
-            hostString = String(hostString.dropLast())
-        }
-        
-        // Check if host string is empty
-        if hostString.isEmpty {
-            print("❌ SUPABASE_URL host is empty after processing")
-            self.client = fallbackClient
-            return
-        }
-        
-        components.host = hostString
-        
-        // Ensure we have a valid URL with a host
-        guard let url = components.url else {
-            print("❌ Could not create URL from components with host: \(hostString)")
-            self.client = fallbackClient
-            return
-        }
-        
-        // Validate API key
-        guard !rawKey.isEmpty else {
-            print("❌ SUPABASE_ANON_KEY is missing or empty")
-            self.client = fallbackClient
-            return
-        }
-        
-        print("✅ Validation successful, creating real Supabase client with URL: \(url.absoluteString)")
-        
-        // Initialize Supabase client with validated URL
-        self.client = SupabaseClient(
-            supabaseURL: URL(string: "https://fleiivpyjkvahakriuta.supabase.co")!,
-            supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsZWlpdnB5amt2YWhha3JpdXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwODAzNzUsImV4cCI6MjAxNjY1NjM3NX0.lUbyfDlEANGoONW3mmtO-1JDvCsa1uy7EKKTs9yLYwE"
-        )
         
         print("✅ Supabase client initialized successfully")
     }
     
-    func getStorageUrl(path: String) -> URL? {
+    /*func getStorageUrl(path: String) -> URL? {
         print("DEBUG: getStorageUrl called with path: \(path)")
         
         if path.starts(with: "https://") {
@@ -111,7 +86,22 @@ class SupabaseService: SupabaseServiceProtocol {
             print("DEBUG: Constructed URL: \(fullUrl)")
             return URL(string: fullUrl)
         }
+    }*/
+    func getStorageUrl(path: String) -> URL? {
+        print("DEBUG: getStorageUrl called with path: \(path)")
+
+        // If the path is already a full URL, return it directly
+        if path.starts(with: "https://") {
+            print("DEBUG: URL is already complete: \(path)")
+            return URL(string: path)
+        }
+
+        // Otherwise, construct it using the base storage URL
+        let fullUrl = AppConstants.API.storageBaseUrl + path
+        print("DEBUG: Constructed URL: \(fullUrl)")
+        return URL(string: fullUrl)
     }
+
     
     
     // MARK: - Authentication

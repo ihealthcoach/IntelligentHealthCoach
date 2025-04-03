@@ -71,10 +71,7 @@ struct ChooseWorkoutView: View {
         .standardScreen()
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $showingExerciseLibrary) {
-            ExerciseLibraryView(selectionMode: true, onExerciseSelected: { exercise in
-                // Handle selected exercise
-                showingExerciseLibrary = false // Navigate back when done
-            })
+            ExerciseLibraryView()
             .navigationBarBackButtonHidden(true) // Hide default back button on the library view
         }
         // Add the new navigationDestination here, at the same level as the one above

@@ -193,12 +193,10 @@ struct WorkoutExercisesView: View {
             }
         }
         .navigationDestination(isPresented: $showingExerciseLibrary) {
-            ExerciseLibraryView(selectionMode: true, onExerciseSelected: { exercise in
-                viewModel.addExercise(exercise)
-                showingExerciseLibrary = false
-            })
+            ExerciseLibraryView()
             .navigationBarBackButtonHidden(true)
         }
+        
         .navigationDestination(isPresented: $viewModel.showingWorkoutTracking) {
             if let workout = viewModel.createdWorkout {
                 WorkoutTrackingView(viewModel: WorkoutTrackingViewModel(

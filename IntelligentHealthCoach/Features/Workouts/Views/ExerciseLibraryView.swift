@@ -149,13 +149,13 @@ struct ExerciseLibraryView: View {
         .onAppear {
             viewModel.fetchExercises()
             
-            // Update the count after exercises are loaded
+            // Don't try to store the cancellable at all in onAppear
             viewModel.$exercises
                 .dropFirst() // Skip the initial empty state
                 .sink { exercises in
-                    self.exerciseCountText = "Add exercises to your workout (\(exercises.count))"
+                    exerciseCountText = "Add exercises to your workout (\(exercises.count))"
                 }
-                .store(in: &cancellables)
+                .store(in: &viewModel.cancellables) // Store in the viewModel instead
         }
         .sheet(isPresented: $showingSetsSheet) {
             SetsSelectionSheet(

@@ -88,26 +88,45 @@ class AuthViewModel: ObservableObject {
     
     private func fetchUserProfile(userId: UUID) async {
         do {
+            print("🔍 Attempting to fetch profile for user ID: \(userId.uuidString)")
+            
             let response = try await supabaseService.client
                 .from("profiles")
                 .select()
                 .eq("user_id", value: userId.uuidString)
-                .single()
                 .execute()
             
+            // Log response data
+            print("🔍 Response data: \(String(data: response.data, encoding: .utf8) ?? "No data")")
+            
+            // Check if we have data
+            if response.data.isEmpty {
+                print("⚠️ No profile data found for user - profile may not exist")
+                return
+            }
+
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
-            let profileData = response.data
-            if let profile = try? decoder.decode(UserProfile.self, from: profileData) {
-                await MainActor.run {
-                    self.currentUser?.firstName = profile.firstName
-                    self.currentUser?.lastName = profile.lastName
-                    self.currentUser?.avatarUrl = profile.avatarUrl
+            do {
+                let profiles = try decoder.decode([UserProfile].self, from: response.data)
+                
+                if let profile = profiles.first {
+                    await MainActor.run {
+                        self.currentUser?.firstName = profile.firstName
+                        self.currentUser?.lastName = profile.lastName
+                        self.currentUser?.avatarUrl = profile.avatarUrl
+                        print("✅ Profile updated successfully: firstName=\(profile.firstName ?? "nil"), lastName=\(profile.lastName ?? "nil")")
+                    }
+                } else {
+                    print("⚠️ No profile found in response data")
                 }
+            } catch {
+                print("❌ Failed to decode profile data: \(error)")
+                print("Raw data: \(String(data: response.data, encoding: .utf8) ?? "No data")")
             }
         } catch {
-            print("Error fetching profile: \(error)")
+            print("❌ Error fetching profile: \(error)")
         }
     }
     

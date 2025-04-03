@@ -19,6 +19,7 @@ class ExerciseViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var searchQuery = ""
+    var cancellables = Set<AnyCancellable>()
     
     private let supabaseService: IntelligentHealthCoach.SupabaseServiceProtocol
     
@@ -61,7 +62,6 @@ class ExerciseViewModel: ObservableObject {
         }
     }
     
-    // Add this function to ExerciseViewModel
     func searchSpecificExercise(name: String) {
         Task {
             do {
