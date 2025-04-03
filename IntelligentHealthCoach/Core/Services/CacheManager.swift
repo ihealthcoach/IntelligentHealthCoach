@@ -53,8 +53,21 @@ class CacheManager {
     }
     
     func clearCache() {
+        print("Clearing all app caches...")
+        
+        // Clear memory caches
         imageCache.removeAllObjects()
         dataCache.removeAllObjects()
+        
+        // Clear Kingfisher caches
         ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache {
+            print("Kingfisher disk cache cleared")
+        }
+        
+        // Clear any other caches if needed
+        UserDefaults.standard.removeObject(forKey: "cached_workout_exercises")
+        
+        print("Cache clearing initiated")
     }
 }

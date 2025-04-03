@@ -34,6 +34,23 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         return true
     }
+
+    private func checkAndClearCacheIfNeeded() {
+        // Get current app version
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        
+        // Get last stored version
+        let lastVersion = UserDefaults.standard.string(forKey: "lastAppVersion") ?? ""
+        
+        // If versions don't match, clear cache
+        if currentVersion != lastVersion {
+            print("App version changed from \(lastVersion) to \(currentVersion). Clearing caches...")
+            CacheManager.shared.clearCache()
+            
+            // Store current version
+            UserDefaults.standard.set(currentVersion, forKey: "lastAppVersion")
+        }
+    }
     
     private func configureAppearance() {
         // Register and override system fonts with Inter

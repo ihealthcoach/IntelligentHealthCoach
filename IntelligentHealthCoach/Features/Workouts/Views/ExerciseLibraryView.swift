@@ -69,6 +69,15 @@ struct ExerciseLibraryView: View {
                 searchBar()
                     .padding(.vertical, 8)
                 
+                Button(action: {
+                    clearCachesAndRefresh()
+                }) {
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundColor(.indigo600)
+                }
+                .padding(.trailing)
+                
                 // Exercise list with alphabet index
                 ExerciseListView(
                     viewModel: viewModel,
@@ -157,6 +166,18 @@ struct ExerciseLibraryView: View {
                 }
                 .store(in: &viewModel.cancellables) // Store in the viewModel instead
         }
+        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    clearCachesAndRefresh()
+                }) {
+                    Image(systemName: "arrow.clockwise.circle")
+                        .foregroundColor(.indigo600)
+                }
+            }
+        }
+        
         .sheet(isPresented: $showingSetsSheet) {
             SetsSelectionSheet(
                 selectedSetsCount: $selectedSetsCount,
@@ -329,6 +350,17 @@ struct ExerciseLibraryView: View {
         // Clear the selection in the library view
         selectedExercises.removeAll()
         selectedExerciseIds.removeAll()
+    }
+    
+    private func clearCachesAndRefresh() {
+        // Show loading indicator
+        let loadingMessage = "Refreshing exercise data..."
+        
+        // Clear caches
+        CacheManager.shared.clearCache()
+        
+        // Refresh exercise data
+        viewModel.clearCacheAndRefresh()
     }
 }
 

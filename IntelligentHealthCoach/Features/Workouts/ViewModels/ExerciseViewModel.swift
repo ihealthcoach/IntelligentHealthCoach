@@ -36,19 +36,45 @@ class ExerciseViewModel: ObservableObject {
             
             do {
                 print("⏳ Attempting to fetch exercises from Supabase...")
-                let response = try await supabaseService.client
-                    .from("exercises")
-                    .select()
-                    .limit(2000) // Increased limit to get all records
-                    .execute()
                 
-                let decoder = JSONDecoder.supabaseDecoder()
-                let fetchedExercises = try decoder.decode([Exercise].self, from: response.data)
-                print("✅ Successfully fetched \(fetchedExercises.count) exercises")
+                var allExercises: [Exercise] = []
+                let pageSize = 1000
+                var page = 0
+                var hasMore = true
+                
+                // Fetch exercises in batches using pagination
+                while hasMore {
+                    print("📊 Fetching exercises page \(page+1) with range \(page*pageSize) to \((page+1)*pageSize-1)")
+                    
+                    let response = try await supabaseService.client
+                        .from("exercises")
+                        .select()
+                        .range(from: page*pageSize, to: (page+1)*pageSize-1)
+                        .execute()
+                    
+                    let decoder = JSONDecoder.supabaseDecoder()
+                    let batchExercises = try decoder.decode([Exercise].self, from: response.data)
+                    
+                    print("✅ Fetched \(batchExercises.count) exercises in page \(page+1)")
+                    
+                    allExercises.append(contentsOf: batchExercises)
+                    
+                    // Check if we got a full page of results
+                    hasMore = batchExercises.count == pageSize
+                    page += 1
+                    
+                    // Break after a reasonable number of pages to prevent infinite loops
+                    if page >= 10 {
+                        print("⚠️ Reached maximum number of pages (10), stopping pagination")
+                        hasMore = false
+                    }
+                }
+                
+                print("✅ Successfully fetched a total of \(allExercises.count) exercises across \(page) pages")
                 
                 await MainActor.run {
-                    self.exercises = fetchedExercises
-                    self.filteredExercises = fetchedExercises
+                    self.exercises = allExercises
+                    self.filteredExercises = allExercises
                     self.organizeExercisesAlphabetically()
                     self.isLoading = false
                 }
@@ -103,7 +129,6 @@ class ExerciseViewModel: ObservableObject {
         }
     }
     
-    // Add this function to ExerciseViewModel
     func clearCacheAndRefresh() {
         Task {
             await MainActor.run {
@@ -112,12 +137,20 @@ class ExerciseViewModel: ObservableObject {
                 self.filteredExercises = []
                 self.exerciseGroups = [:]
                 self.isLoading = true
+                self.errorMessage = nil
+                
+                print("Exercise view model cache cleared")
             }
             
-            // Simulate a fresh app launch
-            try? await Task.sleep(nanoseconds: 500_000_000) // Half-second delay
+            // Clear Kingfisher cache (properly await the completion)
+            await withCheckedContinuation { continuation in
+                ImageCache.default.clearMemoryCache()
+                ImageCache.default.clearDiskCache {
+                    continuation.resume()
+                }
+            }
             
-            // Fetch from scratch
+            // Simply call the existing fetchExercises() method which already has pagination
             await fetchExercises()
         }
     }
